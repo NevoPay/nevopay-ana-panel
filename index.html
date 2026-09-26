@@ -7,27 +7,31 @@
 <title>NevoPay Ana Firma Paneli</title>
 
 <style>
-
-:root{
-  --bg:#f4f7fb;
-  --text:#152033;
-  --muted:#718096;
-  --line:#e6ebf1;
-  --nav:#142231;
-  --nav2:#0f1822;
-  --brand:#8b5a3c;
-  --brand2:#a56d49;
-  --green:#159447;
-  --red:#d64545;
-}
-
 *{
   box-sizing:border-box;
 }
 
+:root{
+  --bg:#f4f7fb;
+  --card:#ffffff;
+  --text:#152033;
+  --muted:#718096;
+  --line:#e4eaf0;
+  --nav:#142231;
+  --nav2:#0f1822;
+  --brand:#99603f;
+  --brand2:#aa704d;
+  --green:#16834a;
+  --greenBg:#ddf5e7;
+  --red:#ce4141;
+  --redBg:#ffe2e2;
+  --orange:#a66a0d;
+  --orangeBg:#fff0d4;
+}
+
 body{
   margin:0;
-  font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
   background:var(--bg);
   color:var(--text);
 }
@@ -43,19 +47,18 @@ button{
   cursor:pointer;
 }
 
-
 /* =========================
-   GİRİŞ
+   LOGIN
 ========================= */
 
 .loginGate{
   position:fixed;
   inset:0;
   z-index:9999;
-  background:linear-gradient(135deg,#101a24,#223446);
+  background:linear-gradient(135deg,#101a24,#263a4d);
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   padding:20px;
 }
 
@@ -66,36 +69,35 @@ button{
 .loginBox{
   width:min(94%,420px);
   background:#fff;
-  border-radius:22px;
   padding:30px;
-  box-shadow:0 25px 70px #0006;
+  border-radius:22px;
+  box-shadow:0 25px 70px rgba(0,0,0,.38);
 }
 
 .loginLogo{
-  text-align:center;
   font-size:32px;
   font-weight:900;
   letter-spacing:4px;
-  color:#162433;
+  text-align:center;
 }
 
 .loginSub{
   text-align:center;
-  color:#718096;
+  color:var(--muted);
   margin:6px 0 24px;
 }
 
 .loginBox input{
   width:100%;
   padding:13px 14px;
-  border:1px solid #d8e0e8;
+  border:1px solid #d6dee7;
   border-radius:11px;
   margin:6px 0;
   outline:none;
 }
 
 .loginBox input:focus{
-  border-color:#8b5a3c;
+  border-color:var(--brand);
 }
 
 .loginBtn{
@@ -103,7 +105,7 @@ button{
   border:0;
   border-radius:11px;
   padding:13px;
-  background:#6b402d;
+  background:var(--brand);
   color:#fff;
   font-weight:900;
   margin-top:10px;
@@ -113,26 +115,20 @@ button{
   width:100%;
   border:0;
   background:transparent;
-  color:#6b402d;
+  color:var(--brand);
   font-weight:800;
   padding:11px 5px;
   margin-top:4px;
 }
 
-.forgotBtn:hover{
-  text-decoration:underline;
-}
-
 .loginMsg{
-  min-height:25px;
-  margin-top:8px;
+  min-height:24px;
+  margin-top:7px;
   text-align:center;
   font-size:13px;
-  color:#c83737;
+  color:var(--red);
   line-height:1.4;
-  word-break:break-word;
 }
-
 
 /* =========================
    ANA PANEL
@@ -145,36 +141,36 @@ button{
 }
 
 .side{
-  background:linear-gradient(180deg,var(--nav),var(--nav2));
-  color:#fff;
-  padding:20px 14px;
   position:sticky;
   top:0;
   height:100vh;
+  background:linear-gradient(180deg,var(--nav),var(--nav2));
+  color:#fff;
+  padding:20px 14px;
 }
 
 .brand{
+  text-align:center;
   font-size:28px;
   font-weight:900;
-  letter-spacing:3px;
-  text-align:center;
+  letter-spacing:4px;
 }
 
 .tag{
   text-align:center;
   font-size:11px;
   opacity:.65;
-  margin:4px 0 24px;
+  margin:5px 0 24px;
 }
 
 .nav button{
-  display:block;
   width:100%;
-  text-align:left;
+  display:block;
   border:0;
   background:transparent;
   color:#e7edf3;
   padding:13px 14px;
+  text-align:left;
   border-radius:11px;
   margin:4px 0;
 }
@@ -186,9 +182,9 @@ button{
 
 .sideFoot{
   position:absolute;
-  bottom:18px;
   left:14px;
   right:14px;
+  bottom:18px;
   border-top:1px solid #ffffff22;
   padding-top:14px;
   font-size:13px;
@@ -216,31 +212,26 @@ button{
   font-size:18px;
 }
 
-.search{
-  margin:auto;
-  width:min(520px,46%);
-  background:#f1f4f7;
-  border-radius:12px;
-  padding:10px 14px;
-  color:#7a8594;
+.topSpacer{
+  flex:1;
 }
 
 .user{
-  font-size:13px;
   text-align:right;
+  font-size:13px;
 }
 
 .logoutBtn{
-  border:1px solid #d6dde5;
+  border:1px solid #d5dce4;
   background:#fff;
   border-radius:9px;
   padding:8px 11px;
-  font-weight:700;
+  font-weight:800;
 }
 
 .content{
   padding:26px;
-  max-width:1600px;
+  max-width:1550px;
   margin:auto;
 }
 
@@ -255,9 +246,9 @@ button{
 .hero{
   display:flex;
   justify-content:space-between;
-  align-items:end;
   gap:20px;
-  margin-bottom:18px;
+  align-items:end;
+  margin-bottom:20px;
 }
 
 .hero h1{
@@ -271,13 +262,13 @@ button{
 }
 
 .pill{
-  background:#fff4ea;
+  background:#fff3e8;
   color:#8a522f;
-  padding:9px 12px;
+  border:1px solid #efd4bf;
   border-radius:999px;
-  font-weight:800;
+  padding:9px 13px;
   font-size:12px;
-  border:1px solid #f1d7c3;
+  font-weight:800;
 }
 
 .stats{
@@ -301,10 +292,12 @@ button{
 }
 
 .stat b{
-  font-size:28px;
+  display:block;
+  font-size:29px;
+  margin-top:6px;
 }
 
-.stat .ico{
+.stat .icon{
   font-size:30px;
 }
 
@@ -313,12 +306,42 @@ button{
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  margin:24px 0 12px;
+  margin:25px 0 12px;
 }
 
 .sectionTitle h3{
   margin:0;
 }
+
+.primary,
+.ghost,
+.danger{
+  padding:9px 12px;
+  border-radius:9px;
+  font-weight:800;
+}
+
+.primary{
+  border:0;
+  background:var(--brand);
+  color:#fff;
+}
+
+.ghost{
+  border:1px solid #ced7e1;
+  background:#fff;
+  color:#324154;
+}
+
+.danger{
+  border:0;
+  background:var(--red);
+  color:#fff;
+}
+
+/* =========================
+   OTOMASYON KARTLARI
+========================= */
 
 .modules{
   display:grid;
@@ -333,83 +356,71 @@ button{
   padding:18px;
 }
 
-.module .topline{
+.moduleTop{
   display:flex;
   justify-content:space-between;
+  gap:10px;
 }
 
-.module .ico{
-  font-size:39px;
+.moduleIcon{
+  font-size:38px;
 }
 
 .module h3{
-  margin:7px 0 4px;
+  margin:10px 0 5px;
 }
 
 .module p{
+  margin:0;
   color:var(--muted);
   font-size:13px;
   min-height:38px;
 }
 
+.moduleInfo{
+  font-size:12px;
+  color:#737f8e;
+  line-height:1.7;
+  margin-top:12px;
+  word-break:break-word;
+}
+
+.moduleActions{
+  display:flex;
+  gap:7px;
+  margin-top:13px;
+}
+
+/* =========================
+   BADGE
+========================= */
+
 .badge{
   display:inline-block;
   padding:5px 9px;
   border-radius:8px;
-  font-size:12px;
+  font-size:11px;
   font-weight:800;
 }
 
 .ok{
-  background:#dff5e7;
-  color:#168040;
+  background:var(--greenBg);
+  color:var(--green);
 }
 
 .off{
-  background:#ffe1e1;
-  color:#c83737;
+  background:var(--redBg);
+  color:var(--red);
 }
 
 .soon{
-  background:#fff1d8;
-  color:#a86a0b;
+  background:var(--orangeBg);
+  color:var(--orange);
 }
 
-.pro{
-  background:#e7efff;
-  color:#235eb6;
-}
-
-.std{
-  background:#f7eadf;
-  color:#8a552d;
-}
-
-.primary,
-.ghost,
-.danger{
-  border-radius:10px;
-  padding:9px 12px;
-  font-weight:800;
-}
-
-.primary{
-  border:0;
-  background:var(--brand);
-  color:#fff;
-}
-
-.ghost{
-  border:1px solid #cfd8e3;
-  background:#fff;
-  color:#324154;
-}
-
-.danger{
-  border:0;
-  background:var(--red);
-  color:#fff;
-}
+/* =========================
+   PANEL
+========================= */
 
 .panel{
   background:#fff;
@@ -419,7 +430,7 @@ button{
 }
 
 .panelHead{
-  background:linear-gradient(90deg,#4d2e22,#7f4c34);
+  background:linear-gradient(90deg,#503023,#7e4b34);
   color:#fff;
   padding:15px 18px;
   display:flex;
@@ -441,16 +452,15 @@ button{
   margin-bottom:14px;
 }
 
+.toolbar input{
+  flex:1;
+}
+
 .toolbar input,
 .toolbar select{
   padding:11px;
-  border:1px solid #d9e0e8;
+  border:1px solid #d5dde6;
   border-radius:10px;
-}
-
-.toolbar input{
-  flex:1;
-  max-width:560px;
 }
 
 .tableWrap{
@@ -459,8 +469,8 @@ button{
 
 table{
   width:100%;
+  min-width:1000px;
   border-collapse:collapse;
-  min-width:1150px;
 }
 
 th,
@@ -468,12 +478,12 @@ td{
   padding:12px;
   border-bottom:1px solid #edf0f4;
   text-align:left;
-  font-size:14px;
+  font-size:13px;
 }
 
 th{
-  background:#fafbfc;
   color:#667386;
+  background:#fafbfc;
 }
 
 .actions{
@@ -483,15 +493,9 @@ th{
 }
 
 .empty{
-  text-align:center;
   padding:35px;
+  text-align:center;
   color:var(--muted);
-}
-
-.grid2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
 }
 
 .card{
@@ -501,11 +505,14 @@ th{
   padding:18px;
 }
 
-.small{
-  font-size:12px;
-  color:var(--muted);
+.infoRow{
+  padding:10px 0;
+  border-bottom:1px solid #edf0f4;
 }
 
+.infoRow:last-child{
+  border-bottom:0;
+}
 
 /* =========================
    MODAL
@@ -514,12 +521,12 @@ th{
 .modal{
   position:fixed;
   inset:0;
+  z-index:100;
   background:#0008;
   display:none;
   align-items:center;
   justify-content:center;
   padding:18px;
-  z-index:100;
 }
 
 .modal.show{
@@ -533,6 +540,10 @@ th{
   background:#fff;
   border-radius:18px;
   padding:22px;
+}
+
+.modalBox h3{
+  margin-top:0;
 }
 
 .form{
@@ -550,7 +561,7 @@ th{
 .form textarea{
   width:100%;
   padding:11px;
-  border:1px solid #d7dee7;
+  border:1px solid #d6dde6;
   border-radius:9px;
 }
 
@@ -564,6 +575,19 @@ th{
   gap:8px;
   margin-top:16px;
 }
+
+.notice{
+  background:#fff4e6;
+  color:#835126;
+  padding:11px;
+  border-radius:9px;
+  font-size:12px;
+  margin-bottom:14px;
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:1000px){
 
@@ -602,17 +626,12 @@ th{
     display:none;
   }
 
-  .search{
-    display:none;
-  }
-
   .top h2{
     display:none;
   }
 
   .stats,
-  .modules,
-  .grid2{
+  .modules{
     grid-template-columns:1fr;
   }
 
@@ -625,12 +644,10 @@ th{
   }
 
 }
-
 </style>
 </head>
 
 <body>
-
 
 <!-- =========================
      GİRİŞ
@@ -638,811 +655,606 @@ th{
 
 <div id="loginGate" class="loginGate">
 
-<div class="loginBox">
+  <div class="loginBox">
 
-<div class="loginLogo">
-NEVOPAY
+    <div class="loginLogo">
+      NEVOPAY
+    </div>
+
+    <div class="loginSub">
+      Ana Firma Yönetim Paneli
+    </div>
+
+    <input
+      id="loginEmail"
+      type="email"
+      placeholder="E-posta adresi"
+      autocomplete="username"
+    >
+
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Şifre"
+      autocomplete="current-password"
+    >
+
+    <button
+      id="loginBtn"
+      class="loginBtn"
+    >
+      Giriş Yap
+    </button>
+
+    <button
+      id="forgotBtn"
+      class="forgotBtn"
+      type="button"
+    >
+      Şifremi Unuttum
+    </button>
+
+    <div
+      id="loginMsg"
+      class="loginMsg"
+    ></div>
+
+  </div>
+
 </div>
-
-<div class="loginSub">
-Ana Firma Yönetim Paneli
-</div>
-
-<input
-id="loginEmail"
-type="email"
-placeholder="E-posta adresi"
-autocomplete="username"
->
-
-<input
-id="loginPassword"
-type="password"
-placeholder="Şifre"
-autocomplete="current-password"
->
-
-<button
-id="loginBtn"
-class="loginBtn"
->
-Giriş Yap
-</button>
-
-<button
-id="forgotBtn"
-class="forgotBtn"
-type="button"
->
-Şifremi Unuttum
-</button>
-
-<div
-id="loginMsg"
-class="loginMsg"
-></div>
-
-</div>
-
-</div>
-
 
 <!-- =========================
-     PANEL
+     ANA PANEL
 ========================= -->
 
 <div class="app">
 
+  <aside class="side">
 
-<aside class="side">
+    <div class="brand">
+      NEVOPAY
+    </div>
 
-<div class="brand">
-NEVOPAY
-</div>
+    <div class="tag">
+      ANA FİRMA YÖNETİM PANELİ
+    </div>
 
-<div class="tag">
-ANA FİRMA YÖNETİM PANELİ
-</div>
+    <nav class="nav">
 
+      <button
+        class="active"
+        onclick="showView('dashboard',this)"
+      >
+        ⌂ Ana Sayfa
+      </button>
 
-<nav class="nav">
+      <button
+        onclick="showView('businesses',this)"
+      >
+        🏢 İşletmeler
+      </button>
 
-<button
-class="active"
-onclick="showView('dashboard',this)"
->
-⌂ Ana Sayfa
-</button>
+      <button
+        onclick="showView('automations',this)"
+      >
+        ⚙ Otomasyonlar
+      </button>
 
-<button
-onclick="showView('businesses',this)"
->
-🏢 İşletmeler
-</button>
+      <button
+        onclick="showView('settings',this)"
+      >
+        ⚙ Ayarlar
+      </button>
 
-<button
-onclick="showView('automations',this)"
->
-⚙ Otomasyonlar
-</button>
+    </nav>
 
-<button
-onclick="showView('packages',this)"
->
-📦 Paketler
-</button>
+    <div class="sideFoot">
+      <b>NevoPay</b><br>
+      Süper Yönetici
+    </div>
 
-<button
-onclick="showView('subscriptions',this)"
->
-📅 Abonelikler
-</button>
+  </aside>
 
-<button
-onclick="showView('finance',this)"
->
-₺ Finans
-</button>
 
-<button
-onclick="showView('settings',this)"
->
-⚙ Ayarlar
-</button>
+  <main class="main">
 
-</nav>
+    <header class="top">
 
+      <h2>
+        NevoPay Yönetim Paneli
+      </h2>
 
-<div class="sideFoot">
-<b>NevoPay</b><br>
-Süper Yönetici
-</div>
+      <div class="topSpacer"></div>
 
-</aside>
+      <div class="user">
+        <b>Süper Yönetici</b><br>
+        <span id="userEmail">NevoPay</span>
+      </div>
 
+      <button
+        class="logoutBtn"
+        onclick="logout()"
+      >
+        Çıkış
+      </button>
 
-<main class="main">
+    </header>
 
 
-<header class="top">
+    <div class="content">
 
-<h2>
-NevoPay Yönetim Paneli
-</h2>
+      <!-- =========================
+           DASHBOARD
+      ========================= -->
 
-<div class="search">
-İşletme veya otomasyon ara...
-</div>
+      <section
+        id="dashboard"
+        class="view active"
+      >
 
-<div class="user">
-<b>Süper Yönetici</b><br>
-<span id="userEmail">NevoPay</span>
-</div>
+        <div class="hero">
 
-<button
-class="logoutBtn"
-onclick="logout()"
->
-Çıkış
-</button>
+          <div>
+            <h1>
+              NevoPay Ana Firma Paneli
+            </h1>
 
-</header>
+            <p>
+              Tüm işletmeler ve otomasyonlar tek merkezden yönetilir.
+            </p>
+          </div>
 
+          <div class="pill">
+            Merkezi Yönetim
+          </div>
 
-<div class="content">
+        </div>
 
 
-<!-- =========================
-     ANA SAYFA
-========================= -->
+        <div class="stats">
 
-<section id="dashboard" class="view active">
+          <div class="stat">
+            <div>
+              <small>Toplam İşletme</small>
+              <b id="statBusinesses">0</b>
+            </div>
+            <span class="icon">🏢</span>
+          </div>
 
-<div class="hero">
+          <div class="stat">
+            <div>
+              <small>Aktif İşletme</small>
+              <b id="statActive">0</b>
+            </div>
+            <span class="icon">✅</span>
+          </div>
 
-<div>
+          <div class="stat">
+            <div>
+              <small>Pasif İşletme</small>
+              <b id="statPassive">0</b>
+            </div>
+            <span class="icon">⛔</span>
+          </div>
 
-<h1>
-NevoPay Ana Firma Paneli
-</h1>
+          <div class="stat">
+            <div>
+              <small>Otomasyon Sayısı</small>
+              <b id="statAutomations">0</b>
+            </div>
+            <span class="icon">⚙</span>
+          </div>
 
-<p>
-Tüm işletmeler ve otomasyonlar tek merkezden yönetilir.
-</p>
+        </div>
 
-</div>
 
-<div class="pill">
-Merkezi Yönetim
-</div>
+        <div class="sectionTitle">
 
-</div>
+          <h3>
+            NevoPay Otomasyonları
+          </h3>
 
+          <button
+            class="primary"
+            onclick="openAutomationModal()"
+          >
+            + Yeni Otomasyon
+          </button>
 
-<div class="stats">
+        </div>
 
-<div class="stat">
+        <div
+          id="moduleGrid"
+          class="modules"
+        ></div>
 
-<div>
-<small>Toplam İşletme</small><br>
-<b id="statBusinesses">0</b>
-</div>
 
-<span class="ico">🏢</span>
+        <div class="sectionTitle">
 
-</div>
+          <h3>
+            Son İşletmeler
+          </h3>
 
+          <button
+            class="primary"
+            onclick="openBusinessModal()"
+          >
+            + Yeni İşletme
+          </button>
 
-<div class="stat">
+        </div>
 
-<div>
-<small>Aktif İşletme</small><br>
-<b id="statActive">0</b>
-</div>
+        <div class="panel">
 
-<span class="ico">✅</span>
+          <div class="tableWrap">
 
-</div>
+            <table>
 
+              <thead>
+                <tr>
+                  <th>İşletme</th>
+                  <th>Yetkili</th>
+                  <th>Otomasyon</th>
+                  <th>Durum</th>
+                  <th>Panel</th>
+                </tr>
+              </thead>
 
-<div class="stat">
+              <tbody id="recentRows"></tbody>
 
-<div>
-<small>Otomasyon Sayısı</small><br>
-<b id="statAutomations">0</b>
-</div>
+            </table>
 
-<span class="ico">⚙</span>
+          </div>
 
-</div>
+        </div>
 
+      </section>
 
-<div class="stat">
 
-<div>
-<small>Aylık Gelir</small><br>
-<b id="statRevenue">₺0</b>
-</div>
+      <!-- =========================
+           İŞLETMELER
+      ========================= -->
 
-<span class="ico">₺</span>
+      <section
+        id="businesses"
+        class="view"
+      >
 
-</div>
+        <div class="panel">
 
-</div>
+          <div class="panelHead">
 
+            <h3>
+              🏢 İşletmeler
+            </h3>
 
-<div class="sectionTitle">
+            <button
+              class="primary"
+              onclick="openBusinessModal()"
+            >
+              + Yeni İşletme
+            </button>
 
-<h3>
-NevoPay Ürünleri / Otomasyonları
-</h3>
+          </div>
 
-<button
-class="primary"
-onclick="openAutomationModal()"
->
-＋ Yeni Otomasyon
-</button>
 
-</div>
+          <div class="panelBody">
 
+            <div class="toolbar">
 
-<div
-id="moduleGrid"
-class="modules"
-></div>
+              <input
+                id="businessSearch"
+                placeholder="İşletme, yetkili, telefon veya otomasyon ara..."
+                oninput="renderBusinesses()"
+              >
 
+              <select
+                id="businessFilter"
+                onchange="renderBusinesses()"
+              >
+                <option value="">Tümü</option>
+                <option value="Aktif">Aktif</option>
+                <option value="Pasif">Pasif</option>
+              </select>
 
-<div class="sectionTitle">
+            </div>
 
-<h3>
-Son Eklenen İşletmeler
-</h3>
 
-<button
-class="primary"
-onclick="openBusinessModal()"
->
-＋ Yeni İşletme
-</button>
+            <div class="tableWrap">
 
-</div>
+              <table>
 
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>İşletme</th>
+                    <th>Yetkili</th>
+                    <th>Telefon</th>
+                    <th>Şehir</th>
+                    <th>Otomasyon</th>
+                    <th>Durum</th>
+                    <th>Dosya</th>
+                    <th>İşlem</th>
+                  </tr>
+                </thead>
 
-<div class="panel">
+                <tbody id="businessRows"></tbody>
 
-<div class="tableWrap">
+              </table>
 
-<table>
+            </div>
 
-<thead>
+          </div>
 
-<tr>
-<th>İşletme</th>
-<th>Yetkili</th>
-<th>Otomasyon</th>
-<th>Paket</th>
-<th>Durum</th>
-<th>Bitiş</th>
-</tr>
+        </div>
 
-</thead>
+      </section>
 
-<tbody id="recentRows"></tbody>
 
-</table>
+      <!-- =========================
+           OTOMASYONLAR
+      ========================= -->
 
-</div>
+      <section
+        id="automations"
+        class="view"
+      >
 
-</div>
+        <div class="sectionTitle">
 
-</section>
+          <h3>
+            ⚙ Otomasyonlar
+          </h3>
 
+          <button
+            class="primary"
+            onclick="openAutomationModal()"
+          >
+            + Yeni Otomasyon
+          </button>
 
-<!-- =========================
-     İŞLETMELER
-========================= -->
+        </div>
 
-<section id="businesses" class="view">
+        <div
+          id="automationGrid"
+          class="modules"
+        ></div>
 
-<div class="panel">
+      </section>
 
-<div class="panelHead">
 
-<h3>
-🏢 İşletmeler
-</h3>
+      <!-- =========================
+           AYARLAR
+      ========================= -->
 
-<button
-class="primary"
-onclick="openBusinessModal()"
->
-＋ Yeni İşletme
-</button>
+      <section
+        id="settings"
+        class="view"
+      >
 
-</div>
+        <div class="card">
 
+          <h3>
+            NevoPay Sistem Ayarları
+          </h3>
 
-<div class="panelBody">
+          <div class="infoRow">
+            <b>Firebase Project:</b>
+            nevopay-ana-panel-8f27f
+          </div>
 
-<div class="toolbar">
+          <div class="infoRow">
+            <b>Authentication:</b>
+            Aktif
+          </div>
 
-<input
-id="businessSearch"
-placeholder="İşletme, yetkili, telefon, e-posta veya şehir ara..."
-oninput="renderBusinesses()"
->
+          <div class="infoRow">
+            <b>Firestore:</b>
+            Aktif
+          </div>
 
-<select
-id="businessFilter"
-onchange="renderBusinesses()"
->
+          <div class="infoRow">
+            <b>İşletme yapısı:</b>
+            Her işletme ayrı klasör ve ayrı index.html
+          </div>
 
-<option value="">
-Tümü
-</option>
+          <div class="infoRow">
+            <b>GitHub klasörü:</b>
+            businesses/
+          </div>
 
-<option>
-Aktif
-</option>
+          <div class="infoRow">
+            <b>Şablon klasörü:</b>
+            şablonlar/
+          </div>
 
-<option>
-Pasif
-</option>
+        </div>
 
-</select>
+      </section>
 
-</div>
+    </div>
 
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>#</th>
-<th>İşletme</th>
-<th>Yetkili</th>
-<th>Telefon</th>
-<th>E-posta</th>
-<th>Şehir</th>
-<th>Otomasyon</th>
-<th>Paket</th>
-<th>Durum</th>
-<th>Bitiş</th>
-<th>İşlem</th>
-
-</tr>
-
-</thead>
-
-<tbody id="businessRows"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     OTOMASYONLAR
-========================= -->
-
-<section id="automations" class="view">
-
-<div class="sectionTitle">
-
-<h3>
-⚙ Otomasyonlar
-</h3>
-
-<button
-class="primary"
-onclick="openAutomationModal()"
->
-＋ Yeni Otomasyon
-</button>
-
-</div>
-
-<div
-id="automationGrid"
-class="modules"
-></div>
-
-</section>
-
-
-<!-- =========================
-     PAKETLER
-========================= -->
-
-<section id="packages" class="view">
-
-<div class="grid2">
-
-<div class="card">
-
-<h3>
-Standart Paket
-</h3>
-
-<p>
-Temel özellikler ve tek işletme kullanımı.
-</p>
+  </main>
 
 </div>
-
-
-<div class="card">
-
-<h3>
-Pro Paket
-</h3>
-
-<p>
-Gelişmiş özellikler ve merkezi yönetim.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     ABONELİKLER
-========================= -->
-
-<section id="subscriptions" class="view">
-
-<div class="panel">
-
-<div class="panelHead">
-
-<h3>
-📅 Abonelikler
-</h3>
-
-</div>
-
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>İşletme</th>
-<th>Yetkili</th>
-<th>Paket</th>
-<th>Başlangıç</th>
-<th>Bitiş</th>
-<th>Durum</th>
-<th>Aylık Ücret</th>
-
-</tr>
-
-</thead>
-
-<tbody id="subscriptionRows"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     FİNANS
-========================= -->
-
-<section id="finance" class="view">
-
-<div class="stats">
-
-<div class="stat">
-
-<div>
-<small>Aylık Gelir</small><br>
-<b id="financeMonthly">₺0</b>
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div>
-<small>Aktif İşletme</small><br>
-<b id="financeActive">0</b>
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div>
-<small>Pasif İşletme</small><br>
-<b id="financePassive">0</b>
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div>
-<small>Toplam İşletme</small><br>
-<b id="financeTotal">0</b>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     AYARLAR
-========================= -->
-
-<section id="settings" class="view">
-
-<div class="card">
-
-<h3>
-NevoPay Ayarları
-</h3>
-
-<p>
-Firebase Authentication ve Cloud Firestore bağlantısı aktif.
-</p>
-
-<p class="small">
-Ana firma veritabanı Süper Yönetici hesabına bağlıdır.
-</p>
-
-</div>
-
-</section>
-
-
-</div>
-
-</main>
-
-</div>
-
 
 <!-- =========================
      İŞLETME MODAL
 ========================= -->
 
 <div
-id="businessModal"
-class="modal"
+  id="businessModal"
+  class="modal"
 >
 
-<div class="modalBox">
+  <div class="modalBox">
 
-<h3 id="businessModalTitle">
-Yeni İşletme Ekle
-</h3>
+    <h3 id="businessModalTitle">
+      Yeni İşletme Ekle
+    </h3>
 
+    <div class="notice">
+      Bu ekran Firestore kaydını oluşturur.
+      GitHub'daki işletme index.html dosyasını otomatik oluşturma özelliğini
+      sonraki aşamada bağlayacağız.
+    </div>
 
-<div class="form">
+    <div class="form">
 
-<input
-id="bizName"
-class="wide"
-placeholder="İşletme adı"
->
+      <input
+        id="bizName"
+        class="wide"
+        placeholder="İşletme adı"
+      >
 
-<input
-id="bizOwner"
-placeholder="Yetkili kişi"
->
+      <input
+        id="bizOwner"
+        placeholder="Yetkili kişi"
+      >
 
-<input
-id="bizPhone"
-placeholder="Telefon"
->
+      <input
+        id="bizPhone"
+        placeholder="Telefon"
+      >
 
-<input
-id="bizEmail"
-placeholder="E-posta"
-type="email"
->
+      <input
+        id="bizEmail"
+        type="email"
+        placeholder="E-posta"
+      >
 
-<input
-id="bizCity"
-placeholder="Şehir / İlçe"
->
+      <input
+        id="bizCity"
+        placeholder="Şehir / İlçe"
+      >
 
+      <select id="bizAutomation"></select>
 
-<select id="bizAutomation"></select>
+      <select id="bizStatus">
+        <option value="Aktif">Aktif</option>
+        <option value="Pasif">Pasif</option>
+      </select>
 
+      <input
+        id="bizPanelUrl"
+        class="wide"
+        placeholder="Panel URL"
+      >
 
-<select id="bizPackage">
+      <input
+        id="bizFilePath"
+        class="wide"
+        placeholder="Dosya yolu"
+      >
 
-<option>
-Standart
-</option>
+      <textarea
+        id="bizNote"
+        class="wide"
+        placeholder="Not"
+      ></textarea>
 
-<option>
-Pro
-</option>
+    </div>
 
-</select>
+    <div class="modalActions">
 
+      <button
+        class="ghost"
+        onclick="closeModal('businessModal')"
+      >
+        Vazgeç
+      </button>
 
-<input
-id="bizStart"
-type="date"
->
+      <button
+        id="businessSaveBtn"
+        class="primary"
+        onclick="saveBusiness()"
+      >
+        Kaydet
+      </button>
 
+    </div>
 
-<input
-id="bizEnd"
-type="date"
->
-
-
-<select id="bizStatus">
-
-<option>
-Aktif
-</option>
-
-<option>
-Pasif
-</option>
-
-</select>
-
-
-<input
-id="bizPrice"
-type="number"
-placeholder="Aylık ücret"
->
-
-
-<input
-id="bizUrl"
-class="wide"
-placeholder="İşletme panel linki"
->
-
-
-<textarea
-id="bizNote"
-class="wide"
-placeholder="Not"
-></textarea>
+  </div>
 
 </div>
-
-
-<div class="modalActions">
-
-<button
-class="ghost"
-onclick="closeModal('businessModal')"
->
-Vazgeç
-</button>
-
-<button
-id="businessSaveBtn"
-class="primary"
-onclick="saveBusiness()"
->
-Kaydet
-</button>
-
-</div>
-
-</div>
-
-</div>
-
 
 <!-- =========================
      OTOMASYON MODAL
 ========================= -->
 
 <div
-id="automationModal"
-class="modal"
+  id="automationModal"
+  class="modal"
 >
 
-<div class="modalBox">
+  <div class="modalBox">
 
-<h3>
-Yeni Otomasyon
-</h3>
+    <h3 id="automationModalTitle">
+      Yeni Otomasyon
+    </h3>
 
+    <div class="form">
 
-<div class="form">
+      <input
+        id="autoName"
+        class="wide"
+        placeholder="Otomasyon adı"
+      >
 
-<input
-id="autoName"
-class="wide"
-placeholder="Otomasyon adı"
->
+      <input
+        id="autoIcon"
+        placeholder="İkon"
+        value="⚙"
+      >
 
-<input
-id="autoIcon"
-placeholder="İkon"
-value="⚙"
->
+      <input
+        id="autoSlug"
+        placeholder="slug"
+      >
 
+      <input
+        id="autoTemplatePath"
+        class="wide"
+        placeholder="Şablon yolu"
+      >
 
-<select id="autoStatus">
+      <select id="autoStatus">
+        <option value="Aktif">Aktif</option>
+        <option value="Hazırlanıyor">Hazırlanıyor</option>
+      </select>
 
-<option>
-Aktif
-</option>
+      <textarea
+        id="autoDescription"
+        class="wide"
+        placeholder="Açıklama"
+      ></textarea>
 
-<option>
-Hazırlanıyor
-</option>
+    </div>
 
-</select>
+    <div class="modalActions">
 
+      <button
+        class="ghost"
+        onclick="closeModal('automationModal')"
+      >
+        Vazgeç
+      </button>
 
-<textarea
-id="autoDesc"
-class="wide"
-placeholder="Açıklama"
-></textarea>
+      <button
+        id="automationSaveBtn"
+        class="primary"
+        onclick="saveAutomation()"
+      >
+        Kaydet
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
-
-
-<div class="modalActions">
-
-<button
-class="ghost"
-onclick="closeModal('automationModal')"
->
-Vazgeç
-</button>
-
-<button
-class="primary"
-onclick="saveAutomation()"
->
-Kaydet
-</button>
-
-</div>
-
-</div>
-
-</div>
-
 
 <script type="module">
-
 
 /* =========================
    FIREBASE IMPORT
@@ -1471,7 +1283,6 @@ import {
   doc,
   updateDoc,
   deleteDoc,
-  getDocs,
   onSnapshot,
   serverTimestamp
 }
@@ -1479,39 +1290,37 @@ from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
 /* =========================
-   FIREBASE AYARLARI
+   YENİ FIREBASE PROJESİ
 ========================= */
 
 const firebaseConfig = {
 
   apiKey:
-  "AIzaSyAHWyFtBBxPKvWE-gpJCyHaB2e8MOQlnYw",
+  "AIzaSyBPvPIArIb-eum0wivZPEFrKjQ4rH1-htk",
 
   authDomain:
-  "nevopay-ana-panel.firebaseapp.com",
+  "nevopay-ana-panel-8f27f.firebaseapp.com",
 
   projectId:
-  "nevopay-ana-panel",
+  "nevopay-ana-panel-8f27f",
 
   storageBucket:
-  "nevopay-ana-panel.firebasestorage.app",
+  "nevopay-ana-panel-8f27f.firebasestorage.app",
 
   messagingSenderId:
-  "728342235933",
+  "211645885446",
 
   appId:
-  "1:728342235933:web:3b237fa60d55c853f9eff4",
+  "1:211645885446:web:fa4b7c65d3fc8b29dd2787",
 
   measurementId:
-  "G-KRY6W86Q7K"
+  "G-12PJQJMK4V"
 
 };
 
 
 const app =
-initializeApp(
-firebaseConfig
-);
+initializeApp(firebaseConfig);
 
 
 const auth =
@@ -1527,45 +1336,25 @@ getFirestore(app);
 ========================= */
 
 const loginGate =
-document.getElementById(
-"loginGate"
-);
-
+document.getElementById("loginGate");
 
 const loginEmail =
-document.getElementById(
-"loginEmail"
-);
-
+document.getElementById("loginEmail");
 
 const loginPassword =
-document.getElementById(
-"loginPassword"
-);
-
+document.getElementById("loginPassword");
 
 const loginBtn =
-document.getElementById(
-"loginBtn"
-);
-
+document.getElementById("loginBtn");
 
 const forgotBtn =
-document.getElementById(
-"forgotBtn"
-);
-
+document.getElementById("forgotBtn");
 
 const loginMsg =
-document.getElementById(
-"loginMsg"
-);
-
+document.getElementById("loginMsg");
 
 const userEmail =
-document.getElementById(
-"userEmail"
-);
+document.getElementById("userEmail");
 
 
 /* =========================
@@ -1580,116 +1369,59 @@ let listeners = [];
 
 let editingBusinessId = null;
 
-
-/* =========================
-   VARSAYILAN OTOMASYONLAR
-========================= */
-
-const DEFAULT_AUTOMATIONS = [
-
-{
-  name:"Dijital Kahvem",
-  icon:"☕",
-  desc:"Cafe / Restaurant Yönetim Sistemi",
-  status:"Aktif"
-},
-
-{
-  name:"Site / Aidat Yönetimi",
-  icon:"🏢",
-  desc:"Site ve apartman yönetim sistemi",
-  status:"Aktif"
-},
-
-{
-  name:"Servis Otomasyonu",
-  icon:"🚌",
-  desc:"Öğretmen ve personel servis sistemi",
-  status:"Aktif"
-},
-
-{
-  name:"Ders Programı",
-  icon:"🏫",
-  desc:"Okul ders programı otomasyonu",
-  status:"Aktif"
-},
-
-{
-  name:"IBAN / Ödeme",
-  icon:"💳",
-  desc:"QR ve IBAN ödeme sayfaları",
-  status:"Aktif"
-}
-
-];
+let editingAutomationId = null;
 
 
 /* =========================
    YARDIMCILAR
 ========================= */
 
-function escapeHtml(text){
+function escapeHtml(value){
 
-return String(
-text ?? ""
-)
-.replace(
-/[&<>"']/g,
-function(m){
+  return String(value ?? "")
+  .replace(/[&<>"']/g,function(char){
 
-return {
+    return {
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[char];
 
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#39;"
-
-}[m];
-
-}
-);
+  });
 
 }
 
 
-function money(value){
+function slugify(text){
 
-return "₺" +
-Number(
-value || 0
-)
-.toLocaleString(
-"tr-TR"
-);
-
-}
-
-
-function dateTR(value){
-
-if(!value){
-
-return "-";
-
-}
-
-return new Date(
-value + "T00:00:00"
-)
-.toLocaleDateString(
-"tr-TR"
-);
+  return String(text || "")
+  .toLocaleLowerCase("tr-TR")
+  .replace(/ı/g,"i")
+  .replace(/ğ/g,"g")
+  .replace(/ü/g,"u")
+  .replace(/ş/g,"s")
+  .replace(/ö/g,"o")
+  .replace(/ç/g,"c")
+  .replace(/[^a-z0-9]+/g,"-")
+  .replace(/^-+|-+$/g,"");
 
 }
 
 
-function getAutomationName(id){
+function getAutomation(slug){
 
-return automations.find(
-x => x.id === id
-)?.name || "-";
+  return automations.find(
+    a => a.slug === slug
+  );
+
+}
+
+
+function getAutomationName(slug){
+
+  return getAutomation(slug)?.name || "-";
 
 }
 
@@ -1701,51 +1433,37 @@ x => x.id === id
 window.showView =
 function(id,button){
 
-document
-.querySelectorAll(".view")
-.forEach(
-function(v){
+  document
+  .querySelectorAll(".view")
+  .forEach(function(view){
 
-v.classList.remove(
-"active"
-);
+    view.classList.remove("active");
 
-}
-);
+  });
 
 
-document
-.getElementById(id)
-.classList.add(
-"active"
-);
+  document
+  .getElementById(id)
+  .classList.add("active");
 
 
-if(button){
+  document
+  .querySelectorAll(".nav button")
+  .forEach(function(btn){
 
-document
-.querySelectorAll(
-".nav button"
-)
-.forEach(
-function(b){
+    btn.classList.remove("active");
 
-b.classList.remove(
-"active"
-);
-
-}
-);
+  });
 
 
-button.classList.add(
-"active"
-);
+  if(button){
 
-}
+    button.classList.add("active");
+
+  }
 
 
-renderAll();
+  renderAll();
 
 };
 
@@ -1757,11 +1475,9 @@ renderAll();
 window.openModal =
 function(id){
 
-document
-.getElementById(id)
-.classList.add(
-"show"
-);
+  document
+  .getElementById(id)
+  .classList.add("show");
 
 };
 
@@ -1769,83 +1485,75 @@ document
 window.closeModal =
 function(id){
 
-document
-.getElementById(id)
-.classList.remove(
-"show"
-);
+  document
+  .getElementById(id)
+  .classList.remove("show");
 
 
-if(
-id === "businessModal"
-){
+  if(id === "businessModal"){
 
-editingBusinessId = null;
+    editingBusinessId = null;
 
-}
+  }
+
+
+  if(id === "automationModal"){
+
+    editingAutomationId = null;
+
+  }
 
 };
 
 
 /* =========================
-   İŞLETME FORMU TEMİZLE
+   İŞLETME FORMU
 ========================= */
 
 function clearBusinessForm(){
 
-document.getElementById("bizName").value = "";
+  document.getElementById("bizName").value = "";
 
-document.getElementById("bizOwner").value = "";
+  document.getElementById("bizOwner").value = "";
 
-document.getElementById("bizPhone").value = "";
+  document.getElementById("bizPhone").value = "";
 
-document.getElementById("bizEmail").value = "";
+  document.getElementById("bizEmail").value = "";
 
-document.getElementById("bizCity").value = "";
+  document.getElementById("bizCity").value = "";
 
-document.getElementById("bizPackage").value = "Standart";
+  document.getElementById("bizStatus").value = "Aktif";
 
-document.getElementById("bizStart").value = "";
+  document.getElementById("bizPanelUrl").value = "";
 
-document.getElementById("bizEnd").value = "";
+  document.getElementById("bizFilePath").value = "";
 
-document.getElementById("bizStatus").value = "Aktif";
-
-document.getElementById("bizPrice").value = "";
-
-document.getElementById("bizUrl").value = "";
-
-document.getElementById("bizNote").value = "";
+  document.getElementById("bizNote").value = "";
 
 }
 
-
-/* =========================
-   OTOMASYON SELECT
-========================= */
 
 function fillAutomationSelect(){
 
-const select =
-document.getElementById(
-"bizAutomation"
-);
+  const select =
+  document.getElementById(
+    "bizAutomation"
+  );
 
 
-select.innerHTML =
-automations
-.map(
-function(a){
+  select.innerHTML =
+  automations
+  .filter(a => a.status === "Aktif")
+  .map(function(a){
 
-return `
-<option value="${a.id}">
-${escapeHtml(a.name)}
-</option>
-`;
+    return `
+      <option value="${escapeHtml(a.slug)}">
+        ${escapeHtml(a.name)}
+      </option>
+    `;
 
-}
-)
-.join("");
+  })
+  .join("");
 
 }
 
@@ -1857,34 +1565,69 @@ ${escapeHtml(a.name)}
 window.openBusinessModal =
 function(){
 
-editingBusinessId = null;
+  editingBusinessId = null;
+
+  clearBusinessForm();
+
+  fillAutomationSelect();
 
 
-clearBusinessForm();
+  document.getElementById(
+    "businessModalTitle"
+  ).textContent =
+  "Yeni İşletme Ekle";
 
 
-fillAutomationSelect();
+  document.getElementById(
+    "businessSaveBtn"
+  ).textContent =
+  "Kaydet";
 
 
-document.getElementById(
-"businessModalTitle"
-)
-.textContent =
-"Yeni İşletme Ekle";
-
-
-document.getElementById(
-"businessSaveBtn"
-)
-.textContent =
-"Kaydet";
-
-
-window.openModal(
-"businessModal"
-);
+  window.openModal(
+    "businessModal"
+  );
 
 };
+
+
+/* =========================
+   İŞLETME ADI →
+   DOSYA VE URL
+========================= */
+
+document
+.getElementById("bizName")
+.addEventListener(
+"input",
+function(){
+
+  if(editingBusinessId){
+    return;
+  }
+
+
+  const slug =
+  slugify(this.value);
+
+
+  document.getElementById(
+    "bizFilePath"
+  ).value =
+  slug
+  ? `businesses/${slug}/index.html`
+  : "";
+
+
+  document.getElementById(
+    "bizPanelUrl"
+  ).value =
+  slug
+  ? `https://nevopay.github.io/nevopay-ana-panel/businesses/${slug}/`
+  : "";
+
+}
+);
 
 
 /* =========================
@@ -1894,451 +1637,260 @@ window.openModal(
 window.editBusiness =
 function(id){
 
-const business =
-businesses.find(
-x => x.id === id
-);
+  const business =
+  businesses.find(
+    b => b.id === id
+  );
 
 
-if(!business){
-
-return;
-
-}
+  if(!business){
+    return;
+  }
 
 
-editingBusinessId =
-id;
+  editingBusinessId =
+  id;
 
 
-fillAutomationSelect();
+  fillAutomationSelect();
 
 
-document.getElementById(
-"businessModalTitle"
-)
-.textContent =
-"İşletmeyi Düzenle";
+  document.getElementById(
+    "businessModalTitle"
+  ).textContent =
+  "İşletmeyi Düzenle";
 
 
-document.getElementById(
-"businessSaveBtn"
-)
-.textContent =
-"Güncelle";
+  document.getElementById(
+    "businessSaveBtn"
+  ).textContent =
+  "Güncelle";
 
 
-document.getElementById(
-"bizName"
-)
-.value =
-business.name || "";
+  document.getElementById(
+    "bizName"
+  ).value =
+  business.name || "";
 
 
-document.getElementById(
-"bizOwner"
-)
-.value =
-business.owner || "";
+  document.getElementById(
+    "bizOwner"
+  ).value =
+  business.owner || "";
 
 
-document.getElementById(
-"bizPhone"
-)
-.value =
-business.phone || "";
+  document.getElementById(
+    "bizPhone"
+  ).value =
+  business.phone || "";
 
 
-document.getElementById(
-"bizEmail"
-)
-.value =
-business.email || "";
+  document.getElementById(
+    "bizEmail"
+  ).value =
+  business.email || "";
 
 
-document.getElementById(
-"bizCity"
-)
-.value =
-business.city || "";
+  document.getElementById(
+    "bizCity"
+  ).value =
+  business.city || "";
 
 
-document.getElementById(
-"bizAutomation"
-)
-.value =
-business.automationId || "";
+  document.getElementById(
+    "bizAutomation"
+  ).value =
+  business.automationSlug || "";
 
 
-document.getElementById(
-"bizPackage"
-)
-.value =
-business.pack || "Standart";
+  document.getElementById(
+    "bizStatus"
+  ).value =
+  business.status || "Aktif";
 
 
-document.getElementById(
-"bizStart"
-)
-.value =
-business.start || "";
+  document.getElementById(
+    "bizPanelUrl"
+  ).value =
+  business.panelUrl || "";
 
 
-document.getElementById(
-"bizEnd"
-)
-.value =
-business.end || "";
+  document.getElementById(
+    "bizFilePath"
+  ).value =
+  business.filePath || "";
 
 
-document.getElementById(
-"bizStatus"
-)
-.value =
-business.status || "Aktif";
+  document.getElementById(
+    "bizNote"
+  ).value =
+  business.note || "";
 
 
-document.getElementById(
-"bizPrice"
-)
-.value =
-business.price || "";
-
-
-document.getElementById(
-"bizUrl"
-)
-.value =
-business.url || "";
-
-
-document.getElementById(
-"bizNote"
-)
-.value =
-business.note || "";
-
-
-window.openModal(
-"businessModal"
-);
+  window.openModal(
+    "businessModal"
+  );
 
 };
 
 
 /* =========================
-   İŞLETME KAYDET / GÜNCELLE
+   İŞLETME KAYDET
 ========================= */
 
 window.saveBusiness =
 async function(){
 
-const name =
-document.getElementById(
-"bizName"
-).value.trim();
+  const name =
+  document.getElementById(
+    "bizName"
+  ).value.trim();
 
 
-const owner =
-document.getElementById(
-"bizOwner"
-).value.trim();
+  if(!name){
 
+    alert(
+      "İşletme adını yazın."
+    );
 
-const phone =
-document.getElementById(
-"bizPhone"
-).value.trim();
+    return;
 
+  }
 
-const email =
-document.getElementById(
-"bizEmail"
-).value.trim();
 
+  const data = {
 
-const city =
-document.getElementById(
-"bizCity"
-).value.trim();
+    name,
 
+    owner:
+    document.getElementById(
+      "bizOwner"
+    ).value.trim(),
 
-const automationId =
-document.getElementById(
-"bizAutomation"
-).value;
+    phone:
+    document.getElementById(
+      "bizPhone"
+    ).value.trim(),
 
+    email:
+    document.getElementById(
+      "bizEmail"
+    ).value.trim(),
 
-const pack =
-document.getElementById(
-"bizPackage"
-).value;
+    city:
+    document.getElementById(
+      "bizCity"
+    ).value.trim(),
 
+    automationSlug:
+    document.getElementById(
+      "bizAutomation"
+    ).value,
 
-const start =
-document.getElementById(
-"bizStart"
-).value;
+    status:
+    document.getElementById(
+      "bizStatus"
+    ).value,
 
+    panelUrl:
+    document.getElementById(
+      "bizPanelUrl"
+    ).value.trim(),
 
-const end =
-document.getElementById(
-"bizEnd"
-).value;
+    filePath:
+    document.getElementById(
+      "bizFilePath"
+    ).value.trim(),
 
+    note:
+    document.getElementById(
+      "bizNote"
+    ).value.trim()
 
-const status =
-document.getElementById(
-"bizStatus"
-).value;
+  };
 
 
-const price =
-Number(
-document.getElementById(
-"bizPrice"
-).value || 0
-);
+  try{
 
 
-const url =
-document.getElementById(
-"bizUrl"
-).value.trim();
+    if(editingBusinessId){
 
 
-const note =
-document.getElementById(
-"bizNote"
-).value.trim();
+      await updateDoc(
 
+        doc(
+          db,
+          "businesses",
+          editingBusinessId
+        ),
 
-if(!name){
+        {
 
-alert(
-"İşletme adını yazın."
-);
+          ...data,
 
-return;
+          updatedAt:
+          serverTimestamp()
 
-}
+        }
 
+      );
 
-const data = {
 
-name,
-owner,
-phone,
-email,
-city,
-automationId,
-pack,
-start,
-end,
-status,
-price,
-url,
-note
+    }
+    else{
 
-};
 
+      await addDoc(
 
-try{
+        collection(
+          db,
+          "businesses"
+        ),
 
+        {
 
-if(editingBusinessId){
+          ...data,
 
+          createdAt:
+          serverTimestamp()
 
-await updateDoc(
+        }
 
-doc(
-db,
-"businesses",
-editingBusinessId
-),
+      );
 
-{
 
-...data,
+    }
 
-updatedAt:
-serverTimestamp()
 
-}
+    window.closeModal(
+      "businessModal"
+    );
 
-);
 
+    clearBusinessForm();
 
-}
-else{
 
+    editingBusinessId =
+    null;
 
-await addDoc(
 
-collection(
-db,
-"businesses"
-),
+  }
+  catch(error){
 
-{
 
-...data,
+    console.error(error);
 
-createdAt:
-serverTimestamp()
 
-}
+    alert(
+      "İşletme kaydedilemedi: "
+      +
+      (
+        error.code ||
+        error.message
+      )
+    );
 
-);
-
-
-}
-
-
-window.closeModal(
-"businessModal"
-);
-
-
-clearBusinessForm();
-
-
-editingBusinessId = null;
-
-
-}catch(error){
-
-console.error(error);
-
-
-alert(
-"İşletme kaydedilemedi: "
-+
-(
-error.code
-||
-error.message
-)
-);
-
-}
-
-};
-
-
-/* =========================
-   OTOMASYON EKLE
-========================= */
-
-window.openAutomationModal =
-function(){
-
-window.openModal(
-"automationModal"
-);
-
-};
-
-
-window.saveAutomation =
-async function(){
-
-const name =
-document.getElementById(
-"autoName"
-).value.trim();
-
-
-const icon =
-document.getElementById(
-"autoIcon"
-).value || "⚙";
-
-
-const status =
-document.getElementById(
-"autoStatus"
-).value;
-
-
-const desc =
-document.getElementById(
-"autoDesc"
-).value.trim();
-
-
-if(!name){
-
-alert(
-"Otomasyon adı yazın."
-);
-
-return;
-
-}
-
-
-try{
-
-
-await addDoc(
-
-collection(
-db,
-"automations"
-),
-
-{
-
-name,
-icon,
-status,
-desc,
-
-createdAt:
-serverTimestamp()
-
-}
-
-);
-
-
-window.closeModal(
-"automationModal"
-);
-
-
-document.getElementById(
-"autoName"
-).value = "";
-
-
-document.getElementById(
-"autoIcon"
-).value = "⚙";
-
-
-document.getElementById(
-"autoDesc"
-).value = "";
-
-
-}catch(error){
-
-console.error(error);
-
-
-alert(
-"Otomasyon kaydedilemedi: "
-+
-(
-error.code
-||
-error.message
-)
-);
-
-}
+  }
 
 };
 
@@ -2350,31 +1902,31 @@ error.message
 window.openBusiness =
 function(id){
 
-const business =
-businesses.find(
-x => x.id === id
-);
+  const business =
+  businesses.find(
+    b => b.id === id
+  );
 
 
-if(
-!business ||
-!business.url
-){
+  if(
+    !business ||
+    !business.panelUrl
+  ){
 
-alert(
-"Bu işletmenin panel adresi eklenmemiş."
-);
+    alert(
+      "Bu işletmenin panel adresi eklenmemiş."
+    );
 
-return;
+    return;
 
-}
+  }
 
 
-window.open(
-business.url,
-"_blank",
-"noopener"
-);
+  window.open(
+    business.panelUrl,
+    "_blank",
+    "noopener"
+  );
 
 };
 
@@ -2386,58 +1938,57 @@ business.url,
 window.toggleBusiness =
 async function(id){
 
-const business =
-businesses.find(
-x => x.id === id
-);
+  const business =
+  businesses.find(
+    b => b.id === id
+  );
 
 
-if(!business){
-
-return;
-
-}
+  if(!business){
+    return;
+  }
 
 
-try{
+  try{
 
 
-await updateDoc(
+    await updateDoc(
 
-doc(
-db,
-"businesses",
-id
-),
+      doc(
+        db,
+        "businesses",
+        id
+      ),
 
-{
+      {
 
-status:
-business.status === "Aktif"
-? "Pasif"
-: "Aktif",
+        status:
+        business.status === "Aktif"
+        ? "Pasif"
+        : "Aktif",
 
-updatedAt:
-serverTimestamp()
+        updatedAt:
+        serverTimestamp()
 
-}
+      }
 
-);
+    );
 
 
-}catch(error){
+  }
+  catch(error){
 
-alert(
-"Durum değiştirilemedi: "
-+
-(
-error.code
-||
-error.message
-)
-);
 
-}
+    alert(
+      "Durum değiştirilemedi: "
+      +
+      (
+        error.code ||
+        error.message
+      )
+    );
+
+  }
 
 };
 
@@ -2449,58 +2000,486 @@ error.message
 window.deleteBusiness =
 async function(id){
 
-const business =
-businesses.find(
-x => x.id === id
-);
+  const business =
+  businesses.find(
+    b => b.id === id
+  );
 
 
-if(!business){
+  if(!business){
+    return;
+  }
 
-return;
+
+  if(
+    !confirm(
+      business.name +
+      " işletmesi silinsin mi?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+
+    await deleteDoc(
+
+      doc(
+        db,
+        "businesses",
+        id
+      )
+
+    );
+
+
+  }
+  catch(error){
+
+
+    alert(
+      "İşletme silinemedi: "
+      +
+      (
+        error.code ||
+        error.message
+      )
+    );
+
+  }
+
+};
+
+
+/* =========================
+   OTOMASYON FORMU
+========================= */
+
+function clearAutomationForm(){
+
+  document.getElementById(
+    "autoName"
+  ).value = "";
+
+  document.getElementById(
+    "autoIcon"
+  ).value = "⚙";
+
+  document.getElementById(
+    "autoSlug"
+  ).value = "";
+
+  document.getElementById(
+    "autoTemplatePath"
+  ).value = "";
+
+  document.getElementById(
+    "autoStatus"
+  ).value = "Aktif";
+
+  document.getElementById(
+    "autoDescription"
+  ).value = "";
 
 }
 
 
-if(
-!confirm(
-business.name +
-" işletmesi silinsin mi?"
-)
-){
+/* =========================
+   YENİ OTOMASYON
+========================= */
 
-return;
+window.openAutomationModal =
+function(){
+
+  editingAutomationId =
+  null;
+
+
+  clearAutomationForm();
+
+
+  document.getElementById(
+    "automationModalTitle"
+  ).textContent =
+  "Yeni Otomasyon";
+
+
+  document.getElementById(
+    "automationSaveBtn"
+  ).textContent =
+  "Kaydet";
+
+
+  window.openModal(
+    "automationModal"
+  );
+
+};
+
+
+/* =========================
+   OTOMASYON ADI →
+   SLUG / ŞABLON
+========================= */
+
+document
+.getElementById(
+  "autoName"
+)
+.addEventListener(
+"input",
+function(){
+
+  if(editingAutomationId){
+    return;
+  }
+
+
+  const slug =
+  slugify(
+    this.value
+  );
+
+
+  document.getElementById(
+    "autoSlug"
+  ).value =
+  slug;
+
+
+  document.getElementById(
+    "autoTemplatePath"
+  ).value =
+  slug
+  ? `şablonlar/${slug}/index.html`
+  : "";
 
 }
-
-
-try{
-
-
-await deleteDoc(
-
-doc(
-db,
-"businesses",
-id
-)
-
 );
 
 
-}catch(error){
+/* =========================
+   OTOMASYON DÜZENLE
+========================= */
 
-alert(
-"İşletme silinemedi: "
-+
-(
-error.code
-||
-error.message
-)
-);
+window.editAutomation =
+function(id){
 
-}
+  const automation =
+  automations.find(
+    a => a.id === id
+  );
+
+
+  if(!automation){
+    return;
+  }
+
+
+  editingAutomationId =
+  id;
+
+
+  document.getElementById(
+    "automationModalTitle"
+  ).textContent =
+  "Otomasyonu Düzenle";
+
+
+  document.getElementById(
+    "automationSaveBtn"
+  ).textContent =
+  "Güncelle";
+
+
+  document.getElementById(
+    "autoName"
+  ).value =
+  automation.name || "";
+
+
+  document.getElementById(
+    "autoIcon"
+  ).value =
+  automation.icon || "⚙";
+
+
+  document.getElementById(
+    "autoSlug"
+  ).value =
+  automation.slug || "";
+
+
+  document.getElementById(
+    "autoTemplatePath"
+  ).value =
+  automation.templatePath || "";
+
+
+  document.getElementById(
+    "autoStatus"
+  ).value =
+  automation.status || "Aktif";
+
+
+  document.getElementById(
+    "autoDescription"
+  ).value =
+  automation.description || "";
+
+
+  window.openModal(
+    "automationModal"
+  );
+
+};
+
+
+/* =========================
+   OTOMASYON KAYDET
+========================= */
+
+window.saveAutomation =
+async function(){
+
+  const name =
+  document.getElementById(
+    "autoName"
+  ).value.trim();
+
+
+  const slug =
+  document.getElementById(
+    "autoSlug"
+  ).value.trim();
+
+
+  if(
+    !name ||
+    !slug
+  ){
+
+    alert(
+      "Otomasyon adı ve slug gerekli."
+    );
+
+    return;
+
+  }
+
+
+  const data = {
+
+    name,
+
+    icon:
+    document.getElementById(
+      "autoIcon"
+    ).value || "⚙",
+
+    slug,
+
+    templatePath:
+    document.getElementById(
+      "autoTemplatePath"
+    ).value.trim(),
+
+    status:
+    document.getElementById(
+      "autoStatus"
+    ).value,
+
+    description:
+    document.getElementById(
+      "autoDescription"
+    ).value.trim()
+
+  };
+
+
+  try{
+
+
+    if(editingAutomationId){
+
+
+      await updateDoc(
+
+        doc(
+          db,
+          "automations",
+          editingAutomationId
+        ),
+
+        {
+
+          ...data,
+
+          updatedAt:
+          serverTimestamp()
+
+        }
+
+      );
+
+
+    }
+    else{
+
+
+      const duplicate =
+      automations.some(
+        a =>
+        a.slug === slug
+      );
+
+
+      if(duplicate){
+
+        alert(
+          "Bu slug ile bir otomasyon zaten var."
+        );
+
+        return;
+
+      }
+
+
+      await addDoc(
+
+        collection(
+          db,
+          "automations"
+        ),
+
+        {
+
+          ...data,
+
+          createdAt:
+          serverTimestamp()
+
+        }
+
+      );
+
+    }
+
+
+    window.closeModal(
+      "automationModal"
+    );
+
+
+    editingAutomationId =
+    null;
+
+
+  }
+  catch(error){
+
+
+    console.error(error);
+
+
+    alert(
+      "Otomasyon kaydedilemedi: "
+      +
+      (
+        error.code ||
+        error.message
+      )
+    );
+
+  }
+
+};
+
+
+/* =========================
+   OTOMASYON SİL
+========================= */
+
+window.deleteAutomation =
+async function(id){
+
+  const automation =
+  automations.find(
+    a => a.id === id
+  );
+
+
+  if(!automation){
+    return;
+  }
+
+
+  const connected =
+  businesses.filter(
+    b =>
+    b.automationSlug === automation.slug
+  ).length;
+
+
+  if(connected > 0){
+
+    alert(
+      "Bu otomasyona bağlı "
+      +
+      connected
+      +
+      " işletme var. Önce işletmeleri başka otomasyona taşı."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !confirm(
+      automation.name +
+      " otomasyonu silinsin mi?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+
+    await deleteDoc(
+
+      doc(
+        db,
+        "automations",
+        id
+      )
+
+    );
+
+
+  }
+  catch(error){
+
+
+    alert(
+      "Otomasyon silinemedi: "
+      +
+      (
+        error.code ||
+        error.message
+      )
+    );
+
+  }
 
 };
 
@@ -2511,84 +2490,108 @@ error.message
 
 function renderAutomations(){
 
-const moduleGrid =
-document.getElementById(
-"moduleGrid"
-);
+  const html =
+  automations.length
+  ?
+  automations
+  .map(function(a){
+
+    const count =
+    businesses.filter(
+      b =>
+      b.automationSlug === a.slug
+    ).length;
 
 
-const automationGrid =
-document.getElementById(
-"automationGrid"
-);
+    return `
+
+      <div class="module">
+
+        <div class="moduleTop">
+
+          <div class="moduleIcon">
+            ${escapeHtml(a.icon || "⚙")}
+          </div>
+
+          <span
+            class="badge ${
+              a.status === "Aktif"
+              ? "ok"
+              : "soon"
+            }"
+          >
+            ${escapeHtml(a.status || "-")}
+          </span>
+
+        </div>
+
+        <h3>
+          ${escapeHtml(a.name)}
+        </h3>
+
+        <p>
+          ${escapeHtml(a.description || "")}
+        </p>
+
+        <div class="moduleInfo">
+
+          <b>slug:</b>
+          ${escapeHtml(a.slug || "-")}
+
+          <br>
+
+          <b>şablon:</b>
+          ${escapeHtml(a.templatePath || "-")}
+
+          <br>
+
+          <b>işletme:</b>
+          ${count}
+
+        </div>
+
+        <div class="moduleActions">
+
+          <button
+            class="ghost"
+            onclick="editAutomation('${a.id}')"
+          >
+            Düzenle
+          </button>
+
+          <button
+            class="danger"
+            onclick="deleteAutomation('${a.id}')"
+          >
+            Sil
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  })
+  .join("")
+  :
+  `
+    <div class="empty">
+      Henüz otomasyon yok.
+    </div>
+  `;
 
 
-const html =
-automations
-.map(
-function(a){
-
-const count =
-businesses
-.filter(
-x =>
-x.automationId === a.id
-)
-.length;
+  document.getElementById(
+    "moduleGrid"
+  ).innerHTML =
+  html;
 
 
-return `
-
-<div class="module">
-
-<div class="topline">
-
-<div class="ico">
-${escapeHtml(a.icon)}
-</div>
-
-<span
-class="badge ${
-a.status === "Aktif"
-? "ok"
-: "soon"
-}"
->
-${escapeHtml(a.status)}
-</span>
-
-</div>
-
-
-<h3>
-${escapeHtml(a.name)}
-</h3>
-
-
-<p>
-${escapeHtml(a.desc || "")}
-</p>
-
-
-<div class="small">
-${count} işletme bağlı
-</div>
-
-</div>
-
-`;
-
-}
-)
-.join("");
-
-
-moduleGrid.innerHTML =
-html;
-
-
-automationGrid.innerHTML =
-html;
+  document.getElementById(
+    "automationGrid"
+  ).innerHTML =
+  html;
 
 }
 
@@ -2600,325 +2603,206 @@ html;
 window.renderBusinesses =
 function(){
 
-const search =
-(
-document.getElementById(
-"businessSearch"
-).value || ""
-)
-.toLocaleLowerCase(
-"tr-TR"
-);
-
-
-const status =
-document.getElementById(
-"businessFilter"
-).value || "";
-
-
-const list =
-businesses
-.filter(
-function(b){
-
-const text =
-(
-(b.name || "")
-+
-" "
-+
-(b.owner || "")
-+
-" "
-+
-(b.phone || "")
-+
-" "
-+
-(b.email || "")
-+
-" "
-+
-(b.city || "")
-+
-" "
-+
-getAutomationName(
-b.automationId
-)
-)
-.toLocaleLowerCase(
-"tr-TR"
-);
-
-
-return (
-
-text.includes(search)
-
-&&
-
-(
-!status
-||
-b.status === status
-)
-
-);
-
-}
-);
-
-
-const rows =
-document.getElementById(
-"businessRows"
-);
-
-
-rows.innerHTML =
-list.length
-?
-list
-.map(
-function(b,index){
-
-return `
-
-<tr>
-
-<td>
-${index + 1}
-</td>
-
-
-<td>
-<b>
-${escapeHtml(b.name)}
-</b>
-</td>
-
-
-<td>
-${escapeHtml(b.owner || "-")}
-</td>
-
-
-<td>
-${escapeHtml(b.phone || "-")}
-</td>
-
-
-<td>
-${escapeHtml(b.email || "-")}
-</td>
-
-
-<td>
-${escapeHtml(b.city || "-")}
-</td>
-
-
-<td>
-${escapeHtml(
-getAutomationName(
-b.automationId
-)
-)}
-</td>
-
-
-<td>
-
-<span
-class="badge ${
-b.pack === "Pro"
-? "pro"
-: "std"
-}"
->
-
-${escapeHtml(
-b.pack || "-"
-)}
-
-</span>
-
-</td>
-
-
-<td>
-
-<span
-class="badge ${
-b.status === "Aktif"
-? "ok"
-: "off"
-}"
->
-
-${escapeHtml(
-b.status || "-"
-)}
-
-</span>
-
-</td>
-
-
-<td>
-${dateTR(b.end)}
-</td>
-
-
-<td>
-
-<div class="actions">
-
-<button
-class="primary"
-onclick="openBusiness('${b.id}')"
->
-Aç
-</button>
-
-<button
-class="ghost"
-onclick="editBusiness('${b.id}')"
->
-Düzenle
-</button>
-
-<button
-class="ghost"
-onclick="toggleBusiness('${b.id}')"
->
-
-${
-b.status === "Aktif"
-? "Pasif Yap"
-: "Aktif Yap"
-}
-
-</button>
-
-<button
-class="danger"
-onclick="deleteBusiness('${b.id}')"
->
-Sil
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-`;
-
-}
-)
-.join("")
-:
-`
-
-<tr>
-
-<td
-colspan="11"
-class="empty"
->
-
-Henüz işletme yok.
-
-</td>
-
-</tr>
-
-`;
+  const search =
+  (
+    document.getElementById(
+      "businessSearch"
+    )?.value || ""
+  )
+  .toLocaleLowerCase(
+    "tr-TR"
+  );
+
+
+  const status =
+  document.getElementById(
+    "businessFilter"
+  )?.value || "";
+
+
+  const list =
+  businesses.filter(
+  function(b){
+
+
+    const text =
+    (
+      (b.name || "")
+      +
+      " "
+      +
+      (b.owner || "")
+      +
+      " "
+      +
+      (b.phone || "")
+      +
+      " "
+      +
+      (b.email || "")
+      +
+      " "
+      +
+      (b.city || "")
+      +
+      " "
+      +
+      getAutomationName(
+        b.automationSlug
+      )
+    )
+    .toLocaleLowerCase(
+      "tr-TR"
+    );
+
+
+    return (
+
+      text.includes(search)
+
+      &&
+
+      (
+        !status ||
+        b.status === status
+      )
+
+    );
+
+  });
+
+
+  const rows =
+  document.getElementById(
+    "businessRows"
+  );
+
+
+  rows.innerHTML =
+  list.length
+  ?
+  list
+  .map(
+  function(b,index){
+
+
+    return `
+
+      <tr>
+
+        <td>
+          ${index + 1}
+        </td>
+
+        <td>
+          <b>
+            ${escapeHtml(b.name)}
+          </b>
+        </td>
+
+        <td>
+          ${escapeHtml(b.owner || "-")}
+        </td>
+
+        <td>
+          ${escapeHtml(b.phone || "-")}
+        </td>
+
+        <td>
+          ${escapeHtml(b.city || "-")}
+        </td>
+
+        <td>
+          ${escapeHtml(
+            getAutomationName(
+              b.automationSlug
+            )
+          )}
+        </td>
+
+        <td>
+
+          <span
+            class="badge ${
+              b.status === "Aktif"
+              ? "ok"
+              : "off"
+            }"
+          >
+            ${escapeHtml(b.status || "-")}
+          </span>
+
+        </td>
+
+        <td>
+          ${escapeHtml(
+            b.filePath || "-"
+          )}
+        </td>
+
+        <td>
+
+          <div class="actions">
+
+            <button
+              class="primary"
+              onclick="openBusiness('${b.id}')"
+            >
+              Aç
+            </button>
+
+            <button
+              class="ghost"
+              onclick="editBusiness('${b.id}')"
+            >
+              Düzenle
+            </button>
+
+            <button
+              class="ghost"
+              onclick="toggleBusiness('${b.id}')"
+            >
+              ${
+                b.status === "Aktif"
+                ? "Pasif Yap"
+                : "Aktif Yap"
+              }
+            </button>
+
+            <button
+              class="danger"
+              onclick="deleteBusiness('${b.id}')"
+            >
+              Sil
+            </button>
+
+          </div>
+
+        </td>
+
+      </tr>
+
+    `;
+
+  })
+  .join("")
+  :
+  `
+
+    <tr>
+
+      <td
+        colspan="9"
+        class="empty"
+      >
+        Henüz işletme yok.
+      </td>
+
+    </tr>
+
+  `;
 
 };
-
-
-/* =========================
-   ABONELİKLER
-========================= */
-
-function renderSubscriptions(){
-
-const rows =
-document.getElementById(
-"subscriptionRows"
-);
-
-
-rows.innerHTML =
-businesses.length
-?
-businesses
-.map(
-function(b){
-
-return `
-
-<tr>
-
-<td>
-${escapeHtml(b.name)}
-</td>
-
-<td>
-${escapeHtml(b.owner || "-")}
-</td>
-
-<td>
-${escapeHtml(b.pack || "-")}
-</td>
-
-<td>
-${dateTR(b.start)}
-</td>
-
-<td>
-${dateTR(b.end)}
-</td>
-
-<td>
-${escapeHtml(b.status || "-")}
-</td>
-
-<td>
-${money(b.price)}
-</td>
-
-</tr>
-
-`;
-
-}
-)
-.join("")
-:
-`
-
-<tr>
-
-<td
-colspan="7"
-class="empty"
->
-
-Henüz abonelik yok.
-
-</td>
-
-</tr>
-
-`;
-
-}
 
 
 /* =========================
@@ -2927,79 +2811,77 @@ Henüz abonelik yok.
 
 function renderRecent(){
 
-const rows =
-document.getElementById(
-"recentRows"
-);
+  const rows =
+  document.getElementById(
+    "recentRows"
+  );
 
 
-rows.innerHTML =
-businesses.length
-?
-businesses
-.slice(
-0,
-5
-)
-.map(
-function(b){
+  rows.innerHTML =
+  businesses.length
+  ?
+  businesses
+  .slice(0,6)
+  .map(function(b){
 
-return `
+    return `
 
-<tr>
+      <tr>
 
-<td>
-${escapeHtml(b.name)}
-</td>
+        <td>
+          ${escapeHtml(b.name)}
+        </td>
 
-<td>
-${escapeHtml(b.owner || "-")}
-</td>
+        <td>
+          ${escapeHtml(b.owner || "-")}
+        </td>
 
-<td>
-${escapeHtml(
-getAutomationName(
-b.automationId
-)
-)}
-</td>
+        <td>
+          ${escapeHtml(
+            getAutomationName(
+              b.automationSlug
+            )
+          )}
+        </td>
 
-<td>
-${escapeHtml(b.pack || "-")}
-</td>
+        <td>
+          ${escapeHtml(
+            b.status || "-"
+          )}
+        </td>
 
-<td>
-${escapeHtml(b.status || "-")}
-</td>
+        <td>
 
-<td>
-${dateTR(b.end)}
-</td>
+          <button
+            class="primary"
+            onclick="openBusiness('${b.id}')"
+          >
+            Aç
+          </button>
 
-</tr>
+        </td>
 
-`;
+      </tr>
 
-}
-)
-.join("")
-:
-`
+    `;
 
-<tr>
+  })
+  .join("")
+  :
+  `
 
-<td
-colspan="6"
-class="empty"
->
+    <tr>
 
-Henüz işletme eklenmedi.
+      <td
+        colspan="5"
+        class="empty"
+      >
+        Henüz işletme yok.
+      </td>
 
-</td>
+    </tr>
 
-</tr>
-
-`;
+  `;
 
 }
 
@@ -3010,89 +2892,42 @@ Henüz işletme eklenmedi.
 
 function renderStats(){
 
-const active =
-businesses
-.filter(
-x =>
-x.status === "Aktif"
-);
+  const active =
+  businesses.filter(
+    b =>
+    b.status === "Aktif"
+  ).length;
 
 
-const revenue =
-active
-.reduce(
-function(total,b){
-
-return total +
-Number(
-b.price || 0
-);
-
-},
-0
-);
+  const passive =
+  businesses.filter(
+    b =>
+    b.status === "Pasif"
+  ).length;
 
 
-document.getElementById(
-"statBusinesses"
-)
-.textContent =
-businesses.length;
+  document.getElementById(
+    "statBusinesses"
+  ).textContent =
+  businesses.length;
 
 
-document.getElementById(
-"statActive"
-)
-.textContent =
-active.length;
+  document.getElementById(
+    "statActive"
+  ).textContent =
+  active;
 
 
-document.getElementById(
-"statAutomations"
-)
-.textContent =
-automations.length;
+  document.getElementById(
+    "statPassive"
+  ).textContent =
+  passive;
 
 
-document.getElementById(
-"statRevenue"
-)
-.textContent =
-money(
-revenue
-);
-
-
-document.getElementById(
-"financeMonthly"
-)
-.textContent =
-money(
-revenue
-);
-
-
-document.getElementById(
-"financeActive"
-)
-.textContent =
-active.length;
-
-
-document.getElementById(
-"financePassive"
-)
-.textContent =
-businesses.length
--
-active.length;
-
-
-document.getElementById(
-"financeTotal"
-)
-.textContent =
-businesses.length;
+  document.getElementById(
+    "statAutomations"
+  ).textContent =
+  automations.length;
 
 }
 
@@ -3103,177 +2938,154 @@ businesses.length;
 
 function renderAll(){
 
-renderAutomations();
+  renderAutomations();
 
-window.renderBusinesses();
+  window.renderBusinesses();
 
-renderSubscriptions();
+  renderRecent();
 
-renderRecent();
-
-renderStats();
+  renderStats();
 
 }
 
 
 /* =========================
-   OTOMASYONLARI İLK KEZ EKLE
+   FIRESTORE
 ========================= */
 
-async function seedAutomations(){
+function startFirestore(){
 
-const snapshot =
-await getDocs(
-collection(
-db,
-"automations"
-)
-);
+  stopFirestore();
 
 
-if(
-!snapshot.empty
-){
+  listeners.push(
 
-return;
+    onSnapshot(
 
-}
+      collection(
+        db,
+        "businesses"
+      ),
 
+      function(snapshot){
 
-for(
-const item
-of DEFAULT_AUTOMATIONS
-){
+        businesses =
+        snapshot.docs.map(
+        function(document){
 
-await addDoc(
+          return {
 
-collection(
-db,
-"automations"
-),
+            id:
+            document.id,
 
-{
+            ...document.data()
 
-...item,
+          };
 
-createdAt:
-serverTimestamp()
-
-}
-
-);
-
-}
-
-}
+        });
 
 
-/* =========================
-   FIRESTORE CANLI VERİ
-========================= */
+        renderAll();
 
-async function startFirestore(){
+      },
 
-stopFirestore();
+      function(error){
 
+        console.error(
+          "Businesses listener:",
+          error
+        );
 
-await seedAutomations();
+        alert(
+          "İşletmeler okunamadı: "
+          +
+          (
+            error.code ||
+            error.message
+          )
+        );
 
+      }
 
-listeners.push(
+    )
 
-onSnapshot(
-
-collection(
-db,
-"businesses"
-),
-
-function(snapshot){
-
-businesses =
-snapshot.docs
-.map(
-function(d){
-
-return {
-
-id:d.id,
-
-...d.data()
-
-};
-
-}
-);
+  );
 
 
-renderAll();
+  listeners.push(
 
-}
+    onSnapshot(
 
-)
+      collection(
+        db,
+        "automations"
+      ),
 
-);
+      function(snapshot){
 
+        automations =
+        snapshot.docs.map(
+        function(document){
 
-listeners.push(
+          return {
 
-onSnapshot(
+            id:
+            document.id,
 
-collection(
-db,
-"automations"
-),
+            ...document.data()
 
-function(snapshot){
+          };
 
-automations =
-snapshot.docs
-.map(
-function(d){
-
-return {
-
-id:d.id,
-
-...d.data()
-
-};
-
-}
-);
+        });
 
 
-renderAll();
+        fillAutomationSelect();
 
-}
+        renderAll();
 
-)
+      },
 
-);
+      function(error){
+
+        console.error(
+          "Automations listener:",
+          error
+        );
+
+        alert(
+          "Otomasyonlar okunamadı: "
+          +
+          (
+            error.code ||
+            error.message
+          )
+        );
+
+      }
+
+    )
+
+  );
 
 }
 
 
 function stopFirestore(){
 
-listeners
-.forEach(
-function(unsubscribe){
+  listeners.forEach(
+  function(unsubscribe){
 
-try{
+    try{
 
-unsubscribe();
+      unsubscribe();
 
-}
-catch(e){}
+    }
+    catch(error){}
 
-}
-);
+  });
 
 
-listeners = [];
+  listeners = [];
 
 }
 
@@ -3287,89 +3099,92 @@ loginBtn
 "click",
 async function(){
 
-loginMsg.style.color =
-"#c83737";
+  loginMsg.style.color =
+  "#c83737";
 
 
-loginMsg.textContent =
-"";
+  loginMsg.textContent =
+  "";
 
 
-const email =
-loginEmail.value.trim();
+  const email =
+  loginEmail.value.trim();
 
 
-const password =
-loginPassword.value;
+  const password =
+  loginPassword.value;
 
 
-if(
-!email ||
-!password
-){
+  if(
+    !email ||
+    !password
+  ){
 
-loginMsg.textContent =
-"E-posta ve şifreyi girin.";
+    loginMsg.textContent =
+    "E-posta ve şifreyi girin.";
 
-return;
+    return;
 
-}
-
-
-loginBtn.disabled =
-true;
+  }
 
 
-loginBtn.textContent =
-"Giriş yapılıyor...";
+  loginBtn.disabled =
+  true;
 
 
-try{
+  loginBtn.textContent =
+  "Giriş yapılıyor...";
 
 
-await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
+  try{
 
 
-loginPassword.value =
-"";
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
 
-}catch(error){
-
-console.error(error);
-
-
-loginMsg.textContent =
-"Firebase hatası: "
-+
-(
-error.code ||
-"bilinmeyen-hata"
-);
+    loginPassword.value =
+    "";
 
 
-}finally{
+  }
+  catch(error){
 
 
-loginBtn.disabled =
-false;
+    console.error(error);
 
 
-loginBtn.textContent =
-"Giriş Yap";
+    loginMsg.textContent =
+    "Firebase hatası: "
+    +
+    (
+      error.code ||
+      error.message
+    );
 
-}
+
+  }
+  finally{
+
+
+    loginBtn.disabled =
+    false;
+
+
+    loginBtn.textContent =
+    "Giriş Yap";
+
+  }
 
 }
 );
 
 
 /* =========================
-   ENTER İLE GİRİŞ
+   ENTER
 ========================= */
 
 loginPassword
@@ -3377,13 +3192,13 @@ loginPassword
 "keydown",
 function(event){
 
-if(
-event.key === "Enter"
-){
+  if(
+    event.key === "Enter"
+  ){
 
-loginBtn.click();
+    loginBtn.click();
 
-}
+  }
 
 }
 );
@@ -3398,80 +3213,83 @@ forgotBtn
 "click",
 async function(){
 
-const email =
-loginEmail.value.trim();
+  const email =
+  loginEmail.value.trim();
 
 
-loginMsg.style.color =
-"#c83737";
+  loginMsg.style.color =
+  "#c83737";
 
 
-if(!email){
+  if(!email){
 
-loginMsg.textContent =
-"Önce e-posta adresinizi yazın.";
+    loginMsg.textContent =
+    "Önce e-posta adresinizi yazın.";
 
-loginEmail.focus();
+    loginEmail.focus();
 
-return;
+    return;
 
-}
-
-
-forgotBtn.disabled =
-true;
+  }
 
 
-forgotBtn.textContent =
-"Gönderiliyor...";
+  forgotBtn.disabled =
+  true;
 
 
-try{
+  forgotBtn.textContent =
+  "Gönderiliyor...";
 
 
-await sendPasswordResetEmail(
-auth,
-email
-);
+  try{
 
 
-loginMsg.style.color =
-"#168040";
+    await sendPasswordResetEmail(
+      auth,
+      email
+    );
 
 
-loginMsg.textContent =
-"Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.";
+    loginMsg.style.color =
+    "#16834a";
 
 
-}catch(error){
-
-console.error(error);
-
-
-loginMsg.style.color =
-"#c83737";
+    loginMsg.textContent =
+    "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.";
 
 
-loginMsg.textContent =
-"Şifre sıfırlama hatası: "
-+
-(
-error.code ||
-error.message
-);
+  }
+  catch(error){
 
 
-}finally{
+    console.error(error);
 
 
-forgotBtn.disabled =
-false;
+    loginMsg.style.color =
+    "#c83737";
 
 
-forgotBtn.textContent =
-"Şifremi Unuttum";
+    loginMsg.textContent =
+    "Şifre sıfırlama hatası: "
+    +
+    (
+      error.code ||
+      error.message
+    );
 
-}
+
+  }
+  finally{
+
+
+    forgotBtn.disabled =
+    false;
+
+
+    forgotBtn.textContent =
+    "Şifremi Unuttum";
+
+  }
 
 }
 );
@@ -3484,18 +3302,16 @@ forgotBtn.textContent =
 window.logout =
 async function(){
 
-try{
+  try{
 
-await signOut(
-auth
-);
+    await signOut(auth);
 
-}
-catch(error){
+  }
+  catch(error){
 
-console.error(error);
+    console.error(error);
 
-}
+  }
 
 };
 
@@ -3505,78 +3321,51 @@ console.error(error);
 ========================= */
 
 onAuthStateChanged(
-
 auth,
+function(user){
 
-async function(user){
-
-if(user){
-
-
-loginGate
-.classList
-.add(
-"hidden"
-);
+  if(user){
 
 
-userEmail.textContent =
-user.email ||
-"Firebase kullanıcı";
+    loginGate
+    .classList
+    .add("hidden");
 
 
-try{
+    userEmail.textContent =
+    user.email ||
+    "Firebase kullanıcı";
 
 
-await startFirestore();
+    startFirestore();
 
 
-}catch(error){
-
-console.error(error);
-
-
-alert(
-"Firestore açılamadı: "
-+
-(
-error.code ||
-error.message
-)
-);
-
-}
+  }
+  else{
 
 
-}
-else{
+    stopFirestore();
 
 
-stopFirestore();
+    businesses = [];
+
+    automations = [];
 
 
-businesses = [];
-
-automations = [];
+    renderAll();
 
 
-renderAll();
+    loginGate
+    .classList
+    .remove("hidden");
 
 
-loginGate
-.classList
-.remove(
-"hidden"
-);
+    userEmail.textContent =
+    "NevoPay";
 
-
-userEmail.textContent =
-"NevoPay";
+  }
 
 }
-
-}
-
 );
 
 
