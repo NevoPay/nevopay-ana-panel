@@ -3,9 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>NevoPay Ana Firma Paneli</title>
 
 <style>
+
 :root{
   --bg:#f4f7fb;
   --text:#152033;
@@ -19,7 +21,9 @@
   --red:#d64545;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -28,11 +32,20 @@ body{
   color:var(--text);
 }
 
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
 
 /* =========================
-   GİRİŞ EKRANI
+   GİRİŞ
 ========================= */
 
 .loginGate{
@@ -96,10 +109,6 @@ button{cursor:pointer}
   margin-top:10px;
 }
 
-.loginBtn:disabled{
-  opacity:.6;
-}
-
 .forgotBtn{
   width:100%;
   border:0;
@@ -123,6 +132,7 @@ button{cursor:pointer}
   line-height:1.4;
   word-break:break-word;
 }
+
 
 /* =========================
    ANA PANEL
@@ -184,7 +194,9 @@ button{cursor:pointer}
   font-size:13px;
 }
 
-.main{min-width:0}
+.main{
+  min-width:0;
+}
 
 .top{
   min-height:66px;
@@ -232,8 +244,13 @@ button{cursor:pointer}
   margin:auto;
 }
 
-.view{display:none}
-.view.active{display:block}
+.view{
+  display:none;
+}
+
+.view.active{
+  display:block;
+}
 
 .hero{
   display:flex;
@@ -279,9 +296,17 @@ button{cursor:pointer}
   align-items:center;
 }
 
-.stat small{color:var(--muted)}
-.stat b{font-size:28px}
-.stat .ico{font-size:30px}
+.stat small{
+  color:var(--muted);
+}
+
+.stat b{
+  font-size:28px;
+}
+
+.stat .ico{
+  font-size:30px;
+}
 
 .sectionTitle{
   display:flex;
@@ -291,7 +316,9 @@ button{cursor:pointer}
   margin:24px 0 12px;
 }
 
-.sectionTitle h3{margin:0}
+.sectionTitle h3{
+  margin:0;
+}
 
 .modules{
   display:grid;
@@ -362,7 +389,7 @@ button{cursor:pointer}
 .ghost,
 .danger{
   border-radius:10px;
-  padding:10px 14px;
+  padding:9px 12px;
   font-weight:800;
 }
 
@@ -433,10 +460,11 @@ button{cursor:pointer}
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:900px;
+  min-width:1150px;
 }
 
-th,td{
+th,
+td{
   padding:12px;
   border-bottom:1px solid #edf0f4;
   text-align:left;
@@ -446,6 +474,12 @@ th,td{
 th{
   background:#fafbfc;
   color:#667386;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
 }
 
 .empty{
@@ -472,6 +506,7 @@ th{
   color:var(--muted);
 }
 
+
 /* =========================
    MODAL
 ========================= */
@@ -492,7 +527,9 @@ th{
 }
 
 .modalBox{
-  width:min(96%,650px);
+  width:min(96%,720px);
+  max-height:92vh;
+  overflow:auto;
   background:#fff;
   border-radius:18px;
   padding:22px;
@@ -529,12 +566,22 @@ th{
 }
 
 @media(max-width:1000px){
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .modules{grid-template-columns:repeat(2,1fr)}
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .modules{
+    grid-template-columns:repeat(2,1fr);
+  }
+
 }
 
 @media(max-width:760px){
-  .app{grid-template-columns:1fr}
+
+  .app{
+    grid-template-columns:1fr;
+  }
 
   .side{
     position:relative;
@@ -572,227 +619,295 @@ th{
   .form{
     grid-template-columns:1fr;
   }
+
+  .form .wide{
+    grid-column:auto;
+  }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- GİRİŞ -->
+
+<!-- =========================
+     GİRİŞ
+========================= -->
 
 <div id="loginGate" class="loginGate">
 
-  <div class="loginBox">
+<div class="loginBox">
 
-    <div class="loginLogo">
-      NEVOPAY
-    </div>
+<div class="loginLogo">
+NEVOPAY
+</div>
 
-    <div class="loginSub">
-      Ana Firma Yönetim Paneli
-    </div>
+<div class="loginSub">
+Ana Firma Yönetim Paneli
+</div>
 
-    <input
-      id="loginEmail"
-      type="email"
-      placeholder="E-posta adresi"
-      autocomplete="username"
-    >
+<input
+id="loginEmail"
+type="email"
+placeholder="E-posta adresi"
+autocomplete="username"
+>
 
-    <input
-      id="loginPassword"
-      type="password"
-      placeholder="Şifre"
-      autocomplete="current-password"
-    >
+<input
+id="loginPassword"
+type="password"
+placeholder="Şifre"
+autocomplete="current-password"
+>
 
-    <button
-      id="loginBtn"
-      class="loginBtn"
-    >
-      Giriş Yap
-    </button>
+<button
+id="loginBtn"
+class="loginBtn"
+>
+Giriş Yap
+</button>
 
-    <button
-      id="forgotBtn"
-      class="forgotBtn"
-      type="button"
-    >
-      Şifremi Unuttum
-    </button>
+<button
+id="forgotBtn"
+class="forgotBtn"
+type="button"
+>
+Şifremi Unuttum
+</button>
 
-    <div
-      id="loginMsg"
-      class="loginMsg"
-    ></div>
-
-  </div>
+<div
+id="loginMsg"
+class="loginMsg"
+></div>
 
 </div>
 
-<!-- PANEL -->
+</div>
+
+
+<!-- =========================
+     PANEL
+========================= -->
 
 <div class="app">
 
+
 <aside class="side">
 
-  <div class="brand">
-    NEVOPAY
-  </div>
+<div class="brand">
+NEVOPAY
+</div>
 
-  <div class="tag">
-    ANA FİRMA YÖNETİM PANELİ
-  </div>
+<div class="tag">
+ANA FİRMA YÖNETİM PANELİ
+</div>
 
-  <nav class="nav">
 
-    <button
-      class="active"
-      onclick="showView('dashboard',this)"
-    >
-      ⌂ Ana Sayfa
-    </button>
+<nav class="nav">
 
-    <button onclick="showView('customers',this)">
-      👥 Müşteriler
-    </button>
+<button
+class="active"
+onclick="showView('dashboard',this)"
+>
+⌂ Ana Sayfa
+</button>
 
-    <button onclick="showView('businesses',this)">
-      🏢 İşletmeler
-    </button>
+<button
+onclick="showView('businesses',this)"
+>
+🏢 İşletmeler
+</button>
 
-    <button onclick="showView('automations',this)">
-      ⚙ Otomasyonlar
-    </button>
+<button
+onclick="showView('automations',this)"
+>
+⚙ Otomasyonlar
+</button>
 
-    <button onclick="showView('packages',this)">
-      📦 Paketler
-    </button>
+<button
+onclick="showView('packages',this)"
+>
+📦 Paketler
+</button>
 
-    <button onclick="showView('subscriptions',this)">
-      📅 Abonelikler
-    </button>
+<button
+onclick="showView('subscriptions',this)"
+>
+📅 Abonelikler
+</button>
 
-    <button onclick="showView('finance',this)">
-      ₺ Finans
-    </button>
+<button
+onclick="showView('finance',this)"
+>
+₺ Finans
+</button>
 
-    <button onclick="showView('settings',this)">
-      ⚙ Ayarlar
-    </button>
+<button
+onclick="showView('settings',this)"
+>
+⚙ Ayarlar
+</button>
 
-  </nav>
+</nav>
 
-  <div class="sideFoot">
-    <b>NevoPay</b><br>
-    Süper Yönetici
-  </div>
+
+<div class="sideFoot">
+<b>NevoPay</b><br>
+Süper Yönetici
+</div>
 
 </aside>
 
+
 <main class="main">
+
 
 <header class="top">
 
-  <h2>
-    NevoPay Yönetim Paneli
-  </h2>
+<h2>
+NevoPay Yönetim Paneli
+</h2>
 
-  <div class="search">
-    Müşteri, işletme veya otomasyon ara...
-  </div>
+<div class="search">
+İşletme veya otomasyon ara...
+</div>
 
-  <div class="user">
-    <b>Süper Yönetici</b><br>
-    <span id="userEmail">NevoPay</span>
-  </div>
+<div class="user">
+<b>Süper Yönetici</b><br>
+<span id="userEmail">NevoPay</span>
+</div>
 
-  <button
-    class="logoutBtn"
-    onclick="logout()"
-  >
-    Çıkış
-  </button>
+<button
+class="logoutBtn"
+onclick="logout()"
+>
+Çıkış
+</button>
 
 </header>
 
+
 <div class="content">
 
-<!-- ANA SAYFA -->
+
+<!-- =========================
+     ANA SAYFA
+========================= -->
 
 <section id="dashboard" class="view active">
 
 <div class="hero">
 
-  <div>
-    <h1>NevoPay Ana Firma Paneli</h1>
-    <p>
-      Tüm müşteriler, işletmeler ve otomasyonlar tek merkezden yönetilir.
-    </p>
-  </div>
+<div>
 
-  <div class="pill">
-    Merkezi Yönetim
-  </div>
+<h1>
+NevoPay Ana Firma Paneli
+</h1>
+
+<p>
+Tüm işletmeler ve otomasyonlar tek merkezden yönetilir.
+</p>
 
 </div>
+
+<div class="pill">
+Merkezi Yönetim
+</div>
+
+</div>
+
 
 <div class="stats">
 
 <div class="stat">
-  <div>
-    <small>Toplam Müşteri</small><br>
-    <b id="statCustomers">0</b>
-  </div>
-  <span class="ico">👥</span>
+
+<div>
+<small>Toplam İşletme</small><br>
+<b id="statBusinesses">0</b>
 </div>
+
+<span class="ico">🏢</span>
+
+</div>
+
 
 <div class="stat">
-  <div>
-    <small>Toplam İşletme</small><br>
-    <b id="statBusinesses">0</b>
-  </div>
-  <span class="ico">🏢</span>
+
+<div>
+<small>Aktif İşletme</small><br>
+<b id="statActive">0</b>
 </div>
+
+<span class="ico">✅</span>
+
+</div>
+
 
 <div class="stat">
-  <div>
-    <small>Aktif Abonelik</small><br>
-    <b id="statActive">0</b>
-  </div>
-  <span class="ico">✅</span>
+
+<div>
+<small>Otomasyon Sayısı</small><br>
+<b id="statAutomations">0</b>
 </div>
+
+<span class="ico">⚙</span>
+
+</div>
+
 
 <div class="stat">
-  <div>
-    <small>Aylık Gelir</small><br>
-    <b id="statRevenue">₺0</b>
-  </div>
-  <span class="ico">₺</span>
+
+<div>
+<small>Aylık Gelir</small><br>
+<b id="statRevenue">₺0</b>
+</div>
+
+<span class="ico">₺</span>
+
 </div>
 
 </div>
+
 
 <div class="sectionTitle">
 
-  <h3>
-    NevoPay Ürünleri / Otomasyonları
-  </h3>
+<h3>
+NevoPay Ürünleri / Otomasyonları
+</h3>
 
-  <button
-    class="primary"
-    onclick="openAutomationModal()"
-  >
-    ＋ Yeni Otomasyon
-  </button>
+<button
+class="primary"
+onclick="openAutomationModal()"
+>
+＋ Yeni Otomasyon
+</button>
 
 </div>
 
-<div id="moduleGrid" class="modules"></div>
+
+<div
+id="moduleGrid"
+class="modules"
+></div>
+
 
 <div class="sectionTitle">
-  <h3>Son Eklenen İşletmeler</h3>
+
+<h3>
+Son Eklenen İşletmeler
+</h3>
+
+<button
+class="primary"
+onclick="openBusinessModal()"
+>
+＋ Yeni İşletme
+</button>
+
 </div>
+
 
 <div class="panel">
 
@@ -801,14 +916,16 @@ th{
 <table>
 
 <thead>
+
 <tr>
-  <th>İşletme</th>
-  <th>Müşteri</th>
-  <th>Otomasyon</th>
-  <th>Paket</th>
-  <th>Durum</th>
-  <th>Bitiş</th>
+<th>İşletme</th>
+<th>Yetkili</th>
+<th>Otomasyon</th>
+<th>Paket</th>
+<th>Durum</th>
+<th>Bitiş</th>
 </tr>
+
 </thead>
 
 <tbody id="recentRows"></tbody>
@@ -821,64 +938,10 @@ th{
 
 </section>
 
-<!-- MÜŞTERİLER -->
 
-<section id="customers" class="view">
-
-<div class="panel">
-
-<div class="panelHead">
-
-  <h3>👥 Müşteriler</h3>
-
-  <button
-    class="primary"
-    onclick="openCustomerModal()"
-  >
-    ＋ Yeni Müşteri
-  </button>
-
-</div>
-
-<div class="panelBody">
-
-<div class="toolbar">
-
-<input
-  id="customerSearch"
-  placeholder="Müşteri ara..."
-  oninput="renderCustomers()"
->
-
-</div>
-
-<div class="tableWrap">
-
-<table>
-
-<thead>
-<tr>
-  <th>#</th>
-  <th>Ad Soyad / Firma</th>
-  <th>Telefon</th>
-  <th>E-posta</th>
-  <th>İşletme Sayısı</th>
-</tr>
-</thead>
-
-<tbody id="customerRows"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- İŞLETMELER -->
+<!-- =========================
+     İŞLETMELER
+========================= -->
 
 <section id="businesses" class="view">
 
@@ -886,54 +949,74 @@ th{
 
 <div class="panelHead">
 
-  <h3>🏢 İşletmeler</h3>
+<h3>
+🏢 İşletmeler
+</h3>
 
-  <button
-    class="primary"
-    onclick="openBusinessModal()"
-  >
-    ＋ Yeni İşletme
-  </button>
+<button
+class="primary"
+onclick="openBusinessModal()"
+>
+＋ Yeni İşletme
+</button>
 
 </div>
+
 
 <div class="panelBody">
 
 <div class="toolbar">
 
 <input
-  id="businessSearch"
-  placeholder="İşletme, müşteri veya şehir ara..."
-  oninput="renderBusinesses()"
+id="businessSearch"
+placeholder="İşletme, yetkili, telefon, e-posta veya şehir ara..."
+oninput="renderBusinesses()"
 >
 
 <select
-  id="businessFilter"
-  onchange="renderBusinesses()"
+id="businessFilter"
+onchange="renderBusinesses()"
 >
-<option value="">Tümü</option>
-<option>Aktif</option>
-<option>Pasif</option>
+
+<option value="">
+Tümü
+</option>
+
+<option>
+Aktif
+</option>
+
+<option>
+Pasif
+</option>
+
 </select>
 
 </div>
+
 
 <div class="tableWrap">
 
 <table>
 
 <thead>
+
 <tr>
-  <th>#</th>
-  <th>İşletme</th>
-  <th>Müşteri</th>
-  <th>Şehir</th>
-  <th>Otomasyon</th>
-  <th>Paket</th>
-  <th>Durum</th>
-  <th>Bitiş</th>
-  <th>İşlem</th>
+
+<th>#</th>
+<th>İşletme</th>
+<th>Yetkili</th>
+<th>Telefon</th>
+<th>E-posta</th>
+<th>Şehir</th>
+<th>Otomasyon</th>
+<th>Paket</th>
+<th>Durum</th>
+<th>Bitiş</th>
+<th>İşlem</th>
+
 </tr>
+
 </thead>
 
 <tbody id="businessRows"></tbody>
@@ -948,28 +1031,39 @@ th{
 
 </section>
 
-<!-- OTOMASYONLAR -->
+
+<!-- =========================
+     OTOMASYONLAR
+========================= -->
 
 <section id="automations" class="view">
 
 <div class="sectionTitle">
 
-  <h3>⚙ Otomasyonlar</h3>
+<h3>
+⚙ Otomasyonlar
+</h3>
 
-  <button
-    class="primary"
-    onclick="openAutomationModal()"
-  >
-    ＋ Yeni Otomasyon
-  </button>
+<button
+class="primary"
+onclick="openAutomationModal()"
+>
+＋ Yeni Otomasyon
+</button>
 
 </div>
 
-<div id="automationGrid" class="modules"></div>
+<div
+id="automationGrid"
+class="modules"
+></div>
 
 </section>
 
-<!-- PAKETLER -->
+
+<!-- =========================
+     PAKETLER
+========================= -->
 
 <section id="packages" class="view">
 
@@ -977,7 +1071,9 @@ th{
 
 <div class="card">
 
-<h3>Standart Paket</h3>
+<h3>
+Standart Paket
+</h3>
 
 <p>
 Temel özellikler ve tek işletme kullanımı.
@@ -985,9 +1081,12 @@ Temel özellikler ve tek işletme kullanımı.
 
 </div>
 
+
 <div class="card">
 
-<h3>Pro Paket</h3>
+<h3>
+Pro Paket
+</h3>
 
 <p>
 Gelişmiş özellikler ve merkezi yönetim.
@@ -999,29 +1098,42 @@ Gelişmiş özellikler ve merkezi yönetim.
 
 </section>
 
-<!-- ABONELİKLER -->
+
+<!-- =========================
+     ABONELİKLER
+========================= -->
 
 <section id="subscriptions" class="view">
 
 <div class="panel">
 
 <div class="panelHead">
-  <h3>📅 Abonelikler</h3>
+
+<h3>
+📅 Abonelikler
+</h3>
+
 </div>
+
 
 <div class="tableWrap">
 
 <table>
 
 <thead>
+
 <tr>
-  <th>İşletme</th>
-  <th>Paket</th>
-  <th>Başlangıç</th>
-  <th>Bitiş</th>
-  <th>Durum</th>
-  <th>Aylık Ücret</th>
+
+<th>İşletme</th>
+<th>Yetkili</th>
+<th>Paket</th>
+<th>Başlangıç</th>
+<th>Bitiş</th>
+<th>Durum</th>
+<th>Aylık Ücret</th>
+
 </tr>
+
 </thead>
 
 <tbody id="subscriptionRows"></tbody>
@@ -1034,7 +1146,10 @@ Gelişmiş özellikler ve merkezi yönetim.
 
 </section>
 
-<!-- FİNANS -->
+
+<!-- =========================
+     FİNANS
+========================= -->
 
 <section id="finance" class="view">
 
@@ -1043,35 +1158,38 @@ Gelişmiş özellikler ve merkezi yönetim.
 <div class="stat">
 
 <div>
-  <small>Aylık Gelir</small><br>
-  <b id="financeMonthly">₺0</b>
+<small>Aylık Gelir</small><br>
+<b id="financeMonthly">₺0</b>
 </div>
 
 </div>
+
 
 <div class="stat">
 
 <div>
-  <small>Aktif İşletme</small><br>
-  <b id="financeActive">0</b>
+<small>Aktif İşletme</small><br>
+<b id="financeActive">0</b>
 </div>
 
 </div>
+
 
 <div class="stat">
 
 <div>
-  <small>Pasif İşletme</small><br>
-  <b id="financePassive">0</b>
+<small>Pasif İşletme</small><br>
+<b id="financePassive">0</b>
 </div>
 
 </div>
+
 
 <div class="stat">
 
 <div>
-  <small>Toplam Müşteri</small><br>
-  <b id="financeCustomers">0</b>
+<small>Toplam İşletme</small><br>
+<b id="financeTotal">0</b>
 </div>
 
 </div>
@@ -1080,7 +1198,10 @@ Gelişmiş özellikler ve merkezi yönetim.
 
 </section>
 
-<!-- AYARLAR -->
+
+<!-- =========================
+     AYARLAR
+========================= -->
 
 <section id="settings" class="view">
 
@@ -1095,12 +1216,13 @@ Firebase Authentication ve Cloud Firestore bağlantısı aktif.
 </p>
 
 <p class="small">
-Ana firma veritabanı süper yönetici hesabına bağlıdır.
+Ana firma veritabanı Süper Yönetici hesabına bağlıdır.
 </p>
 
 </div>
 
 </section>
+
 
 </div>
 
@@ -1108,54 +1230,130 @@ Ana firma veritabanı süper yönetici hesabına bağlıdır.
 
 </div>
 
-<!-- MÜŞTERİ MODAL -->
 
-<div id="customerModal" class="modal">
+<!-- =========================
+     İŞLETME MODAL
+========================= -->
+
+<div
+id="businessModal"
+class="modal"
+>
 
 <div class="modalBox">
 
-<h3>
-Yeni Müşteri Ekle
+<h3 id="businessModalTitle">
+Yeni İşletme Ekle
 </h3>
+
 
 <div class="form">
 
 <input
-  id="custName"
-  class="wide"
-  placeholder="Ad Soyad / Firma adı"
+id="bizName"
+class="wide"
+placeholder="İşletme adı"
 >
 
 <input
-  id="custPhone"
-  placeholder="Telefon"
+id="bizOwner"
+placeholder="Yetkili kişi"
 >
 
 <input
-  id="custEmail"
-  placeholder="E-posta"
+id="bizPhone"
+placeholder="Telefon"
 >
+
+<input
+id="bizEmail"
+placeholder="E-posta"
+type="email"
+>
+
+<input
+id="bizCity"
+placeholder="Şehir / İlçe"
+>
+
+
+<select id="bizAutomation"></select>
+
+
+<select id="bizPackage">
+
+<option>
+Standart
+</option>
+
+<option>
+Pro
+</option>
+
+</select>
+
+
+<input
+id="bizStart"
+type="date"
+>
+
+
+<input
+id="bizEnd"
+type="date"
+>
+
+
+<select id="bizStatus">
+
+<option>
+Aktif
+</option>
+
+<option>
+Pasif
+</option>
+
+</select>
+
+
+<input
+id="bizPrice"
+type="number"
+placeholder="Aylık ücret"
+>
+
+
+<input
+id="bizUrl"
+class="wide"
+placeholder="İşletme panel linki"
+>
+
 
 <textarea
-  id="custNote"
-  class="wide"
-  placeholder="Not"
+id="bizNote"
+class="wide"
+placeholder="Not"
 ></textarea>
 
 </div>
 
+
 <div class="modalActions">
 
 <button
-  class="ghost"
-  onclick="closeModal('customerModal')"
+class="ghost"
+onclick="closeModal('businessModal')"
 >
 Vazgeç
 </button>
 
 <button
-  class="primary"
-  onclick="saveCustomer()"
+id="businessSaveBtn"
+class="primary"
+onclick="saveBusiness()"
 >
 Kaydet
 </button>
@@ -1166,92 +1364,15 @@ Kaydet
 
 </div>
 
-<!-- İŞLETME MODAL -->
 
-<div id="businessModal" class="modal">
+<!-- =========================
+     OTOMASYON MODAL
+========================= -->
 
-<div class="modalBox">
-
-<h3>
-Yeni İşletme Ekle
-</h3>
-
-<div class="form">
-
-<input
-  id="bizName"
-  class="wide"
-  placeholder="İşletme adı"
+<div
+id="automationModal"
+class="modal"
 >
-
-<select id="bizCustomer"></select>
-
-<input
-  id="bizCity"
-  placeholder="Şehir / İlçe"
->
-
-<select id="bizAutomation"></select>
-
-<select id="bizPackage">
-<option>Standart</option>
-<option>Pro</option>
-</select>
-
-<input
-  id="bizStart"
-  type="date"
->
-
-<input
-  id="bizEnd"
-  type="date"
->
-
-<select id="bizStatus">
-<option>Aktif</option>
-<option>Pasif</option>
-</select>
-
-<input
-  id="bizPrice"
-  type="number"
-  placeholder="Aylık ücret"
->
-
-<input
-  id="bizUrl"
-  class="wide"
-  placeholder="İşletme panel linki"
->
-
-</div>
-
-<div class="modalActions">
-
-<button
-  class="ghost"
-  onclick="closeModal('businessModal')"
->
-Vazgeç
-</button>
-
-<button
-  class="primary"
-  onclick="saveBusiness()"
->
-Kaydet
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- OTOMASYON MODAL -->
-
-<div id="automationModal" class="modal">
 
 <div class="modalBox">
 
@@ -1259,45 +1380,56 @@ Kaydet
 Yeni Otomasyon
 </h3>
 
+
 <div class="form">
 
 <input
-  id="autoName"
-  class="wide"
-  placeholder="Otomasyon adı"
+id="autoName"
+class="wide"
+placeholder="Otomasyon adı"
 >
 
 <input
-  id="autoIcon"
-  placeholder="İkon"
-  value="⚙"
+id="autoIcon"
+placeholder="İkon"
+value="⚙"
 >
 
+
 <select id="autoStatus">
-<option>Aktif</option>
-<option>Hazırlanıyor</option>
+
+<option>
+Aktif
+</option>
+
+<option>
+Hazırlanıyor
+</option>
+
 </select>
 
+
 <textarea
-  id="autoDesc"
-  class="wide"
-  placeholder="Açıklama"
+id="autoDesc"
+class="wide"
+placeholder="Açıklama"
 ></textarea>
 
 </div>
 
+
 <div class="modalActions">
 
 <button
-  class="ghost"
-  onclick="closeModal('automationModal')"
+class="ghost"
+onclick="closeModal('automationModal')"
 >
 Vazgeç
 </button>
 
 <button
-  class="primary"
-  onclick="saveAutomation()"
+class="primary"
+onclick="saveAutomation()"
 >
 Kaydet
 </button>
@@ -1308,7 +1440,13 @@ Kaydet
 
 </div>
 
+
 <script type="module">
+
+
+/* =========================
+   FIREBASE IMPORT
+========================= */
 
 import {
   initializeApp
@@ -1341,7 +1479,7 @@ from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
 /* =========================
-   FIREBASE CONFIG
+   FIREBASE AYARLARI
 ========================= */
 
 const firebaseConfig = {
@@ -1393,35 +1531,54 @@ document.getElementById(
 "loginGate"
 );
 
+
 const loginEmail =
 document.getElementById(
 "loginEmail"
 );
+
 
 const loginPassword =
 document.getElementById(
 "loginPassword"
 );
 
+
 const loginBtn =
 document.getElementById(
 "loginBtn"
 );
+
 
 const forgotBtn =
 document.getElementById(
 "forgotBtn"
 );
 
+
 const loginMsg =
 document.getElementById(
 "loginMsg"
 );
 
+
 const userEmail =
 document.getElementById(
 "userEmail"
 );
+
+
+/* =========================
+   VERİLER
+========================= */
+
+let businesses = [];
+
+let automations = [];
+
+let listeners = [];
+
+let editingBusinessId = null;
 
 
 /* =========================
@@ -1468,17 +1625,8 @@ const DEFAULT_AUTOMATIONS = [
 ];
 
 
-let customers = [];
-
-let businesses = [];
-
-let automations = [];
-
-let listeners = [];
-
-
 /* =========================
-   YARDIMCI FONKSİYONLAR
+   YARDIMCILAR
 ========================= */
 
 function escapeHtml(text){
@@ -1527,22 +1675,12 @@ return "-";
 
 }
 
-
 return new Date(
 value + "T00:00:00"
 )
 .toLocaleDateString(
 "tr-TR"
 );
-
-}
-
-
-function getCustomerName(id){
-
-return customers.find(
-x => x.id === id
-)?.name || "-";
 
 }
 
@@ -1613,7 +1751,7 @@ renderAll();
 
 
 /* =========================
-   MODALLAR
+   MODAL
 ========================= */
 
 window.openModal =
@@ -1637,78 +1775,64 @@ document
 "show"
 );
 
-};
-
-
-window.openCustomerModal =
-function(){
-
-window.openModal(
-"customerModal"
-);
-
-};
-
-
-window.openAutomationModal =
-function(){
-
-window.openModal(
-"automationModal"
-);
-
-};
-
-
-window.openBusinessModal =
-function(){
 
 if(
-customers.length === 0
+id === "businessModal"
 ){
 
-alert(
-"Önce müşteri ekleyin."
-);
+editingBusinessId = null;
 
-window.showView(
-"customers"
-);
+}
 
-return;
+};
+
+
+/* =========================
+   İŞLETME FORMU TEMİZLE
+========================= */
+
+function clearBusinessForm(){
+
+document.getElementById("bizName").value = "";
+
+document.getElementById("bizOwner").value = "";
+
+document.getElementById("bizPhone").value = "";
+
+document.getElementById("bizEmail").value = "";
+
+document.getElementById("bizCity").value = "";
+
+document.getElementById("bizPackage").value = "Standart";
+
+document.getElementById("bizStart").value = "";
+
+document.getElementById("bizEnd").value = "";
+
+document.getElementById("bizStatus").value = "Aktif";
+
+document.getElementById("bizPrice").value = "";
+
+document.getElementById("bizUrl").value = "";
+
+document.getElementById("bizNote").value = "";
 
 }
 
 
-const bizCustomer =
-document.getElementById(
-"bizCustomer"
-);
+/* =========================
+   OTOMASYON SELECT
+========================= */
 
+function fillAutomationSelect(){
 
-const bizAutomation =
+const select =
 document.getElementById(
 "bizAutomation"
 );
 
 
-bizCustomer.innerHTML =
-customers
-.map(
-function(c){
-
-return `
-<option value="${c.id}">
-${escapeHtml(c.name)}
-</option>
-`;
-
-}
-)
-.join("");
-
-
-bizAutomation.innerHTML =
+select.innerHTML =
 automations
 .map(
 function(a){
@@ -1723,6 +1847,38 @@ ${escapeHtml(a.name)}
 )
 .join("");
 
+}
+
+
+/* =========================
+   YENİ İŞLETME
+========================= */
+
+window.openBusinessModal =
+function(){
+
+editingBusinessId = null;
+
+
+clearBusinessForm();
+
+
+fillAutomationSelect();
+
+
+document.getElementById(
+"businessModalTitle"
+)
+.textContent =
+"Yeni İşletme Ekle";
+
+
+document.getElementById(
+"businessSaveBtn"
+)
+.textContent =
+"Kaydet";
+
 
 window.openModal(
 "businessModal"
@@ -1732,165 +1888,229 @@ window.openModal(
 
 
 /* =========================
-   MÜŞTERİ EKLE
+   İŞLETME DÜZENLE
 ========================= */
 
-window.saveCustomer =
-async function(){
+window.editBusiness =
+function(id){
 
-const custName =
-document.getElementById(
-"custName"
-);
-
-const custPhone =
-document.getElementById(
-"custPhone"
-);
-
-const custEmail =
-document.getElementById(
-"custEmail"
-);
-
-const custNote =
-document.getElementById(
-"custNote"
+const business =
+businesses.find(
+x => x.id === id
 );
 
 
-const name =
-custName.value.trim();
-
-
-if(!name){
-
-alert(
-"Müşteri adını yazın."
-);
+if(!business){
 
 return;
 
 }
 
 
-try{
+editingBusinessId =
+id;
 
-await addDoc(
-collection(
-db,
-"customers"
-),
-{
 
-name:name,
+fillAutomationSelect();
 
-phone:
-custPhone.value.trim(),
 
-email:
-custEmail.value.trim(),
+document.getElementById(
+"businessModalTitle"
+)
+.textContent =
+"İşletmeyi Düzenle";
 
-note:
-custNote.value.trim(),
 
-createdAt:
-serverTimestamp()
+document.getElementById(
+"businessSaveBtn"
+)
+.textContent =
+"Güncelle";
 
-}
+
+document.getElementById(
+"bizName"
+)
+.value =
+business.name || "";
+
+
+document.getElementById(
+"bizOwner"
+)
+.value =
+business.owner || "";
+
+
+document.getElementById(
+"bizPhone"
+)
+.value =
+business.phone || "";
+
+
+document.getElementById(
+"bizEmail"
+)
+.value =
+business.email || "";
+
+
+document.getElementById(
+"bizCity"
+)
+.value =
+business.city || "";
+
+
+document.getElementById(
+"bizAutomation"
+)
+.value =
+business.automationId || "";
+
+
+document.getElementById(
+"bizPackage"
+)
+.value =
+business.pack || "Standart";
+
+
+document.getElementById(
+"bizStart"
+)
+.value =
+business.start || "";
+
+
+document.getElementById(
+"bizEnd"
+)
+.value =
+business.end || "";
+
+
+document.getElementById(
+"bizStatus"
+)
+.value =
+business.status || "Aktif";
+
+
+document.getElementById(
+"bizPrice"
+)
+.value =
+business.price || "";
+
+
+document.getElementById(
+"bizUrl"
+)
+.value =
+business.url || "";
+
+
+document.getElementById(
+"bizNote"
+)
+.value =
+business.note || "";
+
+
+window.openModal(
+"businessModal"
 );
-
-
-window.closeModal(
-"customerModal"
-);
-
-
-custName.value = "";
-
-custPhone.value = "";
-
-custEmail.value = "";
-
-custNote.value = "";
-
-
-}catch(error){
-
-console.error(error);
-
-
-alert(
-"Müşteri kaydedilemedi: "
-+
-(error.code || error.message)
-);
-
-}
 
 };
 
 
 /* =========================
-   İŞLETME EKLE
+   İŞLETME KAYDET / GÜNCELLE
 ========================= */
 
 window.saveBusiness =
 async function(){
 
-const bizName =
+const name =
 document.getElementById(
 "bizName"
-);
+).value.trim();
 
-const bizCustomer =
+
+const owner =
 document.getElementById(
-"bizCustomer"
-);
+"bizOwner"
+).value.trim();
 
-const bizCity =
+
+const phone =
+document.getElementById(
+"bizPhone"
+).value.trim();
+
+
+const email =
+document.getElementById(
+"bizEmail"
+).value.trim();
+
+
+const city =
 document.getElementById(
 "bizCity"
-);
+).value.trim();
 
-const bizAutomation =
+
+const automationId =
 document.getElementById(
 "bizAutomation"
-);
+).value;
 
-const bizPackage =
+
+const pack =
 document.getElementById(
 "bizPackage"
-);
+).value;
 
-const bizStart =
+
+const start =
 document.getElementById(
 "bizStart"
-);
+).value;
 
-const bizEnd =
+
+const end =
 document.getElementById(
 "bizEnd"
-);
+).value;
 
-const bizStatus =
+
+const status =
 document.getElementById(
 "bizStatus"
-);
+).value;
 
-const bizPrice =
+
+const price =
+Number(
 document.getElementById(
 "bizPrice"
+).value || 0
 );
 
-const bizUrl =
+
+const url =
 document.getElementById(
 "bizUrl"
-);
+).value.trim();
 
 
-const name =
-bizName.value.trim();
+const note =
+document.getElementById(
+"bizNote"
+).value.trim();
 
 
 if(!name){
@@ -1904,51 +2124,75 @@ return;
 }
 
 
+const data = {
+
+name,
+owner,
+phone,
+email,
+city,
+automationId,
+pack,
+start,
+end,
+status,
+price,
+url,
+note
+
+};
+
+
 try{
 
+
+if(editingBusinessId){
+
+
+await updateDoc(
+
+doc(
+db,
+"businesses",
+editingBusinessId
+),
+
+{
+
+...data,
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+
+}
+else{
+
+
 await addDoc(
+
 collection(
 db,
 "businesses"
 ),
+
 {
 
-name:name,
-
-customerId:
-bizCustomer.value,
-
-city:
-bizCity.value.trim(),
-
-automationId:
-bizAutomation.value,
-
-pack:
-bizPackage.value,
-
-start:
-bizStart.value,
-
-end:
-bizEnd.value,
-
-status:
-bizStatus.value,
-
-price:
-Number(
-bizPrice.value || 0
-),
-
-url:
-bizUrl.value.trim(),
+...data,
 
 createdAt:
 serverTimestamp()
 
 }
+
 );
+
+
+}
 
 
 window.closeModal(
@@ -1956,17 +2200,10 @@ window.closeModal(
 );
 
 
-bizName.value = "";
+clearBusinessForm();
 
-bizCity.value = "";
 
-bizStart.value = "";
-
-bizEnd.value = "";
-
-bizPrice.value = "";
-
-bizUrl.value = "";
+editingBusinessId = null;
 
 
 }catch(error){
@@ -1977,7 +2214,11 @@ console.error(error);
 alert(
 "İşletme kaydedilemedi: "
 +
-(error.code || error.message)
+(
+error.code
+||
+error.message
+)
 );
 
 }
@@ -1989,32 +2230,41 @@ alert(
    OTOMASYON EKLE
 ========================= */
 
+window.openAutomationModal =
+function(){
+
+window.openModal(
+"automationModal"
+);
+
+};
+
+
 window.saveAutomation =
 async function(){
 
-const autoName =
+const name =
 document.getElementById(
 "autoName"
-);
+).value.trim();
 
-const autoIcon =
+
+const icon =
 document.getElementById(
 "autoIcon"
-);
+).value || "⚙";
 
-const autoStatus =
+
+const status =
 document.getElementById(
 "autoStatus"
-);
+).value;
 
-const autoDesc =
+
+const desc =
 document.getElementById(
 "autoDesc"
-);
-
-
-const name =
-autoName.value.trim();
+).value.trim();
 
 
 if(!name){
@@ -2030,28 +2280,26 @@ return;
 
 try{
 
+
 await addDoc(
+
 collection(
 db,
 "automations"
 ),
+
 {
 
-name:name,
-
-icon:
-autoIcon.value || "⚙",
-
-desc:
-autoDesc.value,
-
-status:
-autoStatus.value,
+name,
+icon,
+status,
+desc,
 
 createdAt:
 serverTimestamp()
 
 }
+
 );
 
 
@@ -2060,11 +2308,19 @@ window.closeModal(
 );
 
 
-autoName.value = "";
+document.getElementById(
+"autoName"
+).value = "";
 
-autoDesc.value = "";
 
-autoIcon.value = "⚙";
+document.getElementById(
+"autoIcon"
+).value = "⚙";
+
+
+document.getElementById(
+"autoDesc"
+).value = "";
 
 
 }catch(error){
@@ -2075,7 +2331,11 @@ console.error(error);
 alert(
 "Otomasyon kaydedilemedi: "
 +
-(error.code || error.message)
+(
+error.code
+||
+error.message
+)
 );
 
 }
@@ -2084,105 +2344,8 @@ alert(
 
 
 /* =========================
-   İŞLETME İŞLEMLERİ
+   İŞLETME AÇ
 ========================= */
-
-window.toggleBusiness =
-async function(id){
-
-const business =
-businesses.find(
-x => x.id === id
-);
-
-
-if(!business){
-
-return;
-
-}
-
-
-try{
-
-await updateDoc(
-doc(
-db,
-"businesses",
-id
-),
-{
-
-status:
-business.status === "Aktif"
-? "Pasif"
-: "Aktif"
-
-}
-);
-
-
-}catch(error){
-
-alert(
-"Durum değiştirilemedi: "
-+
-(error.code || error.message)
-);
-
-}
-
-};
-
-
-window.deleteBusiness =
-async function(id){
-
-const business =
-businesses.find(
-x => x.id === id
-);
-
-
-if(!business){
-
-return;
-
-}
-
-
-if(
-confirm(
-business.name +
-" silinsin mi?"
-)
-){
-
-try{
-
-await deleteDoc(
-doc(
-db,
-"businesses",
-id
-)
-);
-
-
-}catch(error){
-
-alert(
-"İşletme silinemedi: "
-+
-(error.code || error.message)
-);
-
-}
-
-}
-
-};
-
 
 window.openBusiness =
 function(id){
@@ -2217,6 +2380,132 @@ business.url,
 
 
 /* =========================
+   AKTİF / PASİF
+========================= */
+
+window.toggleBusiness =
+async function(id){
+
+const business =
+businesses.find(
+x => x.id === id
+);
+
+
+if(!business){
+
+return;
+
+}
+
+
+try{
+
+
+await updateDoc(
+
+doc(
+db,
+"businesses",
+id
+),
+
+{
+
+status:
+business.status === "Aktif"
+? "Pasif"
+: "Aktif",
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+
+}catch(error){
+
+alert(
+"Durum değiştirilemedi: "
++
+(
+error.code
+||
+error.message
+)
+);
+
+}
+
+};
+
+
+/* =========================
+   İŞLETME SİL
+========================= */
+
+window.deleteBusiness =
+async function(id){
+
+const business =
+businesses.find(
+x => x.id === id
+);
+
+
+if(!business){
+
+return;
+
+}
+
+
+if(
+!confirm(
+business.name +
+" işletmesi silinsin mi?"
+)
+){
+
+return;
+
+}
+
+
+try{
+
+
+await deleteDoc(
+
+doc(
+db,
+"businesses",
+id
+)
+
+);
+
+
+}catch(error){
+
+alert(
+"İşletme silinemedi: "
++
+(
+error.code
+||
+error.message
+)
+);
+
+}
+
+};
+
+
+/* =========================
    OTOMASYONLARI ÇİZ
 ========================= */
 
@@ -2226,6 +2515,7 @@ const moduleGrid =
 document.getElementById(
 "moduleGrid"
 );
+
 
 const automationGrid =
 document.getElementById(
@@ -2269,13 +2559,16 @@ ${escapeHtml(a.status)}
 
 </div>
 
+
 <h3>
 ${escapeHtml(a.name)}
 </h3>
 
+
 <p>
 ${escapeHtml(a.desc || "")}
 </p>
+
 
 <div class="small">
 ${count} işletme bağlı
@@ -2301,152 +2594,17 @@ html;
 
 
 /* =========================
-   MÜŞTERİLERİ ÇİZ
-========================= */
-
-window.renderCustomers =
-function(){
-
-const customerSearch =
-document.getElementById(
-"customerSearch"
-);
-
-
-const customerRows =
-document.getElementById(
-"customerRows"
-);
-
-
-const search =
-(
-customerSearch.value || ""
-)
-.toLocaleLowerCase(
-"tr-TR"
-);
-
-
-const list =
-customers
-.filter(
-function(c){
-
-return (
-c.name
-+
-" "
-+
-(c.phone || "")
-+
-" "
-+
-(c.email || "")
-)
-.toLocaleLowerCase(
-"tr-TR"
-)
-.includes(
-search
-);
-
-}
-);
-
-
-customerRows.innerHTML =
-list.length
-?
-list
-.map(
-function(c,index){
-
-const count =
-businesses
-.filter(
-x =>
-x.customerId === c.id
-)
-.length;
-
-
-return `
-
-<tr>
-
-<td>
-${index + 1}
-</td>
-
-<td>
-<b>
-${escapeHtml(c.name)}
-</b>
-</td>
-
-<td>
-${escapeHtml(c.phone || "-")}
-</td>
-
-<td>
-${escapeHtml(c.email || "-")}
-</td>
-
-<td>
-${count}
-</td>
-
-</tr>
-
-`;
-
-}
-)
-.join("")
-:
-`
-<tr>
-<td
-colspan="5"
-class="empty"
->
-Henüz müşteri yok.
-</td>
-</tr>
-`;
-
-};
-
-
-/* =========================
    İŞLETMELERİ ÇİZ
 ========================= */
 
 window.renderBusinesses =
 function(){
 
-const businessSearch =
-document.getElementById(
-"businessSearch"
-);
-
-
-const businessFilter =
-document.getElementById(
-"businessFilter"
-);
-
-
-const businessRows =
-document.getElementById(
-"businessRows"
-);
-
-
 const search =
 (
-businessSearch.value || ""
+document.getElementById(
+"businessSearch"
+).value || ""
 )
 .toLocaleLowerCase(
 "tr-TR"
@@ -2454,7 +2612,9 @@ businessSearch.value || ""
 
 
 const status =
-businessFilter.value || "";
+document.getElementById(
+"businessFilter"
+).value || "";
 
 
 const list =
@@ -2464,17 +2624,23 @@ function(b){
 
 const text =
 (
-b.name
+(b.name || "")
++
+" "
++
+(b.owner || "")
++
+" "
++
+(b.phone || "")
++
+" "
++
+(b.email || "")
 +
 " "
 +
 (b.city || "")
-+
-" "
-+
-getCustomerName(
-b.customerId
-)
 +
 " "
 +
@@ -2488,22 +2654,30 @@ b.automationId
 
 
 return (
-text.includes(
-search
-)
+
+text.includes(search)
+
 &&
+
 (
 !status
 ||
 b.status === status
 )
+
 );
 
 }
 );
 
 
-businessRows.innerHTML =
+const rows =
+document.getElementById(
+"businessRows"
+);
+
+
+rows.innerHTML =
 list.length
 ?
 list
@@ -2518,23 +2692,33 @@ return `
 ${index + 1}
 </td>
 
+
 <td>
 <b>
 ${escapeHtml(b.name)}
 </b>
 </td>
 
+
 <td>
-${escapeHtml(
-getCustomerName(
-b.customerId
-)
-)}
+${escapeHtml(b.owner || "-")}
 </td>
+
+
+<td>
+${escapeHtml(b.phone || "-")}
+</td>
+
+
+<td>
+${escapeHtml(b.email || "-")}
+</td>
+
 
 <td>
 ${escapeHtml(b.city || "-")}
 </td>
+
 
 <td>
 ${escapeHtml(
@@ -2543,6 +2727,7 @@ b.automationId
 )
 )}
 </td>
+
 
 <td>
 
@@ -2562,6 +2747,7 @@ b.pack || "-"
 
 </td>
 
+
 <td>
 
 <span
@@ -2580,17 +2766,28 @@ b.status || "-"
 
 </td>
 
+
 <td>
 ${dateTR(b.end)}
 </td>
 
+
 <td>
+
+<div class="actions">
 
 <button
 class="primary"
 onclick="openBusiness('${b.id}')"
 >
 Aç
+</button>
+
+<button
+class="ghost"
+onclick="editBusiness('${b.id}')"
+>
+Düzenle
 </button>
 
 <button
@@ -2613,6 +2810,8 @@ onclick="deleteBusiness('${b.id}')"
 Sil
 </button>
 
+</div>
+
 </td>
 
 </tr>
@@ -2624,14 +2823,20 @@ Sil
 .join("")
 :
 `
+
 <tr>
+
 <td
-colspan="9"
+colspan="11"
 class="empty"
 >
+
 Henüz işletme yok.
+
 </td>
+
 </tr>
+
 `;
 
 };
@@ -2643,13 +2848,13 @@ Henüz işletme yok.
 
 function renderSubscriptions(){
 
-const subscriptionRows =
+const rows =
 document.getElementById(
 "subscriptionRows"
 );
 
 
-subscriptionRows.innerHTML =
+rows.innerHTML =
 businesses.length
 ?
 businesses
@@ -2662,6 +2867,10 @@ return `
 
 <td>
 ${escapeHtml(b.name)}
+</td>
+
+<td>
+${escapeHtml(b.owner || "-")}
 </td>
 
 <td>
@@ -2693,14 +2902,20 @@ ${money(b.price)}
 .join("")
 :
 `
+
 <tr>
+
 <td
-colspan="6"
+colspan="7"
 class="empty"
 >
+
 Henüz abonelik yok.
+
 </td>
+
 </tr>
+
 `;
 
 }
@@ -2712,13 +2927,13 @@ Henüz abonelik yok.
 
 function renderRecent(){
 
-const recentRows =
+const rows =
 document.getElementById(
 "recentRows"
 );
 
 
-recentRows.innerHTML =
+rows.innerHTML =
 businesses.length
 ?
 businesses
@@ -2738,11 +2953,7 @@ ${escapeHtml(b.name)}
 </td>
 
 <td>
-${escapeHtml(
-getCustomerName(
-b.customerId
-)
-)}
+${escapeHtml(b.owner || "-")}
 </td>
 
 <td>
@@ -2774,21 +2985,27 @@ ${dateTR(b.end)}
 .join("")
 :
 `
+
 <tr>
+
 <td
 colspan="6"
 class="empty"
 >
+
 Henüz işletme eklenmedi.
+
 </td>
+
 </tr>
+
 `;
 
 }
 
 
 /* =========================
-   İSTATİSTİKLER
+   İSTATİSTİK
 ========================= */
 
 function renderStats(){
@@ -2817,13 +3034,6 @@ b.price || 0
 
 
 document.getElementById(
-"statCustomers"
-)
-.textContent =
-customers.length;
-
-
-document.getElementById(
 "statBusinesses"
 )
 .textContent =
@@ -2835,6 +3045,13 @@ document.getElementById(
 )
 .textContent =
 active.length;
+
+
+document.getElementById(
+"statAutomations"
+)
+.textContent =
+automations.length;
 
 
 document.getElementById(
@@ -2872,19 +3089,21 @@ active.length;
 
 
 document.getElementById(
-"financeCustomers"
+"financeTotal"
 )
 .textContent =
-customers.length;
+businesses.length;
 
 }
 
 
+/* =========================
+   TÜM EKRANI YENİLE
+========================= */
+
 function renderAll(){
 
 renderAutomations();
-
-window.renderCustomers();
 
 window.renderBusinesses();
 
@@ -2898,7 +3117,7 @@ renderStats();
 
 
 /* =========================
-   VARSAYILAN OTOMASYONLAR
+   OTOMASYONLARI İLK KEZ EKLE
 ========================= */
 
 async function seedAutomations(){
@@ -2927,10 +3146,12 @@ of DEFAULT_AUTOMATIONS
 ){
 
 await addDoc(
+
 collection(
 db,
 "automations"
 ),
+
 {
 
 ...item,
@@ -2939,6 +3160,7 @@ createdAt:
 serverTimestamp()
 
 }
+
 );
 
 }
@@ -2961,44 +3183,12 @@ await seedAutomations();
 listeners.push(
 
 onSnapshot(
-collection(
-db,
-"customers"
-),
-function(snapshot){
 
-customers =
-snapshot.docs
-.map(
-function(d){
-
-return {
-
-id:d.id,
-
-...d.data()
-
-};
-
-}
-);
-
-
-renderAll();
-
-}
-)
-
-);
-
-
-listeners.push(
-
-onSnapshot(
 collection(
 db,
 "businesses"
 ),
+
 function(snapshot){
 
 businesses =
@@ -3021,6 +3211,7 @@ id:d.id,
 renderAll();
 
 }
+
 )
 
 );
@@ -3029,10 +3220,12 @@ renderAll();
 listeners.push(
 
 onSnapshot(
+
 collection(
 db,
 "automations"
 ),
+
 function(snapshot){
 
 automations =
@@ -3055,6 +3248,7 @@ id:d.id,
 renderAll();
 
 }
+
 )
 
 );
@@ -3072,7 +3266,8 @@ try{
 
 unsubscribe();
 
-}catch(e){}
+}
+catch(e){}
 
 }
 );
@@ -3109,8 +3304,7 @@ loginPassword.value;
 
 
 if(
-!email
-||
+!email ||
 !password
 ){
 
@@ -3132,6 +3326,7 @@ loginBtn.textContent =
 
 try{
 
+
 await signInWithEmailAndPassword(
 auth,
 email,
@@ -3145,22 +3340,20 @@ loginPassword.value =
 
 }catch(error){
 
-console.error(
-error
-);
+console.error(error);
 
 
 loginMsg.textContent =
 "Firebase hatası: "
 +
 (
-error.code
-||
+error.code ||
 "bilinmeyen-hata"
 );
 
 
 }finally{
+
 
 loginBtn.disabled =
 false;
@@ -3175,7 +3368,9 @@ loginBtn.textContent =
 );
 
 
-/* ENTER İLE GİRİŞ */
+/* =========================
+   ENTER İLE GİRİŞ
+========================= */
 
 loginPassword
 .addEventListener(
@@ -3233,6 +3428,7 @@ forgotBtn.textContent =
 
 try{
 
+
 await sendPasswordResetEmail(
 auth,
 email
@@ -3249,9 +3445,7 @@ loginMsg.textContent =
 
 }catch(error){
 
-console.error(
-error
-);
+console.error(error);
 
 
 loginMsg.style.color =
@@ -3262,13 +3456,13 @@ loginMsg.textContent =
 "Şifre sıfırlama hatası: "
 +
 (
-error.code
-||
+error.code ||
 error.message
 );
 
 
 }finally{
+
 
 forgotBtn.disabled =
 false;
@@ -3296,11 +3490,10 @@ await signOut(
 auth
 );
 
-}catch(error){
+}
+catch(error){
 
-console.error(
-error
-);
+console.error(error);
 
 }
 
@@ -3312,10 +3505,13 @@ error
 ========================= */
 
 onAuthStateChanged(
+
 auth,
+
 async function(user){
 
 if(user){
+
 
 loginGate
 .classList
@@ -3325,41 +3521,39 @@ loginGate
 
 
 userEmail.textContent =
-user.email
-||
+user.email ||
 "Firebase kullanıcı";
 
 
 try{
 
+
 await startFirestore();
+
 
 }catch(error){
 
-console.error(
-error
-);
+console.error(error);
 
 
 alert(
 "Firestore açılamadı: "
 +
 (
-error.code
-||
+error.code ||
 error.message
 )
 );
 
 }
 
+
 }
 else{
 
+
 stopFirestore();
 
-
-customers = [];
 
 businesses = [];
 
@@ -3382,6 +3576,7 @@ userEmail.textContent =
 }
 
 }
+
 );
 
 
