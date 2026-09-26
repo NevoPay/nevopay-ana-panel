@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>NevoPay Ana Firma Paneli</title>
 
 <style>
@@ -34,13 +35,98 @@ body{
   color:var(--text);
 }
 
-button,input,select,textarea{
+button,
+input,
+select,
+textarea{
   font:inherit;
 }
 
 button{
   cursor:pointer;
 }
+
+/* =========================
+   GİRİŞ
+========================= */
+
+.loginGate{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:linear-gradient(135deg,#101a24,#223446);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.loginGate.hidden{
+  display:none;
+}
+
+.loginBox{
+  width:min(94%,420px);
+  background:#fff;
+  border-radius:22px;
+  padding:30px;
+  box-shadow:0 25px 70px #0006;
+}
+
+.loginLogo{
+  text-align:center;
+  font-size:32px;
+  font-weight:900;
+  letter-spacing:4px;
+  color:#162433;
+}
+
+.loginSub{
+  text-align:center;
+  color:#718096;
+  margin:6px 0 24px;
+}
+
+.loginBox input{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid #d8e0e8;
+  border-radius:11px;
+  margin:6px 0;
+  outline:none;
+}
+
+.loginBox input:focus{
+  border-color:#8b5a3c;
+}
+
+.loginBox button{
+  width:100%;
+  border:0;
+  border-radius:11px;
+  padding:13px;
+  background:#6b402d;
+  color:#fff;
+  font-weight:900;
+  margin-top:10px;
+}
+
+.loginBox button:disabled{
+  opacity:.6;
+}
+
+.loginMsg{
+  min-height:25px;
+  margin-top:12px;
+  text-align:center;
+  font-size:13px;
+  color:#c83737;
+  word-break:break-word;
+}
+
+/* =========================
+   ANA PANEL
+========================= */
 
 .app{
   min-height:100vh;
@@ -104,13 +190,13 @@ button{
 }
 
 .top{
-  height:66px;
+  min-height:66px;
   background:white;
   border-bottom:1px solid var(--line);
   display:flex;
   align-items:center;
   gap:16px;
-  padding:0 24px;
+  padding:8px 24px;
   position:sticky;
   top:0;
   z-index:20;
@@ -217,6 +303,7 @@ button{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:10px;
   margin:24px 0 12px;
 }
 
@@ -416,6 +503,19 @@ th{
   color:var(--muted);
 }
 
+.notice{
+  background:#fff7e8;
+  border:1px solid #f0ddb7;
+  color:#7b5822;
+  padding:12px;
+  border-radius:11px;
+  font-size:13px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
 .modal{
   position:fixed;
   inset:0;
@@ -473,82 +573,12 @@ th{
   margin-top:16px;
 }
 
-.notice{
-  background:#fff7e8;
-  border:1px solid #f0ddb7;
-  color:#7b5822;
-  padding:12px;
-  border-radius:11px;
-  font-size:13px;
-}
-
-/* GİRİŞ EKRANI */
-
-.loginGate{
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  background:linear-gradient(135deg,#101a24,#223446);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-.loginGate.hidden{
-  display:none;
-}
-
-.loginBox{
-  width:min(94%,420px);
-  background:#fff;
-  border-radius:22px;
-  padding:28px;
-  box-shadow:0 25px 70px #0006;
-}
-
-.loginLogo{
-  text-align:center;
-  font-size:30px;
-  font-weight:900;
-  letter-spacing:4px;
-  color:#162433;
-}
-
-.loginSub{
-  text-align:center;
-  color:#718096;
-  margin:5px 0 22px;
-}
-
-.loginBox input{
-  width:100%;
-  padding:13px 14px;
-  border:1px solid #d8e0e8;
-  border-radius:11px;
-  margin:6px 0;
-}
-
-.loginBox button{
-  width:100%;
-  border:0;
-  border-radius:11px;
-  padding:13px;
-  background:#6b402d;
-  color:#fff;
-  font-weight:900;
-  margin-top:10px;
-}
-
-.loginMsg{
-  min-height:22px;
-  margin-top:10px;
-  text-align:center;
-  font-size:13px;
-  color:#c83737;
-}
+/* =========================
+   MOBİL
+========================= */
 
 @media(max-width:1100px){
+
   .modules{
     grid-template-columns:repeat(2,1fr);
   }
@@ -556,9 +586,11 @@ th{
   .stats{
     grid-template-columns:repeat(2,1fr);
   }
+
 }
 
 @media(max-width:760px){
+
   .app{
     grid-template-columns:1fr;
   }
@@ -589,7 +621,11 @@ th{
   }
 
   .top{
-    padding:0 12px;
+    padding:8px 12px;
+  }
+
+  .top h2{
+    display:none;
   }
 
   .search{
@@ -626,22 +662,34 @@ th{
   .toolbar input{
     max-width:none;
   }
+
 }
 </style>
 </head>
 
 <body>
 
+<!-- =========================
+     GİRİŞ EKRANI
+========================= -->
+
 <div id="loginGate" class="loginGate">
+
   <div class="loginBox">
-    <div class="loginLogo">NEVOPAY</div>
-    <div class="loginSub">Ana Firma Yönetim Paneli</div>
+
+    <div class="loginLogo">
+      NEVOPAY
+    </div>
+
+    <div class="loginSub">
+      Ana Firma Yönetim Paneli
+    </div>
 
     <input
       id="loginEmail"
       type="email"
       autocomplete="username"
-      placeholder="E-posta"
+      placeholder="E-posta adresi"
     >
 
     <input
@@ -655,68 +703,77 @@ th{
       Giriş Yap
     </button>
 
-    <div id="loginMsg" class="loginMsg"></div>
+    <div
+      id="loginMsg"
+      class="loginMsg"
+    ></div>
+
   </div>
+
 </div>
+
+<!-- =========================
+     PANEL
+========================= -->
 
 <div class="app">
 
 <aside class="side">
 
-<div class="brand">
-NEVOPAY
-</div>
+  <div class="brand">
+    NEVOPAY
+  </div>
 
-<div class="tag">
-ANA FİRMA YÖNETİM PANELİ
-</div>
+  <div class="tag">
+    ANA FİRMA YÖNETİM PANELİ
+  </div>
 
-<nav class="nav">
+  <nav class="nav">
 
-<button
-class="active"
-onclick="showView('dashboard',this)"
->
-⌂ Ana Sayfa
-</button>
+    <button
+      class="active"
+      onclick="showView('dashboard',this)"
+    >
+      ⌂ Ana Sayfa
+    </button>
 
-<button onclick="showView('customers',this)">
-👥 Müşteriler
-</button>
+    <button onclick="showView('customers',this)">
+      👥 Müşteriler
+    </button>
 
-<button onclick="showView('businesses',this)">
-🏢 İşletmeler
-</button>
+    <button onclick="showView('businesses',this)">
+      🏢 İşletmeler
+    </button>
 
-<button onclick="showView('automations',this)">
-⚙ Otomasyonlar
-</button>
+    <button onclick="showView('automations',this)">
+      ⚙ Otomasyonlar
+    </button>
 
-<button onclick="showView('packages',this)">
-📦 Paketler
-</button>
+    <button onclick="showView('packages',this)">
+      📦 Paketler
+    </button>
 
-<button onclick="showView('subscriptions',this)">
-📅 Abonelikler
-</button>
+    <button onclick="showView('subscriptions',this)">
+      📅 Abonelikler
+    </button>
 
-<button onclick="showView('finance',this)">
-₺ Finans
-</button>
+    <button onclick="showView('finance',this)">
+      ₺ Finans
+    </button>
 
-<button onclick="showView('settings',this)">
-⚙ Ayarlar
-</button>
+    <button onclick="showView('settings',this)">
+      ⚙ Ayarlar
+    </button>
 
-</nav>
+  </nav>
 
-<div class="sideFoot">
-<b>NevoPay</b>
-<br>
-<span style="opacity:.7">
-Süper Yönetici
-</span>
-</div>
+  <div class="sideFoot">
+    <b>NevoPay</b>
+    <br>
+    <span style="opacity:.7">
+      Süper Yönetici
+    </span>
+  </div>
 
 </aside>
 
@@ -724,168 +781,158 @@ Süper Yönetici
 
 <header class="top">
 
-<h2>
-☰ &nbsp; NevoPay Yönetim Paneli
-</h2>
+  <h2>
+    ☰ &nbsp; NevoPay Yönetim Paneli
+  </h2>
 
-<div class="search">
-⌕ Müşteri, işletme veya otomasyon ara...
-</div>
+  <div class="search">
+    ⌕ Müşteri, işletme veya otomasyon ara...
+  </div>
 
-<div class="user">
-<b id="userLabel">
-Süper Yönetici
-</b>
-<br>
-<span id="userEmail">
-NevoPay
-</span>
-</div>
+  <div class="user">
 
-<button
-class="logoutBtn"
-onclick="logout()"
->
-Çıkış
-</button>
+    <b id="userLabel">
+      Süper Yönetici
+    </b>
+
+    <br>
+
+    <span id="userEmail">
+      NevoPay
+    </span>
+
+  </div>
+
+  <button
+    class="logoutBtn"
+    onclick="logout()"
+  >
+    Çıkış
+  </button>
 
 </header>
 
 <div class="content">
 
+<!-- ANA SAYFA -->
+
 <section
-id="dashboard"
-class="view active"
+  id="dashboard"
+  class="view active"
 >
 
 <div class="hero">
 
-<div>
+  <div>
 
-<h1>
-NevoPay Ana Firma Paneli
-</h1>
+    <h1>
+      NevoPay Ana Firma Paneli
+    </h1>
 
-<p>
-Tüm müşteriler, işletmeler ve otomasyonlar tek merkezden yönetilir.
-</p>
+    <p>
+      Tüm müşteriler, işletmeler ve otomasyonlar tek merkezden yönetilir.
+    </p>
 
-</div>
+  </div>
 
-<div class="pill">
-Merkezi Yönetim
-</div>
+  <div class="pill">
+    Merkezi Yönetim
+  </div>
 
 </div>
 
 <div class="stats">
 
-<div class="stat">
+  <div class="stat">
 
-<div>
-<small>
-Toplam Müşteri
-</small>
-<br>
-<b id="statCustomers">
-0
-</b>
-</div>
+    <div>
+      <small>Toplam Müşteri</small>
+      <br>
+      <b id="statCustomers">0</b>
+    </div>
 
-<div class="ico">
-👥
-</div>
+    <div class="ico">
+      👥
+    </div>
 
-</div>
+  </div>
 
-<div class="stat">
+  <div class="stat">
 
-<div>
-<small>
-Toplam İşletme
-</small>
-<br>
-<b id="statBusinesses">
-0
-</b>
-</div>
+    <div>
+      <small>Toplam İşletme</small>
+      <br>
+      <b id="statBusinesses">0</b>
+    </div>
 
-<div class="ico">
-🏢
-</div>
+    <div class="ico">
+      🏢
+    </div>
 
-</div>
+  </div>
 
-<div class="stat">
+  <div class="stat">
 
-<div>
-<small>
-Aktif Abonelik
-</small>
-<br>
-<b id="statActive">
-0
-</b>
-</div>
+    <div>
+      <small>Aktif Abonelik</small>
+      <br>
+      <b id="statActive">0</b>
+    </div>
 
-<div class="ico">
-✅
-</div>
+    <div class="ico">
+      ✅
+    </div>
 
-</div>
+  </div>
 
-<div class="stat">
+  <div class="stat">
 
-<div>
-<small>
-Aylık Gelir
-</small>
-<br>
-<b id="statRevenue">
-₺0
-</b>
-</div>
+    <div>
+      <small>Aylık Gelir</small>
+      <br>
+      <b id="statRevenue">₺0</b>
+    </div>
 
-<div class="ico">
-₺
-</div>
+    <div class="ico">
+      ₺
+    </div>
 
-</div>
+  </div>
 
 </div>
 
 <div class="sectionTitle">
 
-<h3>
-NevoPay Ürünleri / Otomasyonları
-</h3>
+  <h3>
+    NevoPay Ürünleri / Otomasyonları
+  </h3>
 
-<button
-class="primary"
-onclick="openAutomationModal()"
->
-＋ Yeni Otomasyon
-</button>
+  <button
+    class="primary"
+    onclick="openAutomationModal()"
+  >
+    ＋ Yeni Otomasyon
+  </button>
 
 </div>
 
 <div
-class="modules"
-id="moduleGrid"
+  class="modules"
+  id="moduleGrid"
 ></div>
 
 <div class="sectionTitle">
 
-<h3>
-Son Eklenen İşletmeler
-</h3>
+  <h3>
+    Son Eklenen İşletmeler
+  </h3>
 
-<button
-class="ghost"
-onclick="showView('businesses')"
->
-Tümünü Gör
-</button>
+  <button
+    class="ghost"
+    onclick="showView('businesses')"
+  >
+    Tümünü Gör
+  </button>
 
 </div>
 
@@ -898,18 +945,17 @@ Tümünü Gör
 <thead>
 
 <tr>
-<th>İşletme</th>
-<th>Müşteri</th>
-<th>Otomasyon</th>
-<th>Paket</th>
-<th>Durum</th>
-<th>Bitiş</th>
+  <th>İşletme</th>
+  <th>Müşteri</th>
+  <th>Otomasyon</th>
+  <th>Paket</th>
+  <th>Durum</th>
+  <th>Bitiş</th>
 </tr>
 
 </thead>
 
-<tbody id="recentRows">
-</tbody>
+<tbody id="recentRows"></tbody>
 
 </table>
 
@@ -919,25 +965,27 @@ Tümünü Gör
 
 </section>
 
+<!-- MÜŞTERİLER -->
+
 <section
-id="customers"
-class="view"
+  id="customers"
+  class="view"
 >
 
 <div class="panel">
 
 <div class="panelHead">
 
-<h3 style="margin:0">
-👥 Müşteriler
-</h3>
+  <h3 style="margin:0">
+    👥 Müşteriler
+  </h3>
 
-<button
-class="primary"
-onclick="openCustomerModal()"
->
-＋ Yeni Müşteri
-</button>
+  <button
+    class="primary"
+    onclick="openCustomerModal()"
+  >
+    ＋ Yeni Müşteri
+  </button>
 
 </div>
 
@@ -946,9 +994,9 @@ onclick="openCustomerModal()"
 <div class="toolbar">
 
 <input
-id="customerSearch"
-placeholder="Müşteri ara..."
-oninput="renderCustomers()"
+  id="customerSearch"
+  placeholder="Müşteri ara..."
+  oninput="renderCustomers()"
 >
 
 </div>
@@ -960,18 +1008,17 @@ oninput="renderCustomers()"
 <thead>
 
 <tr>
-<th>#</th>
-<th>Ad Soyad / Firma</th>
-<th>Telefon</th>
-<th>E-posta</th>
-<th>İşletme Sayısı</th>
-<th>İşlem</th>
+  <th>#</th>
+  <th>Ad Soyad / Firma</th>
+  <th>Telefon</th>
+  <th>E-posta</th>
+  <th>İşletme Sayısı</th>
+  <th>İşlem</th>
 </tr>
 
 </thead>
 
-<tbody id="customerRows">
-</tbody>
+<tbody id="customerRows"></tbody>
 
 </table>
 
@@ -983,25 +1030,27 @@ oninput="renderCustomers()"
 
 </section>
 
+<!-- İŞLETMELER -->
+
 <section
-id="businesses"
-class="view"
+  id="businesses"
+  class="view"
 >
 
 <div class="panel">
 
 <div class="panelHead">
 
-<h3 style="margin:0">
-🏢 İşletmeler
-</h3>
+  <h3 style="margin:0">
+    🏢 İşletmeler
+  </h3>
 
-<button
-class="primary"
-onclick="openBusinessModal()"
->
-＋ Yeni İşletme
-</button>
+  <button
+    class="primary"
+    onclick="openBusinessModal()"
+  >
+    ＋ Yeni İşletme
+  </button>
 
 </div>
 
@@ -1010,14 +1059,14 @@ onclick="openBusinessModal()"
 <div class="toolbar">
 
 <input
-id="businessSearch"
-placeholder="İşletme, şehir, müşteri ara..."
-oninput="renderBusinesses()"
+  id="businessSearch"
+  placeholder="İşletme, şehir, müşteri ara..."
+  oninput="renderBusinesses()"
 >
 
 <select
-id="businessFilter"
-onchange="renderBusinesses()"
+  id="businessFilter"
+  onchange="renderBusinesses()"
 >
 
 <option value="">
@@ -1043,21 +1092,20 @@ Pasif
 <thead>
 
 <tr>
-<th>#</th>
-<th>İşletme</th>
-<th>Müşteri</th>
-<th>Şehir</th>
-<th>Otomasyon</th>
-<th>Paket</th>
-<th>Durum</th>
-<th>Bitiş</th>
-<th>İşlemler</th>
+  <th>#</th>
+  <th>İşletme</th>
+  <th>Müşteri</th>
+  <th>Şehir</th>
+  <th>Otomasyon</th>
+  <th>Paket</th>
+  <th>Durum</th>
+  <th>Bitiş</th>
+  <th>İşlemler</th>
 </tr>
 
 </thead>
 
-<tbody id="businessRows">
-</tbody>
+<tbody id="businessRows"></tbody>
 
 </table>
 
@@ -1069,9 +1117,11 @@ Pasif
 
 </section>
 
+<!-- OTOMASYONLAR -->
+
 <section
-id="automations"
-class="view"
+  id="automations"
+  class="view"
 >
 
 <div class="sectionTitle">
@@ -1081,8 +1131,8 @@ class="view"
 </h3>
 
 <button
-class="primary"
-onclick="openAutomationModal()"
+  class="primary"
+  onclick="openAutomationModal()"
 >
 ＋ Yeni Otomasyon
 </button>
@@ -1090,15 +1140,17 @@ onclick="openAutomationModal()"
 </div>
 
 <div
-class="modules"
-id="automationGrid"
+  class="modules"
+  id="automationGrid"
 ></div>
 
 </section>
 
+<!-- PAKETLER -->
+
 <section
-id="packages"
-class="view"
+  id="packages"
+  class="view"
 >
 
 <div class="grid2">
@@ -1139,9 +1191,11 @@ Aylık ücret örneği: ₺1.500
 
 </section>
 
+<!-- ABONELİKLER -->
+
 <section
-id="subscriptions"
-class="view"
+  id="subscriptions"
+  class="view"
 >
 
 <div class="panel">
@@ -1161,18 +1215,17 @@ class="view"
 <thead>
 
 <tr>
-<th>İşletme</th>
-<th>Paket</th>
-<th>Başlangıç</th>
-<th>Bitiş</th>
-<th>Durum</th>
-<th>Aylık Ücret</th>
+  <th>İşletme</th>
+  <th>Paket</th>
+  <th>Başlangıç</th>
+  <th>Bitiş</th>
+  <th>Durum</th>
+  <th>Aylık Ücret</th>
 </tr>
 
 </thead>
 
-<tbody id="subscriptionRows">
-</tbody>
+<tbody id="subscriptionRows"></tbody>
 
 </table>
 
@@ -1182,9 +1235,11 @@ class="view"
 
 </section>
 
+<!-- FİNANS -->
+
 <section
-id="finance"
-class="view"
+  id="finance"
+  class="view"
 >
 
 <div class="stats">
@@ -1192,17 +1247,9 @@ class="view"
 <div class="stat">
 
 <div>
-
-<small>
-Aylık Tahmini Gelir
-</small>
-
+<small>Aylık Tahmini Gelir</small>
 <br>
-
-<b id="financeMonthly">
-₺0
-</b>
-
+<b id="financeMonthly">₺0</b>
 </div>
 
 <div class="ico">
@@ -1214,17 +1261,9 @@ Aylık Tahmini Gelir
 <div class="stat">
 
 <div>
-
-<small>
-Aktif İşletme
-</small>
-
+<small>Aktif İşletme</small>
 <br>
-
-<b id="financeActive">
-0
-</b>
-
+<b id="financeActive">0</b>
 </div>
 
 <div class="ico">
@@ -1236,17 +1275,9 @@ Aktif İşletme
 <div class="stat">
 
 <div>
-
-<small>
-Pasif İşletme
-</small>
-
+<small>Pasif İşletme</small>
 <br>
-
-<b id="financePassive">
-0
-</b>
-
+<b id="financePassive">0</b>
 </div>
 
 <div class="ico">
@@ -1258,17 +1289,9 @@ Pasif İşletme
 <div class="stat">
 
 <div>
-
-<small>
-Toplam Müşteri
-</small>
-
+<small>Toplam Müşteri</small>
 <br>
-
-<b id="financeCustomers">
-0
-</b>
-
+<b id="financeCustomers">0</b>
 </div>
 
 <div class="ico">
@@ -1281,9 +1304,11 @@ Toplam Müşteri
 
 </section>
 
+<!-- AYARLAR -->
+
 <section
-id="settings"
-class="view"
+  id="settings"
+  class="view"
 >
 
 <div class="grid2">
@@ -1299,7 +1324,7 @@ Firma adı, logo, iletişim ve panel ayarları burada yönetilecek.
 </p>
 
 <div class="notice">
-Bu sürüm Firebase Authentication ve Cloud Firestore ile çalışır.
+Firebase Authentication ve Cloud Firestore bağlantısı aktif.
 </div>
 
 </div>
@@ -1311,7 +1336,7 @@ Güvenlik
 </h3>
 
 <p>
-Süper yönetici girişi Firebase Authentication ile korunmaktadır.
+Ana firma paneline giriş Firebase Authentication üzerinden yapılmaktadır.
 </p>
 
 </div>
@@ -1326,9 +1351,13 @@ Süper yönetici girişi Firebase Authentication ile korunmaktadır.
 
 </div>
 
+<!-- =========================
+     YENİ MÜŞTERİ
+========================= -->
+
 <div
-class="modal"
-id="customerModal"
+  class="modal"
+  id="customerModal"
 >
 
 <div class="modalBox">
@@ -1340,25 +1369,25 @@ Yeni Müşteri Ekle
 <div class="form">
 
 <input
-id="custName"
-class="wide"
-placeholder="Ad Soyad / Firma adı"
+  id="custName"
+  class="wide"
+  placeholder="Ad Soyad / Firma adı"
 >
 
 <input
-id="custPhone"
-placeholder="Telefon"
+  id="custPhone"
+  placeholder="Telefon"
 >
 
 <input
-id="custEmail"
-placeholder="E-posta"
+  id="custEmail"
+  placeholder="E-posta"
 >
 
 <textarea
-id="custNote"
-class="wide"
-placeholder="Not"
+  id="custNote"
+  class="wide"
+  placeholder="Not"
 ></textarea>
 
 </div>
@@ -1366,15 +1395,15 @@ placeholder="Not"
 <div class="modalActions">
 
 <button
-class="ghost"
-onclick="closeModal('customerModal')"
+  class="ghost"
+  onclick="closeModal('customerModal')"
 >
 Vazgeç
 </button>
 
 <button
-class="primary"
-onclick="saveCustomer()"
+  class="primary"
+  onclick="saveCustomer()"
 >
 Kaydet
 </button>
@@ -1385,9 +1414,13 @@ Kaydet
 
 </div>
 
+<!-- =========================
+     YENİ İŞLETME
+========================= -->
+
 <div
-class="modal"
-id="businessModal"
+  class="modal"
+  id="businessModal"
 >
 
 <div class="modalBox">
@@ -1399,17 +1432,17 @@ Yeni İşletme Ekle
 <div class="form">
 
 <input
-id="bizName"
-class="wide"
-placeholder="İşletme adı"
+  id="bizName"
+  class="wide"
+  placeholder="İşletme adı"
 >
 
 <select id="bizCustomer">
 </select>
 
 <input
-id="bizCity"
-placeholder="Şehir / İlçe"
+  id="bizCity"
+  placeholder="Şehir / İlçe"
 >
 
 <select id="bizAutomation">
@@ -1421,13 +1454,13 @@ placeholder="Şehir / İlçe"
 </select>
 
 <input
-id="bizStart"
-type="date"
+  id="bizStart"
+  type="date"
 >
 
 <input
-id="bizEnd"
-type="date"
+  id="bizEnd"
+  type="date"
 >
 
 <select id="bizStatus">
@@ -1436,17 +1469,17 @@ type="date"
 </select>
 
 <input
-id="bizPrice"
-type="number"
-min="0"
-step="1"
-placeholder="Aylık ücret"
+  id="bizPrice"
+  type="number"
+  min="0"
+  step="1"
+  placeholder="Aylık ücret"
 >
 
 <input
-id="bizUrl"
-class="wide"
-placeholder="İşletme panel linki"
+  id="bizUrl"
+  class="wide"
+  placeholder="İşletme panel linki"
 >
 
 </div>
@@ -1454,15 +1487,15 @@ placeholder="İşletme panel linki"
 <div class="modalActions">
 
 <button
-class="ghost"
-onclick="closeModal('businessModal')"
+  class="ghost"
+  onclick="closeModal('businessModal')"
 >
 Vazgeç
 </button>
 
 <button
-class="primary"
-onclick="saveBusiness()"
+  class="primary"
+  onclick="saveBusiness()"
 >
 Kaydet
 </button>
@@ -1473,9 +1506,13 @@ Kaydet
 
 </div>
 
+<!-- =========================
+     YENİ OTOMASYON
+========================= -->
+
 <div
-class="modal"
-id="automationModal"
+  class="modal"
+  id="automationModal"
 >
 
 <div class="modalBox">
@@ -1487,15 +1524,15 @@ Yeni Otomasyon Ekle
 <div class="form">
 
 <input
-id="autoName"
-class="wide"
-placeholder="Otomasyon adı"
+  id="autoName"
+  class="wide"
+  placeholder="Otomasyon adı"
 >
 
 <input
-id="autoIcon"
-placeholder="Emoji / ikon"
-value="⚙"
+  id="autoIcon"
+  placeholder="Emoji / ikon"
+  value="⚙"
 >
 
 <select id="autoStatus">
@@ -1504,9 +1541,9 @@ value="⚙"
 </select>
 
 <textarea
-id="autoDesc"
-class="wide"
-placeholder="Kısa açıklama"
+  id="autoDesc"
+  class="wide"
+  placeholder="Kısa açıklama"
 ></textarea>
 
 </div>
@@ -1514,15 +1551,15 @@ placeholder="Kısa açıklama"
 <div class="modalActions">
 
 <button
-class="ghost"
-onclick="closeModal('automationModal')"
+  class="ghost"
+  onclick="closeModal('automationModal')"
 >
 Vazgeç
 </button>
 
 <button
-class="primary"
-onclick="saveAutomation()"
+  class="primary"
+  onclick="saveAutomation()"
 >
 Ekle
 </button>
@@ -1534,6 +1571,10 @@ Ekle
 </div>
 
 <script type="module">
+
+/* =========================
+   FIREBASE
+========================= */
 
 import {
   initializeApp
@@ -1596,11 +1637,19 @@ const firebaseConfig = {
 const app =
 initializeApp(firebaseConfig);
 
+
 try{
 
 getAnalytics(app);
 
-}catch(e){}
+}catch(e){
+
+console.log(
+"Analytics başlatılamadı:",
+e
+);
+
+}
 
 
 const auth =
@@ -1610,41 +1659,45 @@ const db =
 getFirestore(app);
 
 
+/* =========================
+   VERİLER
+========================= */
+
 const DEFAULT_AUTOMATIONS = [
 
 {
-name:"Dijital Kahvem",
-icon:"☕",
-desc:"Cafe / Restaurant Yönetim Sistemi",
-status:"Aktif"
+  name:"Dijital Kahvem",
+  icon:"☕",
+  desc:"Cafe / Restaurant Yönetim Sistemi",
+  status:"Aktif"
 },
 
 {
-name:"Site / Aidat Yönetimi",
-icon:"🏢",
-desc:"Site, apartman ve konut yönetimi",
-status:"Aktif"
+  name:"Site / Aidat Yönetimi",
+  icon:"🏢",
+  desc:"Site, apartman ve konut yönetimi",
+  status:"Aktif"
 },
 
 {
-name:"Servis Otomasyonu",
-icon:"🚌",
-desc:"Öğretmen ve personel servis yönetimi",
-status:"Aktif"
+  name:"Servis Otomasyonu",
+  icon:"🚌",
+  desc:"Öğretmen ve personel servis yönetimi",
+  status:"Aktif"
 },
 
 {
-name:"Ders Programı",
-icon:"🏫",
-desc:"Okul ve öğretmen ders dağılımı",
-status:"Aktif"
+  name:"Ders Programı",
+  icon:"🏫",
+  desc:"Okul ve öğretmen ders dağılımı",
+  status:"Aktif"
 },
 
 {
-name:"IBAN / Ödeme",
-icon:"💳",
-desc:"QR ve IBAN ödeme sayfaları",
-status:"Aktif"
+  name:"IBAN / Ödeme",
+  icon:"💳",
+  desc:"QR ve IBAN ödeme sayfaları",
+  status:"Aktif"
 }
 
 ];
@@ -1659,18 +1712,22 @@ let businesses = [];
 let unsubscribers = [];
 
 
+/* =========================
+   YARDIMCI FONKSİYONLAR
+========================= */
+
 function esc(s){
 
 return String(s ?? "")
 .replace(
-/[&<>"']/g,
-m => ({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#39;"
-}[m])
+  /[&<>"']/g,
+  m => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[m])
 );
 
 }
@@ -1686,7 +1743,7 @@ return "-";
 
 const d =
 new Date(
-v + "T00:00:00"
+  v + "T00:00:00"
 );
 
 return isNaN(d)
@@ -1708,7 +1765,9 @@ Number(n || 0)
 function customerName(id){
 
 return customers
-.find(c => c.id === id)
+.find(
+  c => c.id === id
+)
 ?.name || "-";
 
 }
@@ -1717,11 +1776,17 @@ return customers
 function automationName(id){
 
 return automations
-.find(a => a.id === id)
+.find(
+  a => a.id === id
+)
 ?.name || "-";
 
 }
 
+
+/* =========================
+   SAYFALAR
+========================= */
 
 window.showView =
 function(id,btn){
@@ -1729,19 +1794,20 @@ function(id,btn){
 document
 .querySelectorAll(".view")
 .forEach(
-v => v.classList.remove("active")
+  v => v.classList.remove("active")
 );
 
 document
 .getElementById(id)
 ?.classList.add("active");
 
+
 if(btn){
 
 document
 .querySelectorAll(".nav button")
 .forEach(
-b => b.classList.remove("active")
+  b => b.classList.remove("active")
 );
 
 btn.classList.add("active");
@@ -1752,6 +1818,10 @@ renderAll();
 
 };
 
+
+/* =========================
+   MODAL
+========================= */
 
 window.openModal =
 function(id){
@@ -1777,7 +1847,7 @@ window.openCustomerModal =
 function(){
 
 window.openModal(
-"customerModal"
+  "customerModal"
 );
 
 };
@@ -1787,7 +1857,7 @@ window.openAutomationModal =
 function(){
 
 window.openModal(
-"automationModal"
+  "automationModal"
 );
 
 };
@@ -1799,24 +1869,25 @@ function(){
 if(customers.length === 0){
 
 alert(
-"Önce en az bir müşteri ekleyin."
+  "Önce en az bir müşteri ekleyin."
 );
 
 window.showView(
-"customers"
+  "customers"
 );
 
 return;
 
 }
 
+
 bizCustomer.innerHTML =
 customers
 .map(
-c =>
-`<option value="${c.id}">
-${esc(c.name)}
-</option>`
+  c =>
+  `<option value="${c.id}">
+  ${esc(c.name)}
+  </option>`
 )
 .join("");
 
@@ -1824,20 +1895,24 @@ ${esc(c.name)}
 bizAutomation.innerHTML =
 automations
 .map(
-a =>
-`<option value="${a.id}">
-${esc(a.name)}
-</option>`
+  a =>
+  `<option value="${a.id}">
+  ${esc(a.name)}
+  </option>`
 )
 .join("");
 
 
 window.openModal(
-"businessModal"
+  "businessModal"
 );
 
 };
 
+
+/* =========================
+   MÜŞTERİ EKLE
+========================= */
 
 window.saveCustomer =
 async function(){
@@ -1845,43 +1920,49 @@ async function(){
 const name =
 custName.value.trim();
 
+
 if(!name){
 
 alert(
-"Müşteri adını yazın."
+  "Müşteri adını yazın."
 );
 
 return;
 
 }
 
+
+try{
+
 await addDoc(
-collection(
-db,
-"customers"
-),
-{
+  collection(
+    db,
+    "customers"
+  ),
+  {
 
-name,
+    name:name,
 
-phone:
-custPhone.value.trim(),
+    phone:
+    custPhone.value.trim(),
 
-email:
-custEmail.value.trim(),
+    email:
+    custEmail.value.trim(),
 
-note:
-custNote.value.trim(),
+    note:
+    custNote.value.trim(),
 
-createdAt:
-serverTimestamp()
+    createdAt:
+    serverTimestamp()
 
-}
+  }
 );
+
 
 window.closeModal(
-"customerModal"
+  "customerModal"
 );
+
 
 custName.value = "";
 
@@ -1891,8 +1972,25 @@ custEmail.value = "";
 
 custNote.value = "";
 
+
+}catch(e){
+
+console.error(e);
+
+alert(
+  "Müşteri kaydedilemedi: "
+  +
+  e.code
+);
+
+}
+
 };
 
+
+/* =========================
+   İŞLETME EKLE
+========================= */
 
 window.saveBusiness =
 async function(){
@@ -1900,63 +1998,69 @@ async function(){
 const name =
 bizName.value.trim();
 
+
 if(!name){
 
 alert(
-"İşletme adını yazın."
+  "İşletme adını yazın."
 );
 
 return;
 
 }
 
+
+try{
+
 await addDoc(
-collection(
-db,
-"businesses"
-),
-{
+  collection(
+    db,
+    "businesses"
+  ),
+  {
 
-name,
+    name:name,
 
-customerId:
-bizCustomer.value,
+    customerId:
+    bizCustomer.value,
 
-city:
-bizCity.value.trim(),
+    city:
+    bizCity.value.trim(),
 
-automationId:
-bizAutomation.value,
+    automationId:
+    bizAutomation.value,
 
-pack:
-bizPackage.value,
+    pack:
+    bizPackage.value,
 
-start:
-bizStart.value,
+    start:
+    bizStart.value,
 
-end:
-bizEnd.value,
+    end:
+    bizEnd.value,
 
-status:
-bizStatus.value,
+    status:
+    bizStatus.value,
 
-price:
-Number(
-bizPrice.value || 0
-),
+    price:
+    Number(
+      bizPrice.value || 0
+    ),
 
-url:
-bizUrl.value.trim(),
+    url:
+    bizUrl.value.trim(),
 
-createdAt:
-serverTimestamp()
+    createdAt:
+    serverTimestamp()
 
-}
+  }
 );
+
 
 window.closeModal(
-"businessModal"
+  "businessModal"
 );
+
 
 bizName.value = "";
 
@@ -1970,8 +2074,25 @@ bizPrice.value = "";
 
 bizUrl.value = "";
 
+
+}catch(e){
+
+console.error(e);
+
+alert(
+  "İşletme kaydedilemedi: "
+  +
+  e.code
+);
+
+}
+
 };
 
+
+/* =========================
+   OTOMASYON EKLE
+========================= */
 
 window.saveAutomation =
 async function(){
@@ -1979,43 +2100,51 @@ async function(){
 const name =
 autoName.value.trim();
 
+
 if(!name){
 
 alert(
-"Otomasyon adını yazın."
+  "Otomasyon adını yazın."
 );
 
 return;
 
 }
 
+
+try{
+
 await addDoc(
-collection(
-db,
-"automations"
-),
-{
+  collection(
+    db,
+    "automations"
+  ),
+  {
 
-name,
+    name:name,
 
-icon:
-autoIcon.value.trim() || "⚙",
+    icon:
+    autoIcon.value.trim()
+    ||
+    "⚙",
 
-desc:
-autoDesc.value.trim(),
+    desc:
+    autoDesc.value.trim(),
 
-status:
-autoStatus.value,
+    status:
+    autoStatus.value,
 
-createdAt:
-serverTimestamp()
+    createdAt:
+    serverTimestamp()
 
-}
+  }
 );
+
 
 window.closeModal(
-"automationModal"
+  "automationModal"
 );
+
 
 autoName.value = "";
 
@@ -2023,15 +2152,32 @@ autoIcon.value = "⚙";
 
 autoDesc.value = "";
 
+
+}catch(e){
+
+console.error(e);
+
+alert(
+  "Otomasyon kaydedilemedi: "
+  +
+  e.code
+);
+
+}
+
 };
 
+
+/* =========================
+   İŞLETME İŞLEMLERİ
+========================= */
 
 window.toggleBusiness =
 async function(id){
 
 const b =
 businesses.find(
-x => x.id === id
+  x => x.id === id
 );
 
 if(!b){
@@ -2040,21 +2186,37 @@ return;
 
 }
 
-await updateDoc(
-doc(
-db,
-"businesses",
-id
-),
-{
 
-status:
-b.status === "Aktif"
-? "Pasif"
-: "Aktif"
+try{
+
+await updateDoc(
+  doc(
+    db,
+    "businesses",
+    id
+  ),
+  {
+
+    status:
+    b.status === "Aktif"
+    ? "Pasif"
+    : "Aktif"
+
+  }
+);
+
+
+}catch(e){
+
+console.error(e);
+
+alert(
+  "Durum değiştirilemedi: "
+  +
+  e.code
+);
 
 }
-);
 
 };
 
@@ -2064,7 +2226,7 @@ async function(id){
 
 const b =
 businesses.find(
-x => x.id === id
+  x => x.id === id
 );
 
 if(!b){
@@ -2073,21 +2235,39 @@ return;
 
 }
 
+
 if(
 confirm(
-"“" +
-b.name +
-"” işletmesi silinsin mi?"
+  "“"
+  +
+  b.name
+  +
+  "” işletmesi silinsin mi?"
 )
 ){
 
+try{
+
 await deleteDoc(
-doc(
-db,
-"businesses",
-id
-)
+  doc(
+    db,
+    "businesses",
+    id
+  )
 );
+
+
+}catch(e){
+
+console.error(e);
+
+alert(
+  "İşletme silinemedi: "
+  +
+  e.code
+);
+
+}
 
 }
 
@@ -2099,7 +2279,7 @@ function(id){
 
 const b =
 businesses.find(
-x => x.id === id
+  x => x.id === id
 );
 
 if(!b){
@@ -2108,24 +2288,30 @@ return;
 
 }
 
+
 if(!b.url){
 
 alert(
-"Bu işletme için panel linki eklenmemiş."
+  "Bu işletme için panel linki eklenmemiş."
 );
 
 return;
 
 }
 
+
 window.open(
-b.url,
-"_blank",
-"noopener"
+  b.url,
+  "_blank",
+  "noopener"
 );
 
 };
 
+
+/* =========================
+   OTOMASYONLARI ÇİZ
+========================= */
 
 function renderModules(){
 
@@ -2136,10 +2322,11 @@ automations
 const count =
 businesses
 .filter(
-b =>
-b.automationId === a.id
+  b =>
+  b.automationId === a.id
 )
 .length;
+
 
 return `
 
@@ -2203,6 +2390,10 @@ html;
 }
 
 
+/* =========================
+   MÜŞTERİLERİ ÇİZ
+========================= */
+
 window.renderCustomers =
 function(){
 
@@ -2210,29 +2401,33 @@ const q =
 (
 document
 .getElementById(
-"customerSearch"
+  "customerSearch"
 )
 ?.value || ""
 )
 .toLocaleLowerCase(
-"tr-TR"
+  "tr-TR"
 );
 
 
 const list =
 customers.filter(
-c =>
-(
-c.name +
-" " +
-(c.phone || "") +
-" " +
-(c.email || "")
-)
-.toLocaleLowerCase(
-"tr-TR"
-)
-.includes(q)
+  c =>
+  (
+    c.name
+    +
+    " "
+    +
+    (c.phone || "")
+    +
+    " "
+    +
+    (c.email || "")
+  )
+  .toLocaleLowerCase(
+    "tr-TR"
+  )
+  .includes(q)
 );
 
 
@@ -2245,10 +2440,11 @@ list
 
 const count =
 businesses.filter(
-b =>
-b.customerId === c.id
+  b =>
+  b.customerId === c.id
 )
 .length;
+
 
 return `
 
@@ -2297,17 +2493,23 @@ onclick="showView('businesses')"
 :
 `
 <tr>
+
 <td
 colspan="6"
 class="empty"
 >
 Henüz müşteri yok.
 </td>
+
 </tr>
 `;
 
 };
 
+
+/* =========================
+   İŞLETMELERİ ÇİZ
+========================= */
 
 window.renderBusinesses =
 function(){
@@ -2316,19 +2518,19 @@ const q =
 (
 document
 .getElementById(
-"businessSearch"
+  "businessSearch"
 )
 ?.value || ""
 )
 .toLocaleLowerCase(
-"tr-TR"
+  "tr-TR"
 );
 
 
 const f =
 document
 .getElementById(
-"businessFilter"
+  "businessFilter"
 )
 ?.value || "";
 
@@ -2339,29 +2541,36 @@ b => {
 
 const text =
 (
-b.name +
-" " +
-(b.city || "") +
-" " +
-customerName(
-b.customerId
-) +
-" " +
-automationName(
-b.automationId
-)
+  b.name
+  +
+  " "
+  +
+  (b.city || "")
+  +
+  " "
+  +
+  customerName(
+    b.customerId
+  )
+  +
+  " "
+  +
+  automationName(
+    b.automationId
+  )
 )
 .toLocaleLowerCase(
-"tr-TR"
+  "tr-TR"
 );
+
 
 return (
 text.includes(q)
 &&
 (
-!f
-||
-b.status === f
+  !f
+  ||
+  b.status === f
 )
 );
 
@@ -2391,9 +2600,9 @@ ${esc(b.name)}
 
 <td>
 ${esc(
-customerName(
-b.customerId
-)
+  customerName(
+    b.customerId
+  )
 )}
 </td>
 
@@ -2403,9 +2612,9 @@ ${esc(b.city || "-")}
 
 <td>
 ${esc(
-automationName(
-b.automationId
-)
+  automationName(
+    b.automationId
+  )
 )}
 </td>
 
@@ -2494,6 +2703,10 @@ Henüz işletme yok.
 };
 
 
+/* =========================
+   ABONELİKLER
+========================= */
+
 function renderSubscriptions(){
 
 subscriptionRows.innerHTML =
@@ -2550,17 +2763,23 @@ ${fmtMoney(b.price)}
 :
 `
 <tr>
+
 <td
 colspan="6"
 class="empty"
 >
 Henüz abonelik yok.
 </td>
+
 </tr>
 `;
 
 }
 
+
+/* =========================
+   SON İŞLETMELER
+========================= */
 
 function renderRecent(){
 
@@ -2587,17 +2806,17 @@ ${esc(b.name)}
 
 <td>
 ${esc(
-customerName(
-b.customerId
-)
+  customerName(
+    b.customerId
+  )
 )}
 </td>
 
 <td>
 ${esc(
-automationName(
-b.automationId
-)
+  automationName(
+    b.automationId
+  )
 )}
 </td>
 
@@ -2633,34 +2852,43 @@ ${trDate(b.end)}
 :
 `
 <tr>
+
 <td
 colspan="6"
 class="empty"
 >
 Henüz işletme eklenmedi.
 </td>
+
 </tr>
 `;
 
 }
 
 
+/* =========================
+   İSTATİSTİKLER
+========================= */
+
 function renderStats(){
 
 const active =
 businesses.filter(
-b => b.status === "Aktif"
+  b =>
+  b.status === "Aktif"
 );
+
 
 const revenue =
 active.reduce(
-(t,b) =>
-t +
-Number(
-b.price || 0
-),
-0
+  (t,b) =>
+  t +
+  Number(
+    b.price || 0
+  ),
+  0
 );
+
 
 statCustomers.textContent =
 customers.length;
@@ -2681,7 +2909,8 @@ financeActive.textContent =
 active.length;
 
 financePassive.textContent =
-businesses.length -
+businesses.length
+-
 active.length;
 
 financeCustomers.textContent =
@@ -2707,15 +2936,20 @@ renderStats();
 }
 
 
+/* =========================
+   İLK OTOMASYONLAR
+========================= */
+
 async function seedAutomationsIfNeeded(){
 
 const snap =
 await getDocs(
-collection(
-db,
-"automations"
-)
+  collection(
+    db,
+    "automations"
+  )
 );
+
 
 if(!snap.empty){
 
@@ -2723,30 +2957,35 @@ return;
 
 }
 
+
 for(
 const a
 of DEFAULT_AUTOMATIONS
 ){
 
 await addDoc(
-collection(
-db,
-"automations"
-),
-{
+  collection(
+    db,
+    "automations"
+  ),
+  {
 
-...a,
+    ...a,
 
-createdAt:
-serverTimestamp()
+    createdAt:
+    serverTimestamp()
 
-}
+  }
 );
 
 }
 
 }
 
+
+/* =========================
+   FIRESTORE CANLI TAKİP
+========================= */
 
 function stopListeners(){
 
@@ -2763,6 +3002,7 @@ fn();
 }
 );
 
+
 unsubscribers = [];
 
 }
@@ -2772,29 +3012,43 @@ async function startListeners(){
 
 stopListeners();
 
+
 await seedAutomationsIfNeeded();
 
 
 unsubscribers.push(
 
 onSnapshot(
-collection(
-db,
-"customers"
-),
-snap => {
+  collection(
+    db,
+    "customers"
+  ),
 
-customers =
-snap.docs.map(
-d => ({
-id:d.id,
-...d.data()
-})
-);
+  snap => {
 
-renderAll();
+    customers =
+    snap.docs.map(
+      d => ({
+        id:d.id,
+        ...d.data()
+      })
+    );
 
-}
+    renderAll();
+
+  },
+
+  error => {
+
+    console.error(error);
+
+    alert(
+      "Müşteri verileri okunamadı: "
+      +
+      error.code
+    );
+
+  }
 )
 
 );
@@ -2803,23 +3057,36 @@ renderAll();
 unsubscribers.push(
 
 onSnapshot(
-collection(
-db,
-"businesses"
-),
-snap => {
+  collection(
+    db,
+    "businesses"
+  ),
 
-businesses =
-snap.docs.map(
-d => ({
-id:d.id,
-...d.data()
-})
-);
+  snap => {
 
-renderAll();
+    businesses =
+    snap.docs.map(
+      d => ({
+        id:d.id,
+        ...d.data()
+      })
+    );
 
-}
+    renderAll();
+
+  },
+
+  error => {
+
+    console.error(error);
+
+    alert(
+      "İşletme verileri okunamadı: "
+      +
+      error.code
+    );
+
+  }
 )
 
 );
@@ -2828,29 +3095,46 @@ renderAll();
 unsubscribers.push(
 
 onSnapshot(
-collection(
-db,
-"automations"
-),
-snap => {
+  collection(
+    db,
+    "automations"
+  ),
 
-automations =
-snap.docs.map(
-d => ({
-id:d.id,
-...d.data()
-})
-);
+  snap => {
 
-renderAll();
+    automations =
+    snap.docs.map(
+      d => ({
+        id:d.id,
+        ...d.data()
+      })
+    );
 
-}
+    renderAll();
+
+  },
+
+  error => {
+
+    console.error(error);
+
+    alert(
+      "Otomasyon verileri okunamadı: "
+      +
+      error.code
+    );
+
+  }
 )
 
 );
 
 }
 
+
+/* =========================
+   GİRİŞ
+========================= */
 
 loginBtn.addEventListener(
 "click",
@@ -2858,8 +3142,10 @@ async () => {
 
 loginMsg.textContent = "";
 
+
 const email =
 loginEmail.value.trim();
+
 
 const password =
 loginPassword.value;
@@ -2882,29 +3168,43 @@ return;
 loginBtn.disabled = true;
 
 loginBtn.textContent =
-"Giriş yapılıyor…";
+"Giriş yapılıyor...";
 
 
 try{
 
 await signInWithEmailAndPassword(
-auth,
-email,
-password
+  auth,
+  email,
+  password
 );
+
 
 loginPassword.value = "";
 
-}
-catch(e){
 
-console.error(e);
+}catch(e){
+
+console.error(
+  "Firebase giriş hatası:",
+  e
+);
+
+
+/* BURASI ÖNEMLİ:
+   GERÇEK HATA KODUNU GÖSTERİR */
 
 loginMsg.textContent =
-"Giriş başarısız. E-posta veya şifreyi kontrol edin.";
+"Firebase hatası: "
++
+(e.code || "bilinmeyen-hata")
++
+" | "
++
+(e.message || "");
 
-}
-finally{
+
+}finally{
 
 loginBtn.disabled = false;
 
@@ -2933,13 +3233,29 @@ loginBtn.click();
 );
 
 
+/* =========================
+   ÇIKIŞ
+========================= */
+
 window.logout =
 async function(){
 
+try{
+
 await signOut(auth);
+
+}catch(e){
+
+console.error(e);
+
+}
 
 };
 
+
+/* =========================
+   OTURUM TAKİBİ
+========================= */
 
 onAuthStateChanged(
 auth,
@@ -2951,9 +3267,12 @@ loginGate
 .classList
 .add("hidden");
 
+
 userEmail.textContent =
-user.email ||
+user.email
+||
 "Firebase kullanıcı";
+
 
 userLabel.textContent =
 "Süper Yönetici";
@@ -2963,15 +3282,14 @@ try{
 
 await startListeners();
 
-}
-catch(e){
+}catch(e){
 
 console.error(e);
 
 alert(
-"Firebase verileri yüklenemedi: "
-+
-e.message
+  "Firebase verileri yüklenemedi: "
+  +
+  (e.code || e.message)
 );
 
 }
@@ -2981,17 +3299,21 @@ else{
 
 stopListeners();
 
+
 customers = [];
 
 businesses = [];
 
 automations = [];
 
+
 renderAll();
+
 
 loginGate
 .classList
 .remove("hidden");
+
 
 userEmail.textContent =
 "NevoPay";
