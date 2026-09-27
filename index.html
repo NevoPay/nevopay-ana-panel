@@ -47,8 +47,6 @@ button{
   cursor:pointer;
 }
 
-/* LOGIN */
-
 .loginGate{
   position:fixed;
   inset:0;
@@ -127,8 +125,6 @@ button{
   color:var(--red);
   line-height:1.4;
 }
-
-/* PANEL */
 
 .app{
   min-height:100vh;
@@ -267,8 +263,6 @@ button{
   font-weight:800;
 }
 
-/* STATS */
-
 .stats{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -298,8 +292,6 @@ button{
 .stat .icon{
   font-size:30px;
 }
-
-/* GENERAL */
 
 .sectionTitle{
   display:flex;
@@ -338,8 +330,6 @@ button{
   background:var(--red);
   color:#fff;
 }
-
-/* AUTOMATIONS */
 
 .modules{
   display:grid;
@@ -389,8 +379,6 @@ button{
   margin-top:13px;
 }
 
-/* BADGE */
-
 .badge{
   display:inline-block;
   padding:5px 9px;
@@ -413,8 +401,6 @@ button{
   background:var(--orangeBg);
   color:var(--orange);
 }
-
-/* TABLES */
 
 .panel{
   background:#fff;
@@ -492,8 +478,6 @@ th{
   color:var(--muted);
 }
 
-/* SETTINGS */
-
 .card{
   background:#fff;
   border:1px solid var(--line);
@@ -509,8 +493,6 @@ th{
 .infoRow:last-child{
   border-bottom:0;
 }
-
-/* MODAL */
 
 .modal{
   position:fixed;
@@ -579,8 +561,6 @@ th{
   margin-bottom:14px;
 }
 
-/* MOBILE */
-
 @media(max-width:1000px){
   .stats{
     grid-template-columns:repeat(2,1fr);
@@ -637,9 +617,8 @@ th{
 
 <body>
 
-<!-- LOGIN -->
-
 <div id="loginGate" class="loginGate">
+
   <div class="loginBox">
 
     <div class="loginLogo">
@@ -685,10 +664,9 @@ th{
     ></div>
 
   </div>
+
 </div>
 
-
-<!-- APP -->
 
 <div class="app">
 
@@ -766,8 +744,6 @@ th{
 
     <div class="content">
 
-      <!-- DASHBOARD -->
-
       <section
         id="dashboard"
         class="view active"
@@ -830,7 +806,10 @@ th{
 
 
         <div class="sectionTitle">
-          <h3>NevoPay Otomasyonları</h3>
+
+          <h3>
+            NevoPay Otomasyonları
+          </h3>
 
           <button
             class="primary"
@@ -838,7 +817,9 @@ th{
           >
             + Yeni Otomasyon
           </button>
+
         </div>
+
 
         <div
           id="moduleGrid"
@@ -847,7 +828,10 @@ th{
 
 
         <div class="sectionTitle">
-          <h3>Son İşletmeler</h3>
+
+          <h3>
+            Son İşletmeler
+          </h3>
 
           <button
             class="primary"
@@ -855,6 +839,7 @@ th{
           >
             + Yeni İşletme
           </button>
+
         </div>
 
 
@@ -884,8 +869,6 @@ th{
 
       </section>
 
-
-      <!-- BUSINESSES -->
 
       <section
         id="businesses"
@@ -963,8 +946,6 @@ th{
       </section>
 
 
-      <!-- AUTOMATIONS -->
-
       <section
         id="automations"
         class="view"
@@ -992,8 +973,6 @@ th{
 
       </section>
 
-
-      <!-- SETTINGS -->
 
       <section
         id="settings"
@@ -1046,8 +1025,6 @@ th{
 
 </div>
 
-
-<!-- BUSINESS MODAL -->
 
 <div
   id="businessModal"
@@ -1146,8 +1123,6 @@ th{
 </div>
 
 
-<!-- AUTOMATION MODAL -->
-
 <div
   id="automationModal"
   class="modal"
@@ -1224,8 +1199,6 @@ th{
 
 <script type="module">
 
-/* FIREBASE */
-
 import {
   initializeApp
 }
@@ -1255,8 +1228,6 @@ import {
 from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
-/* DOĞRU FIREBASE CONFIG */
-
 const firebaseConfig = {
   apiKey: "AIzaSyBPvPlArIb-eum0wivZPEFrKjQ4rH1-htk",
   authDomain: "nevopay-ana-panel-8f27f.firebaseapp.com",
@@ -1269,105 +1240,66 @@ const firebaseConfig = {
 
 
 const app =
-initializeApp(
-  firebaseConfig
-);
+initializeApp(firebaseConfig);
 
 const auth =
-getAuth(
-  app
-);
+getAuth(app);
 
 const db =
-getFirestore(
-  app
-);
+getFirestore(app);
 
-
-/* ELEMENTS */
 
 const loginGate =
-document.getElementById(
-  "loginGate"
-);
+document.getElementById("loginGate");
 
 const loginEmail =
-document.getElementById(
-  "loginEmail"
-);
+document.getElementById("loginEmail");
 
 const loginPassword =
-document.getElementById(
-  "loginPassword"
-);
+document.getElementById("loginPassword");
 
 const loginBtn =
-document.getElementById(
-  "loginBtn"
-);
+document.getElementById("loginBtn");
 
 const forgotBtn =
-document.getElementById(
-  "forgotBtn"
-);
+document.getElementById("forgotBtn");
 
 const loginMsg =
-document.getElementById(
-  "loginMsg"
-);
+document.getElementById("loginMsg");
 
 const userEmail =
-document.getElementById(
-  "userEmail"
-);
+document.getElementById("userEmail");
 
-
-/* DATA */
 
 let businesses = [];
-
 let automations = [];
-
 let listeners = [];
-
 let editingBusinessId = null;
-
 let editingAutomationId = null;
 
 
-/* HELPERS */
-
 function escapeHtml(value){
 
-  return String(
-    value ?? ""
-  )
-  .replace(
-    /[&<>"']/g,
-    function(char){
+  return String(value ?? "")
+  .replace(/[&<>"']/g,function(char){
 
-      return {
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#39;"
-      }[char];
+    return {
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[char];
 
-    }
-  );
+  });
 
 }
 
 
 function slugify(text){
 
-  return String(
-    text || ""
-  )
-  .toLocaleLowerCase(
-    "tr-TR"
-  )
+  return String(text || "")
+  .toLocaleLowerCase("tr-TR")
   .replace(/ı/g,"i")
   .replace(/ğ/g,"g")
   .replace(/ü/g,"u")
@@ -1383,8 +1315,7 @@ function slugify(text){
 function getAutomation(slug){
 
   return automations.find(
-    a =>
-    a.slug === slug
+    a => a.slug === slug
   );
 
 }
@@ -1392,60 +1323,40 @@ function getAutomation(slug){
 
 function getAutomationName(slug){
 
-  return getAutomation(
-    slug
-  )?.name || "-";
+  return getAutomation(slug)?.name || "-";
 
 }
 
-
-/* VIEWS */
 
 window.showView =
 function(id,button){
 
   document
-  .querySelectorAll(
-    ".view"
-  )
-  .forEach(
-    function(view){
+  .querySelectorAll(".view")
+  .forEach(function(view){
 
-      view.classList.remove(
-        "active"
-      );
+    view.classList.remove("active");
 
-    }
-  );
+  });
 
 
   document
   .getElementById(id)
-  .classList.add(
-    "active"
-  );
+  .classList.add("active");
 
 
   document
-  .querySelectorAll(
-    ".nav button"
-  )
-  .forEach(
-    function(btn){
+  .querySelectorAll(".nav button")
+  .forEach(function(btn){
 
-      btn.classList.remove(
-        "active"
-      );
+    btn.classList.remove("active");
 
-    }
-  );
+  });
 
 
   if(button){
 
-    button.classList.add(
-      "active"
-    );
+    button.classList.add("active");
 
   }
 
@@ -1455,16 +1366,12 @@ function(id,button){
 };
 
 
-/* MODALS */
-
 window.openModal =
 function(id){
 
   document
   .getElementById(id)
-  .classList.add(
-    "show"
-  );
+  .classList.add("show");
 
 };
 
@@ -1474,34 +1381,28 @@ function(id){
 
   document
   .getElementById(id)
-  .classList.remove(
-    "show"
-  );
+  .classList.remove("show");
 
 
-  if(
-    id === "businessModal"
-  ){
+  if(id === "businessModal"){
 
-    editingBusinessId =
-    null;
+    editingBusinessId = null;
 
   }
 
 
-  if(
-    id === "automationModal"
-  ){
+  if(id === "automationModal"){
 
-    editingAutomationId =
-    null;
+    editingAutomationId = null;
 
   }
 
 };
 
 
-/* AUTOMATION SELECT */
+/* BURASI DÜZELTİLDİ:
+   ARTIK STATUS FİLTRESİ YOK
+*/
 
 function fillAutomationSelect(){
 
@@ -1513,98 +1414,55 @@ function fillAutomationSelect(){
 
   select.innerHTML =
   automations
-  .filter(
-    a =>
-    a.status === "Aktif"
-  )
-  .map(
-    function(a){
+  .map(function(a){
 
-      return `
+    return `
 
-        <option
-          value="${escapeHtml(a.slug)}"
-        >
-          ${escapeHtml(a.name)}
-        </option>
+      <option value="${escapeHtml(a.slug)}">
+        ${escapeHtml(a.name)}
+      </option>
 
-      `;
+    `;
 
-    }
-  )
+  })
   .join("");
 
 }
 
 
-/* BUSINESS FORM */
-
 function clearBusinessForm(){
 
-  document.getElementById(
-    "bizName"
-  ).value = "";
-
-  document.getElementById(
-    "bizOwner"
-  ).value = "";
-
-  document.getElementById(
-    "bizPhone"
-  ).value = "";
-
-  document.getElementById(
-    "bizEmail"
-  ).value = "";
-
-  document.getElementById(
-    "bizCity"
-  ).value = "";
-
-  document.getElementById(
-    "bizStatus"
-  ).value = "Aktif";
-
-  document.getElementById(
-    "bizPanelUrl"
-  ).value = "";
-
-  document.getElementById(
-    "bizFilePath"
-  ).value = "";
-
-  document.getElementById(
-    "bizNote"
-  ).value = "";
+  document.getElementById("bizName").value = "";
+  document.getElementById("bizOwner").value = "";
+  document.getElementById("bizPhone").value = "";
+  document.getElementById("bizEmail").value = "";
+  document.getElementById("bizCity").value = "";
+  document.getElementById("bizStatus").value = "Aktif";
+  document.getElementById("bizPanelUrl").value = "";
+  document.getElementById("bizFilePath").value = "";
+  document.getElementById("bizNote").value = "";
 
 }
 
 
-/* NEW BUSINESS */
-
 window.openBusinessModal =
 function(){
 
-  editingBusinessId =
-  null;
-
+  editingBusinessId = null;
 
   clearBusinessForm();
 
   fillAutomationSelect();
-
 
   document.getElementById(
     "businessModalTitle"
   ).textContent =
   "Yeni İşletme Ekle";
 
-
   document.getElementById(
     "businessSaveBtn"
   ).textContent =
   "Kaydet";
-
 
   window.openModal(
     "businessModal"
@@ -1613,78 +1471,52 @@ function(){
 };
 
 
-/* AUTO URL */
-
 document
-.getElementById(
-  "bizName"
-)
+.getElementById("bizName")
 .addEventListener(
 "input",
 function(){
 
-  if(
-    editingBusinessId
-  ){
-
+  if(editingBusinessId){
     return;
-
   }
 
-
   const slug =
-  slugify(
-    this.value
-  );
-
+  slugify(this.value);
 
   document.getElementById(
     "bizFilePath"
   ).value =
   slug
-  ?
-  `businesses/${slug}/index.html`
-  :
-  "";
-
+  ? `businesses/${slug}/index.html`
+  : "";
 
   document.getElementById(
     "bizPanelUrl"
   ).value =
   slug
-  ?
-  `https://nevopay.github.io/nevopay-ana-panel/businesses/${slug}/`
-  :
-  "";
+  ? `https://nevopay.github.io/nevopay-ana-panel/businesses/${slug}/`
+  : "";
 
 }
 );
 
-
-/* EDIT BUSINESS */
 
 window.editBusiness =
 function(id){
 
   const business =
   businesses.find(
-    b =>
-    b.id === id
+    b => b.id === id
   );
 
 
-  if(
-    !business
-  ){
-
+  if(!business){
     return;
-
   }
 
 
-  editingBusinessId =
-  id;
-
+  editingBusinessId = id;
 
   fillAutomationSelect();
 
@@ -1701,63 +1533,34 @@ function(id){
   "Güncelle";
 
 
-  document.getElementById(
-    "bizName"
-  ).value =
+  document.getElementById("bizName").value =
   business.name || "";
 
-
-  document.getElementById(
-    "bizOwner"
-  ).value =
+  document.getElementById("bizOwner").value =
   business.owner || "";
 
-
-  document.getElementById(
-    "bizPhone"
-  ).value =
+  document.getElementById("bizPhone").value =
   business.phone || "";
 
-
-  document.getElementById(
-    "bizEmail"
-  ).value =
+  document.getElementById("bizEmail").value =
   business.email || "";
 
-
-  document.getElementById(
-    "bizCity"
-  ).value =
+  document.getElementById("bizCity").value =
   business.city || "";
 
-
-  document.getElementById(
-    "bizAutomation"
-  ).value =
+  document.getElementById("bizAutomation").value =
   business.automationSlug || "";
 
-
-  document.getElementById(
-    "bizStatus"
-  ).value =
+  document.getElementById("bizStatus").value =
   business.status || "Aktif";
 
-
-  document.getElementById(
-    "bizPanelUrl"
-  ).value =
+  document.getElementById("bizPanelUrl").value =
   business.panelUrl || "";
 
-
-  document.getElementById(
-    "bizFilePath"
-  ).value =
+  document.getElementById("bizFilePath").value =
   business.filePath || "";
 
-
-  document.getElementById(
-    "bizNote"
-  ).value =
+  document.getElementById("bizNote").value =
   business.note || "";
 
 
@@ -1768,8 +1571,6 @@ function(id){
 };
 
 
-/* SAVE BUSINESS */
-
 window.saveBusiness =
 async function(){
 
@@ -1779,9 +1580,7 @@ async function(){
   ).value.trim();
 
 
-  if(
-    !name
-  ){
+  if(!name){
 
     alert(
       "İşletme adını yazın."
@@ -1847,9 +1646,7 @@ async function(){
   try{
 
 
-    if(
-      editingBusinessId
-    ){
+    if(editingBusinessId){
 
 
       await updateDoc(
@@ -1905,17 +1702,14 @@ async function(){
     clearBusinessForm();
 
 
-    editingBusinessId =
-    null;
+    editingBusinessId = null;
 
 
   }
   catch(error){
 
 
-    console.error(
-      error
-    );
+    console.error(error);
 
 
     alert(
@@ -1932,15 +1726,12 @@ async function(){
 };
 
 
-/* OPEN BUSINESS */
-
 window.openBusiness =
 function(id){
 
   const business =
   businesses.find(
-    b =>
-    b.id === id
+    b => b.id === id
   );
 
 
@@ -1967,24 +1758,17 @@ function(id){
 };
 
 
-/* TOGGLE BUSINESS */
-
 window.toggleBusiness =
 async function(id){
 
   const business =
   businesses.find(
-    b =>
-    b.id === id
+    b => b.id === id
   );
 
 
-  if(
-    !business
-  ){
-
+  if(!business){
     return;
-
   }
 
 
@@ -2003,10 +1787,8 @@ async function(id){
 
         status:
         business.status === "Aktif"
-        ?
-        "Pasif"
-        :
-        "Aktif",
+        ? "Pasif"
+        : "Aktif",
 
         updatedAt:
         serverTimestamp()
@@ -2034,31 +1816,23 @@ async function(id){
 };
 
 
-/* DELETE BUSINESS */
-
 window.deleteBusiness =
 async function(id){
 
   const business =
   businesses.find(
-    b =>
-    b.id === id
+    b => b.id === id
   );
 
 
-  if(
-    !business
-  ){
-
+  if(!business){
     return;
-
   }
 
 
   if(
     !confirm(
-      business.name
-      +
+      business.name +
       " işletmesi silinsin mi?"
     )
   ){
@@ -2100,60 +1874,34 @@ async function(id){
 };
 
 
-/* AUTOMATION FORM */
-
 function clearAutomationForm(){
 
-  document.getElementById(
-    "autoName"
-  ).value = "";
-
-  document.getElementById(
-    "autoIcon"
-  ).value = "⚙";
-
-  document.getElementById(
-    "autoSlug"
-  ).value = "";
-
-  document.getElementById(
-    "autoTemplatePath"
-  ).value = "";
-
-  document.getElementById(
-    "autoStatus"
-  ).value = "Aktif";
-
-  document.getElementById(
-    "autoDescription"
-  ).value = "";
+  document.getElementById("autoName").value = "";
+  document.getElementById("autoIcon").value = "⚙";
+  document.getElementById("autoSlug").value = "";
+  document.getElementById("autoTemplatePath").value = "";
+  document.getElementById("autoStatus").value = "Aktif";
+  document.getElementById("autoDescription").value = "";
 
 }
 
 
-/* NEW AUTOMATION */
-
 window.openAutomationModal =
 function(){
 
-  editingAutomationId =
-  null;
-
+  editingAutomationId = null;
 
   clearAutomationForm();
-
 
   document.getElementById(
     "automationModalTitle"
   ).textContent =
   "Yeni Otomasyon";
 
-
   document.getElementById(
     "automationSaveBtn"
   ).textContent =
   "Kaydet";
-
 
   window.openModal(
     "automationModal"
@@ -2162,68 +1910,46 @@ function(){
 };
 
 
-/* AUTO SLUG */
-
 document
-.getElementById(
-  "autoName"
-)
+.getElementById("autoName")
 .addEventListener(
 "input",
 function(){
 
-  if(
-    editingAutomationId
-  ){
-
+  if(editingAutomationId){
     return;
-
   }
 
-
   const slug =
-  slugify(
-    this.value
-  );
-
+  slugify(this.value);
 
   document.getElementById(
     "autoSlug"
   ).value =
   slug;
 
-
   document.getElementById(
     "autoTemplatePath"
   ).value =
   slug
-  ?
-  `şablonlar/${slug}/index.html`
-  :
-  "";
+  ? `şablonlar/${slug}/index.html`
+  : "";
 
 }
 );
 
-
-/* EDIT AUTOMATION */
 
 window.editAutomation =
 function(id){
 
   const automation =
   automations.find(
-    a =>
-    a.id === id
+    a => a.id === id
   );
 
 
-  if(
-    !automation
-  ){
-
+  if(!automation){
     return;
-
   }
 
 
@@ -2243,39 +1969,22 @@ function(id){
   "Güncelle";
 
 
-  document.getElementById(
-    "autoName"
-  ).value =
+  document.getElementById("autoName").value =
   automation.name || "";
 
-
-  document.getElementById(
-    "autoIcon"
-  ).value =
+  document.getElementById("autoIcon").value =
   automation.icon || "⚙";
 
-
-  document.getElementById(
-    "autoSlug"
-  ).value =
+  document.getElementById("autoSlug").value =
   automation.slug || "";
 
-
-  document.getElementById(
-    "autoTemplatePath"
-  ).value =
+  document.getElementById("autoTemplatePath").value =
   automation.templatePath || "";
 
-
-  document.getElementById(
-    "autoStatus"
-  ).value =
+  document.getElementById("autoStatus").value =
   automation.status || "Aktif";
 
-
-  document.getElementById(
-    "autoDescription"
-  ).value =
+  document.getElementById("autoDescription").value =
   automation.description || "";
 
 
@@ -2285,8 +1994,6 @@ function(id){
 
 };
 
-
-/* SAVE AUTOMATION */
 
 window.saveAutomation =
 async function(){
@@ -2349,9 +2056,7 @@ async function(){
   try{
 
 
-    if(
-      editingAutomationId
-    ){
+    if(editingAutomationId){
 
 
       await updateDoc(
@@ -2380,14 +2085,11 @@ async function(){
 
       const duplicate =
       automations.some(
-        a =>
-        a.slug === slug
+        a => a.slug === slug
       );
 
 
-      if(
-        duplicate
-      ){
+      if(duplicate){
 
         alert(
           "Bu slug ile otomasyon zaten var."
@@ -2432,9 +2134,7 @@ async function(){
   catch(error){
 
 
-    console.error(
-      error
-    );
+    console.error(error);
 
 
     alert(
@@ -2451,24 +2151,17 @@ async function(){
 };
 
 
-/* DELETE AUTOMATION */
-
 window.deleteAutomation =
 async function(id){
 
   const automation =
   automations.find(
-    a =>
-    a.id === id
+    a => a.id === id
   );
 
 
-  if(
-    !automation
-  ){
-
+  if(!automation){
     return;
-
   }
 
 
@@ -2480,9 +2173,7 @@ async function(id){
   ).length;
 
 
-  if(
-    connected > 0
-  ){
+  if(connected > 0){
 
     alert(
       "Bu otomasyona bağlı "
@@ -2499,8 +2190,7 @@ async function(id){
 
   if(
     !confirm(
-      automation.name
-      +
+      automation.name +
       " silinsin mi?"
     )
   ){
@@ -2542,106 +2232,96 @@ async function(id){
 };
 
 
-/* RENDER AUTOMATIONS */
-
 function renderAutomations(){
 
   const html =
   automations.length
   ?
   automations
-  .map(
-    function(a){
+  .map(function(a){
 
-      const count =
-      businesses.filter(
-        b =>
-        b.automationSlug ===
-        a.slug
-      ).length;
+    const count =
+    businesses.filter(
+      b =>
+      b.automationSlug ===
+      a.slug
+    ).length;
 
 
-      return `
+    return `
 
-        <div class="module">
+      <div class="module">
 
-          <div class="moduleTop">
+        <div class="moduleTop">
 
-            <div class="moduleIcon">
-              ${escapeHtml(a.icon || "⚙")}
-            </div>
-
-            <span
-              class="badge ${
-                a.status === "Aktif"
-                ?
-                "ok"
-                :
-                "soon"
-              }"
-            >
-              ${escapeHtml(a.status || "-")}
-            </span>
-
+          <div class="moduleIcon">
+            ${escapeHtml(a.icon || "⚙")}
           </div>
 
-
-          <h3>
-            ${escapeHtml(a.name)}
-          </h3>
-
-
-          <p>
-            ${escapeHtml(
-              a.description || ""
-            )}
-          </p>
-
-
-          <div class="moduleInfo">
-
-            <b>slug:</b>
-            ${escapeHtml(a.slug || "-")}
-
-            <br>
-
-            <b>şablon:</b>
-            ${escapeHtml(
-              a.templatePath || "-"
-            )}
-
-            <br>
-
-            <b>işletme:</b>
-            ${count}
-
-          </div>
-
-
-          <div class="moduleActions">
-
-            <button
-              class="ghost"
-              onclick="editAutomation('${a.id}')"
-            >
-              Düzenle
-            </button>
-
-            <button
-              class="danger"
-              onclick="deleteAutomation('${a.id}')"
-            >
-              Sil
-            </button>
-
-          </div>
+          <span
+            class="badge ${
+              a.status === "Aktif"
+              ? "ok"
+              : "soon"
+            }"
+          >
+            ${escapeHtml(a.status || "-")}
+          </span>
 
         </div>
 
-      `;
 
-    }
-  )
+        <h3>
+          ${escapeHtml(a.name)}
+        </h3>
+
+
+        <p>
+          ${escapeHtml(a.description || "")}
+        </p>
+
+
+        <div class="moduleInfo">
+
+          <b>slug:</b>
+          ${escapeHtml(a.slug || "-")}
+
+          <br>
+
+          <b>şablon:</b>
+          ${escapeHtml(a.templatePath || "-")}
+
+          <br>
+
+          <b>işletme:</b>
+          ${count}
+
+        </div>
+
+
+        <div class="moduleActions">
+
+          <button
+            class="ghost"
+            onclick="editAutomation('${a.id}')"
+          >
+            Düzenle
+          </button>
+
+          <button
+            class="danger"
+            onclick="deleteAutomation('${a.id}')"
+          >
+            Sil
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  })
   .join("")
   :
   `
@@ -2664,8 +2344,6 @@ function renderAutomations(){
 
 }
 
-
-/* RENDER BUSINESSES */
 
 window.renderBusinesses =
 function(){
@@ -2724,9 +2402,7 @@ function(){
 
       return (
 
-        text.includes(
-          search
-        )
+        text.includes(search)
 
         &&
 
@@ -2758,9 +2434,7 @@ function(){
 
         <tr>
 
-          <td>
-            ${index + 1}
-          </td>
+          <td>${index + 1}</td>
 
           <td>
             <b>${escapeHtml(b.name)}</b>
@@ -2791,10 +2465,8 @@ function(){
             <span
               class="badge ${
                 b.status === "Aktif"
-                ?
-                "ok"
-                :
-                "off"
+                ? "ok"
+                : "off"
               }"
             >
               ${escapeHtml(b.status || "-")}
@@ -2832,10 +2504,8 @@ function(){
               >
                 ${
                   b.status === "Aktif"
-                  ?
-                  "Pasif Yap"
-                  :
-                  "Aktif Yap"
+                  ? "Pasif Yap"
+                  : "Aktif Yap"
                 }
               </button>
 
@@ -2859,7 +2529,6 @@ function(){
   .join("")
   :
   `
-
     <tr>
       <td
         colspan="9"
@@ -2868,13 +2537,10 @@ function(){
         Henüz işletme yok.
       </td>
     </tr>
-
   `;
 
 };
 
-
-/* RECENT */
 
 function renderRecent(){
 
@@ -2888,62 +2554,54 @@ function renderRecent(){
   businesses.length
   ?
   businesses
-  .slice(
-    0,
-    6
-  )
-  .map(
-    function(b){
+  .slice(0,6)
+  .map(function(b){
 
-      return `
+    return `
 
-        <tr>
+      <tr>
 
-          <td>
-            ${escapeHtml(b.name)}
-          </td>
+        <td>
+          ${escapeHtml(b.name)}
+        </td>
 
-          <td>
-            ${escapeHtml(
-              b.owner || "-"
-            )}
-          </td>
+        <td>
+          ${escapeHtml(b.owner || "-")}
+        </td>
 
-          <td>
-            ${escapeHtml(
-              getAutomationName(
-                b.automationSlug
-              )
-            )}
-          </td>
+        <td>
+          ${escapeHtml(
+            getAutomationName(
+              b.automationSlug
+            )
+          )}
+        </td>
 
-          <td>
-            ${escapeHtml(
-              b.status || "-"
-            )}
-          </td>
+        <td>
+          ${escapeHtml(
+            b.status || "-"
+          )}
+        </td>
 
-          <td>
+        <td>
 
-            <button
-              class="primary"
-              onclick="openBusiness('${b.id}')"
-            >
-              Aç
-            </button>
+          <button
+            class="primary"
+            onclick="openBusiness('${b.id}')"
+          >
+            Aç
+          </button>
 
-          </td>
+        </td>
 
-        </tr>
+      </tr>
 
-      `;
+    `;
 
-    }
-  )
+  })
   .join("")
   :
   `
-
     <tr>
       <td
         colspan="5"
@@ -2952,27 +2610,22 @@ function renderRecent(){
         Henüz işletme yok.
       </td>
     </tr>
-
   `;
 
 }
 
 
-/* STATS */
-
 function renderStats(){
 
   const active =
   businesses.filter(
-    b =>
-    b.status === "Aktif"
+    b => b.status === "Aktif"
   ).length;
 
 
   const passive =
   businesses.filter(
-    b =>
-    b.status === "Pasif"
+    b => b.status === "Pasif"
   ).length;
 
 
@@ -3002,8 +2655,6 @@ function renderStats(){
 }
 
 
-/* RENDER ALL */
-
 function renderAll(){
 
   renderAutomations();
@@ -3016,8 +2667,6 @@ function renderAll(){
 
 }
 
-
-/* FIRESTORE */
 
 function startFirestore(){
 
@@ -3057,10 +2706,7 @@ function startFirestore(){
 
       function(error){
 
-        console.error(
-          error
-        );
-
+        console.error(error);
 
         alert(
           "İşletmeler okunamadı: "
@@ -3113,10 +2759,7 @@ function startFirestore(){
 
       function(error){
 
-        console.error(
-          error
-        );
-
+        console.error(error);
 
         alert(
           "Otomasyonlar okunamadı: "
@@ -3142,9 +2785,7 @@ function stopFirestore(){
     function(unsubscribe){
 
       try{
-
         unsubscribe();
-
       }
       catch(error){}
 
@@ -3156,8 +2797,6 @@ function stopFirestore(){
 
 }
 
-
-/* LOGIN */
 
 loginBtn
 .addEventListener(
@@ -3219,9 +2858,7 @@ async function(){
   catch(error){
 
 
-    console.error(
-      error
-    );
+    console.error(error);
 
 
     loginMsg.textContent =
@@ -3250,8 +2887,6 @@ async function(){
 );
 
 
-/* ENTER */
-
 loginPassword
 .addEventListener(
 "keydown",
@@ -3269,8 +2904,6 @@ function(event){
 );
 
 
-/* FORGOT PASSWORD */
-
 forgotBtn
 .addEventListener(
 "click",
@@ -3284,9 +2917,7 @@ async function(){
   "#c83737";
 
 
-  if(
-    !email
-  ){
+  if(!email){
 
     loginMsg.textContent =
     "Önce e-posta adresinizi yazın.";
@@ -3327,9 +2958,7 @@ async function(){
   catch(error){
 
 
-    console.error(
-      error
-    );
+    console.error(error);
 
 
     loginMsg.style.color =
@@ -3362,45 +2991,33 @@ async function(){
 );
 
 
-/* LOGOUT */
-
 window.logout =
 async function(){
 
   try{
 
-    await signOut(
-      auth
-    );
+    await signOut(auth);
 
   }
   catch(error){
 
-    console.error(
-      error
-    );
+    console.error(error);
 
   }
 
 };
 
 
-/* SESSION */
-
 onAuthStateChanged(
 auth,
 function(user){
 
-  if(
-    user
-  ){
+  if(user){
 
 
     loginGate
     .classList
-    .add(
-      "hidden"
-    );
+    .add("hidden");
 
 
     userEmail.textContent =
@@ -3428,9 +3045,7 @@ function(user){
 
     loginGate
     .classList
-    .remove(
-      "hidden"
-    );
+    .remove("hidden");
 
 
     userEmail.textContent =
