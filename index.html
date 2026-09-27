@@ -7,13 +7,10 @@
 <title>NevoPay Ana Firma Paneli</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 :root{
   --bg:#f4f7fb;
-  --card:#ffffff;
   --text:#152033;
   --muted:#718096;
   --line:#e4eaf0;
@@ -36,16 +33,11 @@ body{
   color:var(--text);
 }
 
-button,
-input,
-select,
-textarea{
+button,input,select,textarea{
   font:inherit;
 }
 
-button{
-  cursor:pointer;
-}
+button{cursor:pointer}
 
 .loginGate{
   position:fixed;
@@ -58,9 +50,7 @@ button{
   padding:20px;
 }
 
-.loginGate.hidden{
-  display:none;
-}
+.loginGate.hidden{display:none}
 
 .loginBox{
   width:min(94%,420px);
@@ -92,10 +82,6 @@ button{
   outline:none;
 }
 
-.loginBox input:focus{
-  border-color:var(--brand);
-}
-
 .loginBtn{
   width:100%;
   border:0;
@@ -123,7 +109,6 @@ button{
   text-align:center;
   font-size:13px;
   color:var(--red);
-  line-height:1.4;
 }
 
 .app{
@@ -182,9 +167,7 @@ button{
   font-size:13px;
 }
 
-.main{
-  min-width:0;
-}
+.main{min-width:0}
 
 .top{
   min-height:66px;
@@ -204,9 +187,7 @@ button{
   font-size:18px;
 }
 
-.topSpacer{
-  flex:1;
-}
+.topSpacer{flex:1}
 
 .user{
   text-align:right;
@@ -227,13 +208,8 @@ button{
   margin:auto;
 }
 
-.view{
-  display:none;
-}
-
-.view.active{
-  display:block;
-}
+.view{display:none}
+.view.active{display:block}
 
 .hero{
   display:flex;
@@ -279,9 +255,7 @@ button{
   align-items:center;
 }
 
-.stat small{
-  color:var(--muted);
-}
+.stat small{color:var(--muted)}
 
 .stat b{
   display:block;
@@ -289,9 +263,7 @@ button{
   margin-top:6px;
 }
 
-.stat .icon{
-  font-size:30px;
-}
+.stat .icon{font-size:30px}
 
 .sectionTitle{
   display:flex;
@@ -301,13 +273,9 @@ button{
   margin:25px 0 12px;
 }
 
-.sectionTitle h3{
-  margin:0;
-}
+.sectionTitle h3{margin:0}
 
-.primary,
-.ghost,
-.danger{
+.primary,.ghost,.danger{
   padding:9px 12px;
   border-radius:9px;
   font-weight:800;
@@ -350,13 +318,9 @@ button{
   gap:10px;
 }
 
-.moduleIcon{
-  font-size:38px;
-}
+.moduleIcon{font-size:38px}
 
-.module h3{
-  margin:10px 0 5px;
-}
+.module h3{margin:10px 0 5px}
 
 .module p{
   margin:0;
@@ -418,13 +382,9 @@ button{
   align-items:center;
 }
 
-.panelHead h3{
-  margin:0;
-}
+.panelHead h3{margin:0}
 
-.panelBody{
-  padding:18px;
-}
+.panelBody{padding:18px}
 
 .toolbar{
   display:flex;
@@ -432,9 +392,7 @@ button{
   margin-bottom:14px;
 }
 
-.toolbar input{
-  flex:1;
-}
+.toolbar input{flex:1}
 
 .toolbar input,
 .toolbar select{
@@ -443,9 +401,7 @@ button{
   border-radius:10px;
 }
 
-.tableWrap{
-  overflow:auto;
-}
+.tableWrap{overflow:auto}
 
 table{
   width:100%;
@@ -453,8 +409,7 @@ table{
   border-collapse:collapse;
 }
 
-th,
-td{
+th,td{
   padding:12px;
   border-bottom:1px solid #edf0f4;
   text-align:left;
@@ -490,10 +445,6 @@ th{
   border-bottom:1px solid #edf0f4;
 }
 
-.infoRow:last-child{
-  border-bottom:0;
-}
-
 .modal{
   position:fixed;
   inset:0;
@@ -505,12 +456,10 @@ th{
   padding:18px;
 }
 
-.modal.show{
-  display:flex;
-}
+.modal.show{display:flex}
 
 .modalBox{
-  width:min(96%,720px);
+  width:min(96%,760px);
   max-height:92vh;
   overflow:auto;
   background:#fff;
@@ -518,9 +467,7 @@ th{
   padding:22px;
 }
 
-.modalBox h3{
-  margin-top:0;
-}
+.modalBox h3{margin-top:0}
 
 .form{
   display:grid;
@@ -541,9 +488,7 @@ th{
   border-radius:9px;
 }
 
-.form textarea{
-  min-height:90px;
-}
+.form textarea{min-height:90px}
 
 .modalActions{
   display:flex;
@@ -561,20 +506,23 @@ th{
   margin-bottom:14px;
 }
 
-@media(max-width:1000px){
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
+.adminBox{
+  grid-column:1/-1;
+  background:#f4f7ff;
+  border:1px solid #dce5ff;
+  border-radius:12px;
+  padding:14px;
+  font-weight:800;
+  color:#27428d;
+}
 
-  .modules{
-    grid-template-columns:repeat(2,1fr);
-  }
+@media(max-width:1000px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .modules{grid-template-columns:repeat(2,1fr)}
 }
 
 @media(max-width:760px){
-  .app{
-    grid-template-columns:1fr;
-  }
+  .app{grid-template-columns:1fr}
 
   .side{
     position:relative;
@@ -586,31 +534,14 @@ th{
     overflow:auto;
   }
 
-  .nav button{
-    min-width:max-content;
-  }
+  .nav button{min-width:max-content}
 
-  .sideFoot,
-  .tag{
-    display:none;
-  }
+  .sideFoot,.tag{display:none}
+  .top h2{display:none}
 
-  .top h2{
-    display:none;
-  }
-
-  .stats,
-  .modules{
-    grid-template-columns:1fr;
-  }
-
-  .form{
-    grid-template-columns:1fr;
-  }
-
-  .form .wide{
-    grid-column:auto;
-  }
+  .stats,.modules{grid-template-columns:1fr}
+  .form{grid-template-columns:1fr}
+  .form .wide,.adminBox{grid-column:auto}
 }
 </style>
 </head>
@@ -618,12 +549,9 @@ th{
 <body>
 
 <div id="loginGate" class="loginGate">
-
   <div class="loginBox">
 
-    <div class="loginLogo">
-      NEVOPAY
-    </div>
+    <div class="loginLogo">NEVOPAY</div>
 
     <div class="loginSub">
       Ana Firma Yönetim Paneli
@@ -643,28 +571,17 @@ th{
       autocomplete="current-password"
     >
 
-    <button
-      id="loginBtn"
-      class="loginBtn"
-    >
+    <button id="loginBtn" class="loginBtn">
       Giriş Yap
     </button>
 
-    <button
-      id="forgotBtn"
-      class="forgotBtn"
-      type="button"
-    >
+    <button id="forgotBtn" class="forgotBtn" type="button">
       Şifremi Unuttum
     </button>
 
-    <div
-      id="loginMsg"
-      class="loginMsg"
-    ></div>
+    <div id="loginMsg" class="loginMsg"></div>
 
   </div>
-
 </div>
 
 
@@ -672,38 +589,24 @@ th{
 
   <aside class="side">
 
-    <div class="brand">
-      NEVOPAY
-    </div>
-
-    <div class="tag">
-      ANA FİRMA YÖNETİM PANELİ
-    </div>
+    <div class="brand">NEVOPAY</div>
+    <div class="tag">ANA FİRMA YÖNETİM PANELİ</div>
 
     <nav class="nav">
 
-      <button
-        class="active"
-        onclick="showView('dashboard',this)"
-      >
+      <button class="active" onclick="showView('dashboard',this)">
         ⌂ Ana Sayfa
       </button>
 
-      <button
-        onclick="showView('businesses',this)"
-      >
+      <button onclick="showView('businesses',this)">
         🏢 İşletmeler
       </button>
 
-      <button
-        onclick="showView('automations',this)"
-      >
+      <button onclick="showView('automations',this)">
         ⚙ Otomasyonlar
       </button>
 
-      <button
-        onclick="showView('settings',this)"
-      >
+      <button onclick="showView('settings',this)">
         ⚙ Ayarlar
       </button>
 
@@ -721,9 +624,7 @@ th{
 
     <header class="top">
 
-      <h2>
-        NevoPay Yönetim Paneli
-      </h2>
+      <h2>NevoPay Yönetim Paneli</h2>
 
       <div class="topSpacer"></div>
 
@@ -732,10 +633,7 @@ th{
         <span id="userEmail">NevoPay</span>
       </div>
 
-      <button
-        class="logoutBtn"
-        onclick="logout()"
-      >
+      <button class="logoutBtn" onclick="logout()">
         Çıkış
       </button>
 
@@ -744,26 +642,16 @@ th{
 
     <div class="content">
 
-      <section
-        id="dashboard"
-        class="view active"
-      >
+      <section id="dashboard" class="view active">
 
         <div class="hero">
 
           <div>
-            <h1>
-              NevoPay Ana Firma Paneli
-            </h1>
-
-            <p>
-              Tüm işletmeler ve otomasyonlar tek merkezden yönetilir.
-            </p>
+            <h1>NevoPay Ana Firma Paneli</h1>
+            <p>Tüm işletmeler ve otomasyonlar tek merkezden yönetilir.</p>
           </div>
 
-          <div class="pill">
-            Merkezi Yönetim
-          </div>
+          <div class="pill">Merkezi Yönetim</div>
 
         </div>
 
@@ -807,9 +695,7 @@ th{
 
         <div class="sectionTitle">
 
-          <h3>
-            NevoPay Otomasyonları
-          </h3>
+          <h3>NevoPay Otomasyonları</h3>
 
           <button
             class="primary"
@@ -820,18 +706,12 @@ th{
 
         </div>
 
-
-        <div
-          id="moduleGrid"
-          class="modules"
-        ></div>
+        <div id="moduleGrid" class="modules"></div>
 
 
         <div class="sectionTitle">
 
-          <h3>
-            Son İşletmeler
-          </h3>
+          <h3>Son İşletmeler</h3>
 
           <button
             class="primary"
@@ -870,18 +750,13 @@ th{
       </section>
 
 
-      <section
-        id="businesses"
-        class="view"
-      >
+      <section id="businesses" class="view">
 
         <div class="panel">
 
           <div class="panelHead">
 
-            <h3>
-              🏢 İşletmeler
-            </h3>
+            <h3>🏢 İşletmeler</h3>
 
             <button
               class="primary"
@@ -946,16 +821,11 @@ th{
       </section>
 
 
-      <section
-        id="automations"
-        class="view"
-      >
+      <section id="automations" class="view">
 
         <div class="sectionTitle">
 
-          <h3>
-            ⚙ Otomasyonlar
-          </h3>
+          <h3>⚙ Otomasyonlar</h3>
 
           <button
             class="primary"
@@ -966,28 +836,25 @@ th{
 
         </div>
 
-        <div
-          id="automationGrid"
-          class="modules"
-        ></div>
+        <div id="automationGrid" class="modules"></div>
 
       </section>
 
 
-      <section
-        id="settings"
-        class="view"
-      >
+      <section id="settings" class="view">
 
         <div class="card">
 
-          <h3>
-            NevoPay Sistem Ayarları
-          </h3>
+          <h3>NevoPay Sistem Ayarları</h3>
 
           <div class="infoRow">
             <b>Firebase Project:</b>
             nevopay-ana-panel-8f27f
+          </div>
+
+          <div class="infoRow">
+            <b>Cloud Functions:</b>
+            Aktif
           </div>
 
           <div class="infoRow">
@@ -1001,18 +868,8 @@ th{
           </div>
 
           <div class="infoRow">
-            <b>İşletme yapısı:</b>
-            Her işletme ayrı klasör ve ayrı index.html
-          </div>
-
-          <div class="infoRow">
-            <b>İşletme klasörü:</b>
-            businesses/
-          </div>
-
-          <div class="infoRow">
-            <b>Şablon klasörü:</b>
-            şablonlar/
+            <b>Yeni işletme:</b>
+            İşletme + Yönetici hesabı otomatik oluşturulur
           </div>
 
         </div>
@@ -1026,10 +883,7 @@ th{
 </div>
 
 
-<div
-  id="businessModal"
-  class="modal"
->
+<div id="businessModal" class="modal">
 
   <div class="modalBox">
 
@@ -1038,8 +892,8 @@ th{
     </h3>
 
     <div class="notice">
-      İşletme Firebase'e kaydedilir.
-      Her işletmenin GitHub kodu ayrı index.html dosyasında tutulur.
+      Yeni işletme oluşturulduğunda yönetici hesabı da otomatik oluşturulur.
+      Şifre Firestore veritabanına kaydedilmez.
     </div>
 
     <div class="form">
@@ -1047,23 +901,37 @@ th{
       <input
         id="bizName"
         class="wide"
-        placeholder="İşletme adı"
+        placeholder="İşletme / Site adı"
       >
+
+      <div class="adminBox">
+        👤 İşletme / Site Yöneticisi
+      </div>
 
       <input
         id="bizOwner"
-        placeholder="Yetkili kişi"
+        placeholder="Yetkili adı soyadı"
       >
 
       <input
         id="bizPhone"
-        placeholder="Telefon"
+        inputmode="numeric"
+        maxlength="11"
+        placeholder="Telefon - 05xxxxxxxxx"
       >
 
       <input
         id="bizEmail"
         type="email"
-        placeholder="E-posta"
+        placeholder="Yetkili e-posta"
+      >
+
+      <input
+        id="bizPassword"
+        type="password"
+        inputmode="numeric"
+        maxlength="6"
+        placeholder="6 haneli geçici şifre"
       >
 
       <input
@@ -1082,12 +950,14 @@ th{
         id="bizPanelUrl"
         class="wide"
         placeholder="Panel URL"
+        readonly
       >
 
       <input
         id="bizFilePath"
         class="wide"
         placeholder="Dosya yolu"
+        readonly
       >
 
       <textarea
@@ -1123,10 +993,7 @@ th{
 </div>
 
 
-<div
-  id="automationModal"
-  class="modal"
->
+<div id="automationModal" class="modal">
 
   <div class="modalBox">
 
@@ -1228,6 +1095,13 @@ import {
 from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
+import {
+  getFunctions,
+  httpsCallable
+}
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-functions.js";
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyBPvPlArIb-eum0wivZPEFrKjQ4rH1-htk",
   authDomain: "nevopay-ana-panel-8f27f.firebaseapp.com",
@@ -1247,6 +1121,12 @@ getAuth(app);
 
 const db =
 getFirestore(app);
+
+const functions =
+getFunctions(
+  app,
+  "europe-west1"
+);
 
 
 const loginGate =
@@ -1333,33 +1213,23 @@ function(id,button){
 
   document
   .querySelectorAll(".view")
-  .forEach(function(view){
-
-    view.classList.remove("active");
-
-  });
-
+  .forEach(view =>
+    view.classList.remove("active")
+  );
 
   document
   .getElementById(id)
   .classList.add("active");
 
-
   document
   .querySelectorAll(".nav button")
-  .forEach(function(btn){
-
-    btn.classList.remove("active");
-
-  });
-
+  .forEach(btn =>
+    btn.classList.remove("active")
+  );
 
   if(button){
-
     button.classList.add("active");
-
   }
-
 
   renderAll();
 
@@ -1383,48 +1253,31 @@ function(id){
   .getElementById(id)
   .classList.remove("show");
 
-
   if(id === "businessModal"){
-
     editingBusinessId = null;
-
   }
 
-
   if(id === "automationModal"){
-
     editingAutomationId = null;
-
   }
 
 };
 
 
-/* BURASI DÜZELTİLDİ:
-   ARTIK STATUS FİLTRESİ YOK
-*/
-
 function fillAutomationSelect(){
 
   const select =
-  document.getElementById(
-    "bizAutomation"
-  );
-
+  document.getElementById("bizAutomation");
 
   select.innerHTML =
   automations
-  .map(function(a){
+  .map(a => `
 
-    return `
+    <option value="${escapeHtml(a.slug)}">
+      ${escapeHtml(a.name)}
+    </option>
 
-      <option value="${escapeHtml(a.slug)}">
-        ${escapeHtml(a.name)}
-      </option>
-
-    `;
-
-  })
+  `)
   .join("");
 
 }
@@ -1436,6 +1289,7 @@ function clearBusinessForm(){
   document.getElementById("bizOwner").value = "";
   document.getElementById("bizPhone").value = "";
   document.getElementById("bizEmail").value = "";
+  document.getElementById("bizPassword").value = "";
   document.getElementById("bizCity").value = "";
   document.getElementById("bizStatus").value = "Aktif";
   document.getElementById("bizPanelUrl").value = "";
@@ -1454,15 +1308,25 @@ function(){
 
   fillAutomationSelect();
 
-  document.getElementById(
-    "businessModalTitle"
-  ).textContent =
-  "Yeni İşletme Ekle";
+  document
+  .getElementById("businessModalTitle")
+  .textContent =
+  "Yeni İşletme + Yönetici Oluştur";
 
-  document.getElementById(
-    "businessSaveBtn"
-  ).textContent =
-  "Kaydet";
+  document
+  .getElementById("businessSaveBtn")
+  .textContent =
+  "İşletmeyi Oluştur";
+
+  document
+  .getElementById("bizPassword")
+  .disabled =
+  false;
+
+  document
+  .getElementById("bizPassword")
+  .placeholder =
+  "6 haneli geçici şifre";
 
   window.openModal(
     "businessModal"
@@ -1484,19 +1348,53 @@ function(){
   const slug =
   slugify(this.value);
 
-  document.getElementById(
-    "bizFilePath"
-  ).value =
+  document
+  .getElementById("bizFilePath")
+  .value =
   slug
-  ? `businesses/${slug}/index.html`
-  : "";
+  ?
+  `businesses/${slug}/index.html`
+  :
+  "";
 
-  document.getElementById(
-    "bizPanelUrl"
-  ).value =
+  document
+  .getElementById("bizPanelUrl")
+  .value =
   slug
-  ? `https://nevopay.github.io/nevopay-ana-panel/businesses/${slug}/`
-  : "";
+  ?
+  `https://nevopay.github.io/nevopay-ana-panel/businesses/${slug}/`
+  :
+  "";
+
+}
+);
+
+
+document
+.getElementById("bizPhone")
+.addEventListener(
+"input",
+function(){
+
+  this.value =
+  this.value
+  .replace(/\D/g,"")
+  .slice(0,11);
+
+}
+);
+
+
+document
+.getElementById("bizPassword")
+.addEventListener(
+"input",
+function(){
+
+  this.value =
+  this.value
+  .replace(/\D/g,"")
+  .slice(0,6);
 
 }
 );
@@ -1510,28 +1408,24 @@ function(id){
     b => b.id === id
   );
 
-
   if(!business){
     return;
   }
 
-
-  editingBusinessId = id;
+  editingBusinessId =
+  id;
 
   fillAutomationSelect();
 
-
-  document.getElementById(
-    "businessModalTitle"
-  ).textContent =
+  document
+  .getElementById("businessModalTitle")
+  .textContent =
   "İşletmeyi Düzenle";
 
-
-  document.getElementById(
-    "businessSaveBtn"
-  ).textContent =
+  document
+  .getElementById("businessSaveBtn")
+  .textContent =
   "Güncelle";
-
 
   document.getElementById("bizName").value =
   business.name || "";
@@ -1544,6 +1438,15 @@ function(id){
 
   document.getElementById("bizEmail").value =
   business.email || "";
+
+  document.getElementById("bizPassword").value =
+  "";
+
+  document.getElementById("bizPassword").disabled =
+  true;
+
+  document.getElementById("bizPassword").placeholder =
+  "Şifre düzenleme ayrı yapılacak";
 
   document.getElementById("bizCity").value =
   business.city || "";
@@ -1563,7 +1466,6 @@ function(id){
   document.getElementById("bizNote").value =
   business.note || "";
 
-
   window.openModal(
     "businessModal"
   );
@@ -1575,15 +1477,56 @@ window.saveBusiness =
 async function(){
 
   const name =
-  document.getElementById(
-    "bizName"
-  ).value.trim();
+  document
+  .getElementById("bizName")
+  .value.trim();
+
+  const owner =
+  document
+  .getElementById("bizOwner")
+  .value.trim();
+
+  const phone =
+  document
+  .getElementById("bizPhone")
+  .value
+  .replace(/\D/g,"");
+
+  const email =
+  document
+  .getElementById("bizEmail")
+  .value.trim();
+
+  const password =
+  document
+  .getElementById("bizPassword")
+  .value.trim();
+
+  const city =
+  document
+  .getElementById("bizCity")
+  .value.trim();
+
+  const automationSlug =
+  document
+  .getElementById("bizAutomation")
+  .value;
+
+  const status =
+  document
+  .getElementById("bizStatus")
+  .value;
+
+  const note =
+  document
+  .getElementById("bizNote")
+  .value.trim();
 
 
   if(!name){
 
     alert(
-      "İşletme adını yazın."
+      "İşletme / site adını yazın."
     );
 
     return;
@@ -1591,63 +1534,59 @@ async function(){
   }
 
 
-  const data = {
+  if(!owner){
 
-    name,
+    alert(
+      "Yetkili adı soyadını yazın."
+    );
 
-    owner:
-    document.getElementById(
-      "bizOwner"
-    ).value.trim(),
+    return;
 
-    phone:
-    document.getElementById(
-      "bizPhone"
-    ).value.trim(),
-
-    email:
-    document.getElementById(
-      "bizEmail"
-    ).value.trim(),
-
-    city:
-    document.getElementById(
-      "bizCity"
-    ).value.trim(),
-
-    automationSlug:
-    document.getElementById(
-      "bizAutomation"
-    ).value,
-
-    status:
-    document.getElementById(
-      "bizStatus"
-    ).value,
-
-    panelUrl:
-    document.getElementById(
-      "bizPanelUrl"
-    ).value.trim(),
-
-    filePath:
-    document.getElementById(
-      "bizFilePath"
-    ).value.trim(),
-
-    note:
-    document.getElementById(
-      "bizNote"
-    ).value.trim()
-
-  };
+  }
 
 
-  try{
+  if(
+    phone.length !== 11
+    ||
+    !phone.startsWith("05")
+  ){
+
+    alert(
+      "Telefon 05xxxxxxxxx şeklinde olmalı."
+    );
+
+    return;
+
+  }
 
 
-    if(editingBusinessId){
+  if(!email){
 
+    alert(
+      "Yetkili e-posta adresini yazın."
+    );
+
+    return;
+
+  }
+
+
+  if(!automationSlug){
+
+    alert(
+      "Otomasyon türünü seçin."
+    );
+
+    return;
+
+  }
+
+
+  /* MEVCUT İŞLETME DÜZENLEME */
+
+  if(editingBusinessId){
+
+    try{
 
       await updateDoc(
 
@@ -1658,40 +1597,157 @@ async function(){
         ),
 
         {
-
-          ...data,
-
+          name,
+          owner,
+          phone,
+          email,
+          city,
+          automationSlug,
+          status,
+          note,
           updatedAt:
           serverTimestamp()
-
         }
 
       );
 
-
-    }
-    else{
-
-
-      await addDoc(
-
-        collection(
-          db,
-          "businesses"
-        ),
-
-        {
-
-          ...data,
-
-          createdAt:
-          serverTimestamp()
-
-        }
-
+      window.closeModal(
+        "businessModal"
       );
 
+      editingBusinessId =
+      null;
+
+      return;
+
     }
+    catch(error){
+
+      alert(
+        "Güncelleme hatası: "
+        +
+        (
+          error.message ||
+          error.code
+        )
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  /* YENİ İŞLETME */
+
+  if(
+    !/^\d{6}$/.test(password)
+  ){
+
+    alert(
+      "Geçici şifre tam 6 rakam olmalı."
+    );
+
+    return;
+
+  }
+
+
+  const slug =
+  slugify(name);
+
+
+  if(!slug){
+
+    alert(
+      "İşletme adı geçerli değil."
+    );
+
+    return;
+
+  }
+
+
+  const panelUrl =
+  `https://nevopay.github.io/nevopay-ana-panel/businesses/${slug}/`;
+
+
+  const filePath =
+  `businesses/${slug}/index.html`;
+
+
+  const saveButton =
+  document
+  .getElementById("businessSaveBtn");
+
+
+  saveButton.disabled =
+  true;
+
+  saveButton.textContent =
+  "İşletme ve yönetici oluşturuluyor...";
+
+
+  try{
+
+    const createBusiness =
+    httpsCallable(
+      functions,
+      "createBusinessWithAdmin"
+    );
+
+
+    const result =
+    await createBusiness({
+
+      name,
+
+      slug,
+
+      owner,
+
+      phone,
+
+      email,
+
+      password,
+
+      city,
+
+      automationSlug,
+
+      status,
+
+      note,
+
+      panelUrl,
+
+      filePath
+
+    });
+
+
+    console.log(
+      result.data
+    );
+
+
+    alert(
+      "✅ İşletme ve yönetici başarıyla oluşturuldu.\n\n"
+      +
+      "Site: "
+      +
+      name
+      +
+      "\nYetkili: "
+      +
+      owner
+      +
+      "\nTelefon: "
+      +
+      phone
+    );
 
 
     window.closeModal(
@@ -1701,25 +1757,35 @@ async function(){
 
     clearBusinessForm();
 
-
-    editingBusinessId = null;
-
-
   }
   catch(error){
 
+    console.error(
+      "createBusinessWithAdmin:",
+      error
+    );
 
-    console.error(error);
+
+    let message =
+    error.message ||
+    error.code ||
+    "Bilinmeyen hata";
 
 
     alert(
-      "İşletme kaydedilemedi: "
+      "İşletme oluşturulamadı:\n"
       +
-      (
-        error.code ||
-        error.message
-      )
+      message
     );
+
+  }
+  finally{
+
+    saveButton.disabled =
+    false;
+
+    saveButton.textContent =
+    "İşletmeyi Oluştur";
 
   }
 
@@ -1734,20 +1800,19 @@ function(id){
     b => b.id === id
   );
 
-
   if(
-    !business ||
+    !business
+    ||
     !business.panelUrl
   ){
 
     alert(
-      "Bu işletmenin panel adresi eklenmemiş."
+      "Bu işletmenin panel adresi yok."
     );
 
     return;
 
   }
-
 
   window.open(
     business.panelUrl,
@@ -1766,14 +1831,11 @@ async function(id){
     b => b.id === id
   );
 
-
   if(!business){
     return;
   }
 
-
   try{
-
 
     await updateDoc(
 
@@ -1784,30 +1846,28 @@ async function(id){
       ),
 
       {
-
         status:
         business.status === "Aktif"
-        ? "Pasif"
-        : "Aktif",
+        ?
+        "Pasif"
+        :
+        "Aktif",
 
         updatedAt:
         serverTimestamp()
-
       }
 
     );
 
-
   }
   catch(error){
-
 
     alert(
       "Durum değiştirilemedi: "
       +
       (
-        error.code ||
-        error.message
+        error.message ||
+        error.code
       )
     );
 
@@ -1824,26 +1884,21 @@ async function(id){
     b => b.id === id
   );
 
-
   if(!business){
     return;
   }
 
-
   if(
     !confirm(
-      business.name +
-      " işletmesi silinsin mi?"
+      business.name
+      +
+      " işletme kaydı silinsin mi?"
     )
   ){
-
     return;
-
   }
 
-
   try{
-
 
     await deleteDoc(
 
@@ -1855,18 +1910,11 @@ async function(id){
 
     );
 
-
   }
   catch(error){
 
-
     alert(
-      "İşletme silinemedi: "
-      +
-      (
-        error.code ||
-        error.message
-      )
+      "İşletme silinemedi."
     );
 
   }
@@ -1889,18 +1937,19 @@ function clearAutomationForm(){
 window.openAutomationModal =
 function(){
 
-  editingAutomationId = null;
+  editingAutomationId =
+  null;
 
   clearAutomationForm();
 
-  document.getElementById(
-    "automationModalTitle"
-  ).textContent =
+  document
+  .getElementById("automationModalTitle")
+  .textContent =
   "Yeni Otomasyon";
 
-  document.getElementById(
-    "automationSaveBtn"
-  ).textContent =
+  document
+  .getElementById("automationSaveBtn")
+  .textContent =
   "Kaydet";
 
   window.openModal(
@@ -1923,17 +1972,19 @@ function(){
   const slug =
   slugify(this.value);
 
-  document.getElementById(
-    "autoSlug"
-  ).value =
+  document
+  .getElementById("autoSlug")
+  .value =
   slug;
 
-  document.getElementById(
-    "autoTemplatePath"
-  ).value =
+  document
+  .getElementById("autoTemplatePath")
+  .value =
   slug
-  ? `şablonlar/${slug}/index.html`
-  : "";
+  ?
+  `şablonlar/${slug}/index.html`
+  :
+  "";
 
 }
 );
@@ -1947,27 +1998,22 @@ function(id){
     a => a.id === id
   );
 
-
   if(!automation){
     return;
   }
 
-
   editingAutomationId =
   id;
 
-
-  document.getElementById(
-    "automationModalTitle"
-  ).textContent =
+  document
+  .getElementById("automationModalTitle")
+  .textContent =
   "Otomasyonu Düzenle";
 
-
-  document.getElementById(
-    "automationSaveBtn"
-  ).textContent =
+  document
+  .getElementById("automationSaveBtn")
+  .textContent =
   "Güncelle";
-
 
   document.getElementById("autoName").value =
   automation.name || "";
@@ -1987,7 +2033,6 @@ function(id){
   document.getElementById("autoDescription").value =
   automation.description || "";
 
-
   window.openModal(
     "automationModal"
   );
@@ -1999,21 +2044,16 @@ window.saveAutomation =
 async function(){
 
   const name =
-  document.getElementById(
-    "autoName"
-  ).value.trim();
-
+  document
+  .getElementById("autoName")
+  .value.trim();
 
   const slug =
-  document.getElementById(
-    "autoSlug"
-  ).value.trim();
+  document
+  .getElementById("autoSlug")
+  .value.trim();
 
-
-  if(
-    !name ||
-    !slug
-  ){
+  if(!name || !slug){
 
     alert(
       "Otomasyon adı ve slug gerekli."
@@ -2023,41 +2063,38 @@ async function(){
 
   }
 
-
   const data = {
 
     name,
 
     icon:
-    document.getElementById(
-      "autoIcon"
-    ).value || "⚙",
+    document
+    .getElementById("autoIcon")
+    .value || "⚙",
 
     slug,
 
     templatePath:
-    document.getElementById(
-      "autoTemplatePath"
-    ).value.trim(),
+    document
+    .getElementById("autoTemplatePath")
+    .value.trim(),
 
     status:
-    document.getElementById(
-      "autoStatus"
-    ).value,
+    document
+    .getElementById("autoStatus")
+    .value,
 
     description:
-    document.getElementById(
-      "autoDescription"
-    ).value.trim()
+    document
+    .getElementById("autoDescription")
+    .value.trim()
 
   };
 
 
   try{
 
-
     if(editingAutomationId){
-
 
       await updateDoc(
 
@@ -2068,37 +2105,29 @@ async function(){
         ),
 
         {
-
           ...data,
-
           updatedAt:
           serverTimestamp()
-
         }
 
       );
 
-
     }
     else{
 
-
-      const duplicate =
-      automations.some(
-        a => a.slug === slug
-      );
-
-
-      if(duplicate){
+      if(
+        automations.some(
+          a => a.slug === slug
+        )
+      ){
 
         alert(
-          "Bu slug ile otomasyon zaten var."
+          "Bu slug zaten mevcut."
         );
 
         return;
 
       }
-
 
       await addDoc(
 
@@ -2108,41 +2137,31 @@ async function(){
         ),
 
         {
-
           ...data,
-
           createdAt:
           serverTimestamp()
-
         }
 
       );
 
     }
 
-
     window.closeModal(
       "automationModal"
     );
 
-
     editingAutomationId =
     null;
 
-
   }
   catch(error){
-
-
-    console.error(error);
-
 
     alert(
       "Otomasyon kaydedilemedi: "
       +
       (
-        error.code ||
-        error.message
+        error.message ||
+        error.code
       )
     );
 
@@ -2159,11 +2178,9 @@ async function(id){
     a => a.id === id
   );
 
-
   if(!automation){
     return;
   }
-
 
   const connected =
   businesses.filter(
@@ -2171,7 +2188,6 @@ async function(id){
     b.automationSlug ===
     automation.slug
   ).length;
-
 
   if(connected > 0){
 
@@ -2187,47 +2203,25 @@ async function(id){
 
   }
 
-
   if(
     !confirm(
-      automation.name +
+      automation.name
+      +
       " silinsin mi?"
     )
   ){
-
     return;
-
   }
 
+  await deleteDoc(
 
-  try{
+    doc(
+      db,
+      "automations",
+      id
+    )
 
-
-    await deleteDoc(
-
-      doc(
-        db,
-        "automations",
-        id
-      )
-
-    );
-
-
-  }
-  catch(error){
-
-
-    alert(
-      "Otomasyon silinemedi: "
-      +
-      (
-        error.code ||
-        error.message
-      )
-    );
-
-  }
+  );
 
 };
 
@@ -2238,7 +2232,7 @@ function renderAutomations(){
   automations.length
   ?
   automations
-  .map(function(a){
+  .map(a => {
 
     const count =
     businesses.filter(
@@ -2246,7 +2240,6 @@ function renderAutomations(){
       b.automationSlug ===
       a.slug
     ).length;
-
 
     return `
 
@@ -2270,34 +2263,28 @@ function renderAutomations(){
 
         </div>
 
-
         <h3>
           ${escapeHtml(a.name)}
         </h3>
-
 
         <p>
           ${escapeHtml(a.description || "")}
         </p>
 
-
         <div class="moduleInfo">
 
           <b>slug:</b>
           ${escapeHtml(a.slug || "-")}
-
           <br>
 
           <b>şablon:</b>
           ${escapeHtml(a.templatePath || "-")}
-
           <br>
 
           <b>işletme:</b>
           ${count}
 
         </div>
-
 
         <div class="moduleActions">
 
@@ -2324,22 +2311,16 @@ function renderAutomations(){
   })
   .join("")
   :
-  `
-    <div class="empty">
-      Henüz otomasyon yok.
-    </div>
-  `;
+  `<div class="empty">Henüz otomasyon yok.</div>`;
 
-
-  document.getElementById(
-    "moduleGrid"
-  ).innerHTML =
+  document
+  .getElementById("moduleGrid")
+  .innerHTML =
   html;
 
-
-  document.getElementById(
-    "automationGrid"
-  ).innerHTML =
+  document
+  .getElementById("automationGrid")
+  .innerHTML =
   html;
 
 }
@@ -2350,190 +2331,155 @@ function(){
 
   const search =
   (
-    document.getElementById(
-      "businessSearch"
-    )?.value || ""
+    document
+    .getElementById("businessSearch")
+    ?.value || ""
   )
-  .toLocaleLowerCase(
-    "tr-TR"
-  );
-
+  .toLocaleLowerCase("tr-TR");
 
   const status =
-  document.getElementById(
-    "businessFilter"
-  )?.value || "";
-
+  document
+  .getElementById("businessFilter")
+  ?.value || "";
 
   const list =
-  businesses.filter(
-    function(b){
+  businesses.filter(b => {
 
-      const text =
-      (
-        (b.name || "")
-        +
-        " "
-        +
-        (b.owner || "")
-        +
-        " "
-        +
-        (b.phone || "")
-        +
-        " "
-        +
-        (b.email || "")
-        +
-        " "
-        +
-        (b.city || "")
-        +
-        " "
-        +
-        getAutomationName(
-          b.automationSlug
-        )
+    const text =
+    (
+      (b.name || "")
+      + " "
+      + (b.owner || "")
+      + " "
+      + (b.phone || "")
+      + " "
+      + (b.email || "")
+      + " "
+      + (b.city || "")
+      + " "
+      + getAutomationName(
+        b.automationSlug
       )
-      .toLocaleLowerCase(
-        "tr-TR"
-      );
+    )
+    .toLocaleLowerCase("tr-TR");
+
+    return (
+      text.includes(search)
+      &&
+      (
+        !status
+        ||
+        b.status === status
+      )
+    );
+
+  });
 
 
-      return (
-
-        text.includes(search)
-
-        &&
-
-        (
-          !status ||
-          b.status === status
-        )
-
-      );
-
-    }
-  );
-
-
-  const rows =
-  document.getElementById(
-    "businessRows"
-  );
-
-
-  rows.innerHTML =
+  document
+  .getElementById("businessRows")
+  .innerHTML =
   list.length
   ?
   list
-  .map(
-    function(b,index){
+  .map((b,index) => `
 
-      return `
+    <tr>
 
-        <tr>
+      <td>${index + 1}</td>
 
-          <td>${index + 1}</td>
+      <td>
+        <b>${escapeHtml(b.name)}</b>
+      </td>
 
-          <td>
-            <b>${escapeHtml(b.name)}</b>
-          </td>
+      <td>
+        ${escapeHtml(b.owner || "-")}
+      </td>
 
-          <td>
-            ${escapeHtml(b.owner || "-")}
-          </td>
+      <td>
+        ${escapeHtml(b.phone || "-")}
+      </td>
 
-          <td>
-            ${escapeHtml(b.phone || "-")}
-          </td>
+      <td>
+        ${escapeHtml(b.city || "-")}
+      </td>
 
-          <td>
-            ${escapeHtml(b.city || "-")}
-          </td>
+      <td>
+        ${escapeHtml(
+          getAutomationName(
+            b.automationSlug
+          )
+        )}
+      </td>
 
-          <td>
-            ${escapeHtml(
-              getAutomationName(
-                b.automationSlug
-              )
-            )}
-          </td>
+      <td>
 
-          <td>
+        <span
+          class="badge ${
+            b.status === "Aktif"
+            ? "ok"
+            : "off"
+          }"
+        >
+          ${escapeHtml(b.status || "-")}
+        </span>
 
-            <span
-              class="badge ${
-                b.status === "Aktif"
-                ? "ok"
-                : "off"
-              }"
-            >
-              ${escapeHtml(b.status || "-")}
-            </span>
+      </td>
 
-          </td>
+      <td>
+        ${escapeHtml(b.filePath || "-")}
+      </td>
 
-          <td>
-            ${escapeHtml(
-              b.filePath || "-"
-            )}
-          </td>
+      <td>
 
-          <td>
+        <div class="actions">
 
-            <div class="actions">
+          <button
+            class="primary"
+            onclick="openBusiness('${b.id}')"
+          >
+            Aç
+          </button>
 
-              <button
-                class="primary"
-                onclick="openBusiness('${b.id}')"
-              >
-                Aç
-              </button>
+          <button
+            class="ghost"
+            onclick="editBusiness('${b.id}')"
+          >
+            Düzenle
+          </button>
 
-              <button
-                class="ghost"
-                onclick="editBusiness('${b.id}')"
-              >
-                Düzenle
-              </button>
+          <button
+            class="ghost"
+            onclick="toggleBusiness('${b.id}')"
+          >
+            ${
+              b.status === "Aktif"
+              ?
+              "Pasif Yap"
+              :
+              "Aktif Yap"
+            }
+          </button>
 
-              <button
-                class="ghost"
-                onclick="toggleBusiness('${b.id}')"
-              >
-                ${
-                  b.status === "Aktif"
-                  ? "Pasif Yap"
-                  : "Aktif Yap"
-                }
-              </button>
+          <button
+            class="danger"
+            onclick="deleteBusiness('${b.id}')"
+          >
+            Sil
+          </button>
 
-              <button
-                class="danger"
-                onclick="deleteBusiness('${b.id}')"
-              >
-                Sil
-              </button>
+        </div>
 
-            </div>
+      </td>
 
-          </td>
+    </tr>
 
-        </tr>
-
-      `;
-
-    }
-  )
+  `)
   .join("")
   :
   `
     <tr>
-      <td
-        colspan="9"
-        class="empty"
-      >
+      <td colspan="9" class="empty">
         Henüz işletme yok.
       </td>
     </tr>
@@ -2544,69 +2490,56 @@ function(){
 
 function renderRecent(){
 
-  const rows =
-  document.getElementById(
-    "recentRows"
-  );
-
-
-  rows.innerHTML =
+  document
+  .getElementById("recentRows")
+  .innerHTML =
   businesses.length
   ?
   businesses
   .slice(0,6)
-  .map(function(b){
+  .map(b => `
 
-    return `
+    <tr>
 
-      <tr>
+      <td>
+        ${escapeHtml(b.name)}
+      </td>
 
-        <td>
-          ${escapeHtml(b.name)}
-        </td>
+      <td>
+        ${escapeHtml(b.owner || "-")}
+      </td>
 
-        <td>
-          ${escapeHtml(b.owner || "-")}
-        </td>
+      <td>
+        ${escapeHtml(
+          getAutomationName(
+            b.automationSlug
+          )
+        )}
+      </td>
 
-        <td>
-          ${escapeHtml(
-            getAutomationName(
-              b.automationSlug
-            )
-          )}
-        </td>
+      <td>
+        ${escapeHtml(b.status || "-")}
+      </td>
 
-        <td>
-          ${escapeHtml(
-            b.status || "-"
-          )}
-        </td>
+      <td>
 
-        <td>
+        <button
+          class="primary"
+          onclick="openBusiness('${b.id}')"
+        >
+          Aç
+        </button>
 
-          <button
-            class="primary"
-            onclick="openBusiness('${b.id}')"
-          >
-            Aç
-          </button>
+      </td>
 
-        </td>
+    </tr>
 
-      </tr>
-
-    `;
-
-  })
+  `)
   .join("")
   :
   `
     <tr>
-      <td
-        colspan="5"
-        class="empty"
-      >
+      <td colspan="5" class="empty">
         Henüz işletme yok.
       </td>
     </tr>
@@ -2617,39 +2550,28 @@ function renderRecent(){
 
 function renderStats(){
 
-  const active =
+  document
+  .getElementById("statBusinesses")
+  .textContent =
+  businesses.length;
+
+  document
+  .getElementById("statActive")
+  .textContent =
   businesses.filter(
     b => b.status === "Aktif"
   ).length;
 
-
-  const passive =
+  document
+  .getElementById("statPassive")
+  .textContent =
   businesses.filter(
     b => b.status === "Pasif"
   ).length;
 
-
-  document.getElementById(
-    "statBusinesses"
-  ).textContent =
-  businesses.length;
-
-
-  document.getElementById(
-    "statActive"
-  ).textContent =
-  active;
-
-
-  document.getElementById(
-    "statPassive"
-  ).textContent =
-  passive;
-
-
-  document.getElementById(
-    "statAutomations"
-  ).textContent =
+  document
+  .getElementById("statAutomations")
+  .textContent =
   automations.length;
 
 }
@@ -2658,11 +2580,8 @@ function renderStats(){
 function renderAll(){
 
   renderAutomations();
-
   window.renderBusinesses();
-
   renderRecent();
-
   renderStats();
 
 }
@@ -2671,7 +2590,6 @@ function renderAll(){
 function startFirestore(){
 
   stopFirestore();
-
 
   listeners.push(
 
@@ -2682,29 +2600,19 @@ function startFirestore(){
         "businesses"
       ),
 
-      function(snapshot){
+      snapshot => {
 
         businesses =
-        snapshot.docs.map(
-          function(item){
-
-            return {
-
-              id:item.id,
-
-              ...item.data()
-
-            };
-
-          }
-        );
-
+        snapshot.docs.map(item => ({
+          id:item.id,
+          ...item.data()
+        }));
 
         renderAll();
 
       },
 
-      function(error){
+      error => {
 
         console.error(error);
 
@@ -2712,8 +2620,8 @@ function startFirestore(){
           "İşletmeler okunamadı: "
           +
           (
-            error.code ||
-            error.message
+            error.message ||
+            error.code
           )
         );
 
@@ -2733,31 +2641,20 @@ function startFirestore(){
         "automations"
       ),
 
-      function(snapshot){
+      snapshot => {
 
         automations =
-        snapshot.docs.map(
-          function(item){
-
-            return {
-
-              id:item.id,
-
-              ...item.data()
-
-            };
-
-          }
-        );
-
+        snapshot.docs.map(item => ({
+          id:item.id,
+          ...item.data()
+        }));
 
         fillAutomationSelect();
-
         renderAll();
 
       },
 
-      function(error){
+      error => {
 
         console.error(error);
 
@@ -2765,8 +2662,8 @@ function startFirestore(){
           "Otomasyonlar okunamadı: "
           +
           (
-            error.code ||
-            error.message
+            error.message ||
+            error.code
           )
         );
 
@@ -2782,7 +2679,7 @@ function startFirestore(){
 function stopFirestore(){
 
   listeners.forEach(
-    function(unsubscribe){
+    unsubscribe => {
 
       try{
         unsubscribe();
@@ -2791,7 +2688,6 @@ function stopFirestore(){
 
     }
   );
-
 
   listeners = [];
 
@@ -2806,23 +2702,16 @@ async function(){
   loginMsg.style.color =
   "#c83737";
 
-
   loginMsg.textContent =
   "";
-
 
   const email =
   loginEmail.value.trim();
 
-
   const password =
   loginPassword.value;
 
-
-  if(
-    !email ||
-    !password
-  ){
+  if(!email || !password){
 
     loginMsg.textContent =
     "E-posta ve şifreyi girin.";
@@ -2831,17 +2720,13 @@ async function(){
 
   }
 
-
   loginBtn.disabled =
   true;
-
 
   loginBtn.textContent =
   "Giriş yapılıyor...";
 
-
   try{
-
 
     await signInWithEmailAndPassword(
       auth,
@@ -2849,17 +2734,11 @@ async function(){
       password
     );
 
-
     loginPassword.value =
     "";
 
-
   }
   catch(error){
-
-
-    console.error(error);
-
 
     loginMsg.textContent =
     "Firebase hatası: "
@@ -2869,14 +2748,11 @@ async function(){
       error.message
     );
 
-
   }
   finally{
 
-
     loginBtn.disabled =
     false;
-
 
     loginBtn.textContent =
     "Giriş Yap";
@@ -2890,14 +2766,10 @@ async function(){
 loginPassword
 .addEventListener(
 "keydown",
-function(event){
+event => {
 
-  if(
-    event.key === "Enter"
-  ){
-
+  if(event.key === "Enter"){
     loginBtn.click();
-
   }
 
 }
@@ -2912,58 +2784,33 @@ async function(){
   const email =
   loginEmail.value.trim();
 
-
-  loginMsg.style.color =
-  "#c83737";
-
-
   if(!email){
 
     loginMsg.textContent =
     "Önce e-posta adresinizi yazın.";
 
-    loginEmail.focus();
-
     return;
 
   }
 
-
-  forgotBtn.disabled =
-  true;
-
-
-  forgotBtn.textContent =
-  "Gönderiliyor...";
-
-
   try{
-
 
     await sendPasswordResetEmail(
       auth,
       email
     );
 
-
     loginMsg.style.color =
     "#16834a";
 
-
     loginMsg.textContent =
-    "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.";
-
+    "Şifre sıfırlama bağlantısı gönderildi.";
 
   }
   catch(error){
 
-
-    console.error(error);
-
-
     loginMsg.style.color =
     "#c83737";
-
 
     loginMsg.textContent =
     "Şifre sıfırlama hatası: "
@@ -2972,18 +2819,6 @@ async function(){
       error.code ||
       error.message
     );
-
-
-  }
-  finally{
-
-
-    forgotBtn.disabled =
-    false;
-
-
-    forgotBtn.textContent =
-    "Şifremi Unuttum";
 
   }
 
@@ -2994,59 +2829,40 @@ async function(){
 window.logout =
 async function(){
 
-  try{
-
-    await signOut(auth);
-
-  }
-  catch(error){
-
-    console.error(error);
-
-  }
+  await signOut(auth);
 
 };
 
 
 onAuthStateChanged(
 auth,
-function(user){
+user => {
 
   if(user){
-
 
     loginGate
     .classList
     .add("hidden");
 
-
     userEmail.textContent =
     user.email ||
     "Firebase kullanıcı";
 
-
     startFirestore();
-
 
   }
   else{
 
-
     stopFirestore();
 
-
     businesses = [];
-
     automations = [];
 
-
     renderAll();
-
 
     loginGate
     .classList
     .remove("hidden");
-
 
     userEmail.textContent =
     "NevoPay";
