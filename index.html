@@ -47,9 +47,7 @@ button{
   cursor:pointer;
 }
 
-/* =========================
-   GİRİŞ
-========================= */
+/* LOGIN */
 
 .loginGate{
   position:fixed;
@@ -130,9 +128,7 @@ button{
   line-height:1.4;
 }
 
-/* =========================
-   ANA PANEL
-========================= */
+/* PANEL */
 
 .app{
   min-height:100vh;
@@ -271,9 +267,7 @@ button{
   font-weight:800;
 }
 
-/* =========================
-   İSTATİSTİKLER
-========================= */
+/* STATS */
 
 .stats{
   display:grid;
@@ -305,9 +299,7 @@ button{
   font-size:30px;
 }
 
-/* =========================
-   GENEL
-========================= */
+/* GENERAL */
 
 .sectionTitle{
   display:flex;
@@ -347,9 +339,7 @@ button{
   color:#fff;
 }
 
-/* =========================
-   OTOMASYONLAR
-========================= */
+/* AUTOMATIONS */
 
 .modules{
   display:grid;
@@ -399,9 +389,7 @@ button{
   margin-top:13px;
 }
 
-/* =========================
-   BADGE
-========================= */
+/* BADGE */
 
 .badge{
   display:inline-block;
@@ -426,9 +414,7 @@ button{
   color:var(--orange);
 }
 
-/* =========================
-   PANEL / TABLO
-========================= */
+/* TABLES */
 
 .panel{
   background:#fff;
@@ -506,9 +492,7 @@ th{
   color:var(--muted);
 }
 
-/* =========================
-   AYARLAR
-========================= */
+/* SETTINGS */
 
 .card{
   background:#fff;
@@ -526,9 +510,7 @@ th{
   border-bottom:0;
 }
 
-/* =========================
-   MODAL
-========================= */
+/* MODAL */
 
 .modal{
   position:fixed;
@@ -597,12 +579,9 @@ th{
   margin-bottom:14px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media(max-width:1000px){
-
   .stats{
     grid-template-columns:repeat(2,1fr);
   }
@@ -610,11 +589,9 @@ th{
   .modules{
     grid-template-columns:repeat(2,1fr);
   }
-
 }
 
 @media(max-width:760px){
-
   .app{
     grid-template-columns:1fr;
   }
@@ -654,17 +631,15 @@ th{
   .form .wide{
     grid-column:auto;
   }
-
 }
 </style>
 </head>
 
 <body>
 
-<!-- GİRİŞ -->
+<!-- LOGIN -->
 
 <div id="loginGate" class="loginGate">
-
   <div class="loginBox">
 
     <div class="loginLogo">
@@ -710,11 +685,10 @@ th{
     ></div>
 
   </div>
-
 </div>
 
 
-<!-- ANA PANEL -->
+<!-- APP -->
 
 <div class="app">
 
@@ -792,7 +766,7 @@ th{
 
     <div class="content">
 
-      <!-- ANA SAYFA -->
+      <!-- DASHBOARD -->
 
       <section
         id="dashboard"
@@ -802,7 +776,6 @@ th{
         <div class="hero">
 
           <div>
-
             <h1>
               NevoPay Ana Firma Paneli
             </h1>
@@ -810,7 +783,6 @@ th{
             <p>
               Tüm işletmeler ve otomasyonlar tek merkezden yönetilir.
             </p>
-
           </div>
 
           <div class="pill">
@@ -823,60 +795,42 @@ th{
         <div class="stats">
 
           <div class="stat">
-
             <div>
               <small>Toplam İşletme</small>
               <b id="statBusinesses">0</b>
             </div>
-
             <span class="icon">🏢</span>
-
           </div>
 
-
           <div class="stat">
-
             <div>
               <small>Aktif İşletme</small>
               <b id="statActive">0</b>
             </div>
-
             <span class="icon">✅</span>
-
           </div>
 
-
           <div class="stat">
-
             <div>
               <small>Pasif İşletme</small>
               <b id="statPassive">0</b>
             </div>
-
             <span class="icon">⛔</span>
-
           </div>
 
-
           <div class="stat">
-
             <div>
               <small>Otomasyon Sayısı</small>
               <b id="statAutomations">0</b>
             </div>
-
             <span class="icon">⚙</span>
-
           </div>
 
         </div>
 
 
         <div class="sectionTitle">
-
-          <h3>
-            NevoPay Otomasyonları
-          </h3>
+          <h3>NevoPay Otomasyonları</h3>
 
           <button
             class="primary"
@@ -884,9 +838,7 @@ th{
           >
             + Yeni Otomasyon
           </button>
-
         </div>
-
 
         <div
           id="moduleGrid"
@@ -895,10 +847,7 @@ th{
 
 
         <div class="sectionTitle">
-
-          <h3>
-            Son İşletmeler
-          </h3>
+          <h3>Son İşletmeler</h3>
 
           <button
             class="primary"
@@ -906,7 +855,6 @@ th{
           >
             + Yeni İşletme
           </button>
-
         </div>
 
 
@@ -917,7 +865,6 @@ th{
             <table>
 
               <thead>
-
                 <tr>
                   <th>İşletme</th>
                   <th>Yetkili</th>
@@ -925,7 +872,6 @@ th{
                   <th>Durum</th>
                   <th>Panel</th>
                 </tr>
-
               </thead>
 
               <tbody id="recentRows"></tbody>
@@ -939,7 +885,7 @@ th{
       </section>
 
 
-      <!-- İŞLETMELER -->
+      <!-- BUSINESSES -->
 
       <section
         id="businesses"
@@ -978,19 +924,9 @@ th{
                 id="businessFilter"
                 onchange="renderBusinesses()"
               >
-
-                <option value="">
-                  Tümü
-                </option>
-
-                <option value="Aktif">
-                  Aktif
-                </option>
-
-                <option value="Pasif">
-                  Pasif
-                </option>
-
+                <option value="">Tümü</option>
+                <option value="Aktif">Aktif</option>
+                <option value="Pasif">Pasif</option>
               </select>
 
             </div>
@@ -1001,7 +937,6 @@ th{
               <table>
 
                 <thead>
-
                   <tr>
                     <th>#</th>
                     <th>İşletme</th>
@@ -1013,7 +948,6 @@ th{
                     <th>Dosya</th>
                     <th>İşlem</th>
                   </tr>
-
                 </thead>
 
                 <tbody id="businessRows"></tbody>
@@ -1029,7 +963,7 @@ th{
       </section>
 
 
-      <!-- OTOMASYONLAR -->
+      <!-- AUTOMATIONS -->
 
       <section
         id="automations"
@@ -1059,7 +993,7 @@ th{
       </section>
 
 
-      <!-- AYARLAR -->
+      <!-- SETTINGS -->
 
       <section
         id="settings"
@@ -1113,7 +1047,7 @@ th{
 </div>
 
 
-<!-- İŞLETME MODAL -->
+<!-- BUSINESS MODAL -->
 
 <div
   id="businessModal"
@@ -1160,22 +1094,11 @@ th{
         placeholder="Şehir / İlçe"
       >
 
-      <select
-        id="bizAutomation"
-      ></select>
+      <select id="bizAutomation"></select>
 
-      <select
-        id="bizStatus"
-      >
-
-        <option value="Aktif">
-          Aktif
-        </option>
-
-        <option value="Pasif">
-          Pasif
-        </option>
-
+      <select id="bizStatus">
+        <option value="Aktif">Aktif</option>
+        <option value="Pasif">Pasif</option>
       </select>
 
       <input
@@ -1223,7 +1146,7 @@ th{
 </div>
 
 
-<!-- OTOMASYON MODAL -->
+<!-- AUTOMATION MODAL -->
 
 <div
   id="automationModal"
@@ -1261,18 +1184,9 @@ th{
         placeholder="Şablon yolu"
       >
 
-      <select
-        id="autoStatus"
-      >
-
-        <option value="Aktif">
-          Aktif
-        </option>
-
-        <option value="Hazırlanıyor">
-          Hazırlanıyor
-        </option>
-
+      <select id="autoStatus">
+        <option value="Aktif">Aktif</option>
+        <option value="Hazırlanıyor">Hazırlanıyor</option>
       </select>
 
       <textarea
@@ -1310,9 +1224,7 @@ th{
 
 <script type="module">
 
-/* =========================
-   FIREBASE
-========================= */
+/* FIREBASE */
 
 import {
   initializeApp
@@ -1343,87 +1255,66 @@ import {
 from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
-/* =========================
-   YENİ FIREBASE CONFIG
-========================= */
+/* DOĞRU FIREBASE CONFIG */
 
 const firebaseConfig = {
-
-  apiKey:
-  "AIzaSyBPvPIArIb-eum0wivZPEFrKjQ4rH1-htk",
-
-  authDomain:
-  "nevopay-ana-panel-8f27f.firebaseapp.com",
-
-  projectId:
-  "nevopay-ana-panel-8f27f",
-
-  storageBucket:
-  "nevopay-ana-panel-8f27f.firebasestorage.app",
-
-  messagingSenderId:
-  "211645885446",
-
-  appId:
-  "1:211645885446:web:fa4b7c65d3fc8b29dd2787",
-
-  measurementId:
-  "G-12PJQJMK4V"
-
+  apiKey: "AIzaSyBPvPlArIb-eum0wivZPEFrKjQ4rH1-htk",
+  authDomain: "nevopay-ana-panel-8f27f.firebaseapp.com",
+  projectId: "nevopay-ana-panel-8f27f",
+  storageBucket: "nevopay-ana-panel-8f27f.firebasestorage.app",
+  messagingSenderId: "211645885446",
+  appId: "1:211645885446:web:fa4b7c65d3fc8b29dd2787",
+  measurementId: "G-12PJQJMK4V"
 };
 
 
 const app =
-initializeApp(firebaseConfig);
-
+initializeApp(
+  firebaseConfig
+);
 
 const auth =
-getAuth(app);
-
+getAuth(
+  app
+);
 
 const db =
-getFirestore(app);
+getFirestore(
+  app
+);
 
 
-/* =========================
-   ELEMENTLER
-========================= */
+/* ELEMENTS */
 
 const loginGate =
 document.getElementById(
   "loginGate"
 );
 
-
 const loginEmail =
 document.getElementById(
   "loginEmail"
 );
-
 
 const loginPassword =
 document.getElementById(
   "loginPassword"
 );
 
-
 const loginBtn =
 document.getElementById(
   "loginBtn"
 );
-
 
 const forgotBtn =
 document.getElementById(
   "forgotBtn"
 );
 
-
 const loginMsg =
 document.getElementById(
   "loginMsg"
 );
-
 
 const userEmail =
 document.getElementById(
@@ -1431,9 +1322,7 @@ document.getElementById(
 );
 
 
-/* =========================
-   VERİLER
-========================= */
+/* DATA */
 
 let businesses = [];
 
@@ -1446,9 +1335,7 @@ let editingBusinessId = null;
 let editingAutomationId = null;
 
 
-/* =========================
-   YARDIMCI
-========================= */
+/* HELPERS */
 
 function escapeHtml(value){
 
@@ -1460,13 +1347,11 @@ function escapeHtml(value){
     function(char){
 
       return {
-
         "&":"&amp;",
         "<":"&lt;",
         ">":"&gt;",
         '"':"&quot;",
         "'":"&#39;"
-
       }[char];
 
     }
@@ -1514,9 +1399,7 @@ function getAutomationName(slug){
 }
 
 
-/* =========================
-   MENÜ
-========================= */
+/* VIEWS */
 
 window.showView =
 function(id,button){
@@ -1526,13 +1409,14 @@ function(id,button){
     ".view"
   )
   .forEach(
-  function(view){
+    function(view){
 
-    view.classList.remove(
-      "active"
-    );
+      view.classList.remove(
+        "active"
+      );
 
-  });
+    }
+  );
 
 
   document
@@ -1547,13 +1431,14 @@ function(id,button){
     ".nav button"
   )
   .forEach(
-  function(btn){
+    function(btn){
 
-    btn.classList.remove(
-      "active"
-    );
+      btn.classList.remove(
+        "active"
+      );
 
-  });
+    }
+  );
 
 
   if(button){
@@ -1570,9 +1455,7 @@ function(id,button){
 };
 
 
-/* =========================
-   MODAL
-========================= */
+/* MODALS */
 
 window.openModal =
 function(id){
@@ -1618,9 +1501,7 @@ function(id){
 };
 
 
-/* =========================
-   OTOMASYON SELECT
-========================= */
+/* AUTOMATION SELECT */
 
 function fillAutomationSelect(){
 
@@ -1637,27 +1518,26 @@ function fillAutomationSelect(){
     a.status === "Aktif"
   )
   .map(
-  function(a){
+    function(a){
 
-    return `
+      return `
 
-      <option
-        value="${escapeHtml(a.slug)}"
-      >
-        ${escapeHtml(a.name)}
-      </option>
+        <option
+          value="${escapeHtml(a.slug)}"
+        >
+          ${escapeHtml(a.name)}
+        </option>
 
-    `;
+      `;
 
-  })
+    }
+  )
   .join("");
 
 }
 
 
-/* =========================
-   İŞLETME FORMU
-========================= */
+/* BUSINESS FORM */
 
 function clearBusinessForm(){
 
@@ -1700,9 +1580,7 @@ function clearBusinessForm(){
 }
 
 
-/* =========================
-   YENİ İŞLETME
-========================= */
+/* NEW BUSINESS */
 
 window.openBusinessModal =
 function(){
@@ -1712,7 +1590,6 @@ function(){
 
 
   clearBusinessForm();
-
 
   fillAutomationSelect();
 
@@ -1736,9 +1613,7 @@ function(){
 };
 
 
-/* =========================
-   İŞLETME ADI
-========================= */
+/* AUTO URL */
 
 document
 .getElementById(
@@ -1786,9 +1661,7 @@ function(){
 );
 
 
-/* =========================
-   İŞLETME DÜZENLE
-========================= */
+/* EDIT BUSINESS */
 
 window.editBusiness =
 function(id){
@@ -1895,9 +1768,7 @@ function(id){
 };
 
 
-/* =========================
-   İŞLETME KAYDET
-========================= */
+/* SAVE BUSINESS */
 
 window.saveBusiness =
 async function(){
@@ -2061,9 +1932,7 @@ async function(){
 };
 
 
-/* =========================
-   İŞLETME AÇ
-========================= */
+/* OPEN BUSINESS */
 
 window.openBusiness =
 function(id){
@@ -2098,9 +1967,7 @@ function(id){
 };
 
 
-/* =========================
-   AKTİF PASİF
-========================= */
+/* TOGGLE BUSINESS */
 
 window.toggleBusiness =
 async function(id){
@@ -2167,9 +2034,7 @@ async function(id){
 };
 
 
-/* =========================
-   İŞLETME SİL
-========================= */
+/* DELETE BUSINESS */
 
 window.deleteBusiness =
 async function(id){
@@ -2235,9 +2100,7 @@ async function(id){
 };
 
 
-/* =========================
-   OTOMASYON FORMU
-========================= */
+/* AUTOMATION FORM */
 
 function clearAutomationForm(){
 
@@ -2268,9 +2131,7 @@ function clearAutomationForm(){
 }
 
 
-/* =========================
-   YENİ OTOMASYON
-========================= */
+/* NEW AUTOMATION */
 
 window.openAutomationModal =
 function(){
@@ -2301,9 +2162,7 @@ function(){
 };
 
 
-/* =========================
-   SLUG OTOMATİK
-========================= */
+/* AUTO SLUG */
 
 document
 .getElementById(
@@ -2347,9 +2206,7 @@ function(){
 );
 
 
-/* =========================
-   OTOMASYON DÜZENLE
-========================= */
+/* EDIT AUTOMATION */
 
 window.editAutomation =
 function(id){
@@ -2429,9 +2286,7 @@ function(id){
 };
 
 
-/* =========================
-   OTOMASYON KAYDET
-========================= */
+/* SAVE AUTOMATION */
 
 window.saveAutomation =
 async function(){
@@ -2596,9 +2451,7 @@ async function(){
 };
 
 
-/* =========================
-   OTOMASYON SİL
-========================= */
+/* DELETE AUTOMATION */
 
 window.deleteAutomation =
 async function(id){
@@ -2689,9 +2542,7 @@ async function(id){
 };
 
 
-/* =========================
-   OTOMASYONLAR
-========================= */
+/* RENDER AUTOMATIONS */
 
 function renderAutomations(){
 
@@ -2700,104 +2551,103 @@ function renderAutomations(){
   ?
   automations
   .map(
-  function(a){
+    function(a){
 
-    const count =
-    businesses.filter(
-      b =>
-      b.automationSlug ===
-      a.slug
-    ).length;
+      const count =
+      businesses.filter(
+        b =>
+        b.automationSlug ===
+        a.slug
+      ).length;
 
 
-    return `
+      return `
 
-      <div class="module">
+        <div class="module">
 
-        <div class="moduleTop">
+          <div class="moduleTop">
 
-          <div class="moduleIcon">
-            ${escapeHtml(a.icon || "⚙")}
+            <div class="moduleIcon">
+              ${escapeHtml(a.icon || "⚙")}
+            </div>
+
+            <span
+              class="badge ${
+                a.status === "Aktif"
+                ?
+                "ok"
+                :
+                "soon"
+              }"
+            >
+              ${escapeHtml(a.status || "-")}
+            </span>
+
           </div>
 
-          <span
-            class="badge ${
-              a.status === "Aktif"
-              ?
-              "ok"
-              :
-              "soon"
-            }"
-          >
-            ${escapeHtml(a.status || "-")}
-          </span>
+
+          <h3>
+            ${escapeHtml(a.name)}
+          </h3>
+
+
+          <p>
+            ${escapeHtml(
+              a.description || ""
+            )}
+          </p>
+
+
+          <div class="moduleInfo">
+
+            <b>slug:</b>
+            ${escapeHtml(a.slug || "-")}
+
+            <br>
+
+            <b>şablon:</b>
+            ${escapeHtml(
+              a.templatePath || "-"
+            )}
+
+            <br>
+
+            <b>işletme:</b>
+            ${count}
+
+          </div>
+
+
+          <div class="moduleActions">
+
+            <button
+              class="ghost"
+              onclick="editAutomation('${a.id}')"
+            >
+              Düzenle
+            </button>
+
+            <button
+              class="danger"
+              onclick="deleteAutomation('${a.id}')"
+            >
+              Sil
+            </button>
+
+          </div>
 
         </div>
 
+      `;
 
-        <h3>
-          ${escapeHtml(a.name)}
-        </h3>
-
-
-        <p>
-          ${escapeHtml(
-            a.description || ""
-          )}
-        </p>
-
-
-        <div class="moduleInfo">
-
-          <b>slug:</b>
-          ${escapeHtml(a.slug || "-")}
-
-          <br>
-
-          <b>şablon:</b>
-          ${escapeHtml(
-            a.templatePath || "-"
-          )}
-
-          <br>
-
-          <b>işletme:</b>
-          ${count}
-
-        </div>
-
-
-        <div class="moduleActions">
-
-          <button
-            class="ghost"
-            onclick="editAutomation('${a.id}')"
-          >
-            Düzenle
-          </button>
-
-          <button
-            class="danger"
-            onclick="deleteAutomation('${a.id}')"
-          >
-            Sil
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  })
+    }
+  )
   .join("")
   :
   `
-
     <div class="empty">
       Henüz otomasyon yok.
     </div>
-
   `;
 
 
@@ -2815,9 +2665,7 @@ function renderAutomations(){
 }
 
 
-/* =========================
-   İŞLETMELER
-========================= */
+/* RENDER BUSINESSES */
 
 window.renderBusinesses =
 function(){
@@ -2841,56 +2689,56 @@ function(){
 
   const list =
   businesses.filter(
-  function(b){
+    function(b){
 
-
-    const text =
-    (
-      (b.name || "")
-      +
-      " "
-      +
-      (b.owner || "")
-      +
-      " "
-      +
-      (b.phone || "")
-      +
-      " "
-      +
-      (b.email || "")
-      +
-      " "
-      +
-      (b.city || "")
-      +
-      " "
-      +
-      getAutomationName(
-        b.automationSlug
-      )
-    )
-    .toLocaleLowerCase(
-      "tr-TR"
-    );
-
-
-    return (
-
-      text.includes(
-        search
-      )
-
-      &&
-
+      const text =
       (
-        !status ||
-        b.status === status
+        (b.name || "")
+        +
+        " "
+        +
+        (b.owner || "")
+        +
+        " "
+        +
+        (b.phone || "")
+        +
+        " "
+        +
+        (b.email || "")
+        +
+        " "
+        +
+        (b.city || "")
+        +
+        " "
+        +
+        getAutomationName(
+          b.automationSlug
+        )
       )
+      .toLocaleLowerCase(
+        "tr-TR"
+      );
 
-    );
 
-  });
+      return (
+
+        text.includes(
+          search
+        )
+
+        &&
+
+        (
+          !status ||
+          b.status === status
+        )
+
+      );
+
+    }
+  );
 
 
   const rows =
@@ -2904,137 +2752,121 @@ function(){
   ?
   list
   .map(
-  function(b,index){
+    function(b,index){
 
+      return `
 
-    return `
+        <tr>
 
-      <tr>
+          <td>
+            ${index + 1}
+          </td>
 
-        <td>
-          ${index + 1}
-        </td>
+          <td>
+            <b>${escapeHtml(b.name)}</b>
+          </td>
 
-        <td>
-          <b>
-            ${escapeHtml(b.name)}
-          </b>
-        </td>
+          <td>
+            ${escapeHtml(b.owner || "-")}
+          </td>
 
-        <td>
-          ${escapeHtml(
-            b.owner || "-"
-          )}
-        </td>
+          <td>
+            ${escapeHtml(b.phone || "-")}
+          </td>
 
-        <td>
-          ${escapeHtml(
-            b.phone || "-"
-          )}
-        </td>
+          <td>
+            ${escapeHtml(b.city || "-")}
+          </td>
 
-        <td>
-          ${escapeHtml(
-            b.city || "-"
-          )}
-        </td>
-
-        <td>
-          ${escapeHtml(
-            getAutomationName(
-              b.automationSlug
-            )
-          )}
-        </td>
-
-        <td>
-
-          <span
-            class="badge ${
-              b.status === "Aktif"
-              ?
-              "ok"
-              :
-              "off"
-            }"
-          >
-
+          <td>
             ${escapeHtml(
-              b.status || "-"
+              getAutomationName(
+                b.automationSlug
+              )
             )}
+          </td>
 
-          </span>
+          <td>
 
-        </td>
-
-        <td>
-          ${escapeHtml(
-            b.filePath || "-"
-          )}
-        </td>
-
-        <td>
-
-          <div class="actions">
-
-            <button
-              class="primary"
-              onclick="openBusiness('${b.id}')"
-            >
-              Aç
-            </button>
-
-            <button
-              class="ghost"
-              onclick="editBusiness('${b.id}')"
-            >
-              Düzenle
-            </button>
-
-            <button
-              class="ghost"
-              onclick="toggleBusiness('${b.id}')"
-            >
-
-              ${
+            <span
+              class="badge ${
                 b.status === "Aktif"
                 ?
-                "Pasif Yap"
+                "ok"
                 :
-                "Aktif Yap"
-              }
-
-            </button>
-
-            <button
-              class="danger"
-              onclick="deleteBusiness('${b.id}')"
+                "off"
+              }"
             >
-              Sil
-            </button>
+              ${escapeHtml(b.status || "-")}
+            </span>
 
-          </div>
+          </td>
 
-        </td>
+          <td>
+            ${escapeHtml(
+              b.filePath || "-"
+            )}
+          </td>
 
-      </tr>
+          <td>
 
-    `;
+            <div class="actions">
 
-  })
+              <button
+                class="primary"
+                onclick="openBusiness('${b.id}')"
+              >
+                Aç
+              </button>
+
+              <button
+                class="ghost"
+                onclick="editBusiness('${b.id}')"
+              >
+                Düzenle
+              </button>
+
+              <button
+                class="ghost"
+                onclick="toggleBusiness('${b.id}')"
+              >
+                ${
+                  b.status === "Aktif"
+                  ?
+                  "Pasif Yap"
+                  :
+                  "Aktif Yap"
+                }
+              </button>
+
+              <button
+                class="danger"
+                onclick="deleteBusiness('${b.id}')"
+              >
+                Sil
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      `;
+
+    }
+  )
   .join("")
   :
   `
 
     <tr>
-
       <td
         colspan="9"
         class="empty"
       >
         Henüz işletme yok.
       </td>
-
     </tr>
 
   `;
@@ -3042,9 +2874,7 @@ function(){
 };
 
 
-/* =========================
-   SON İŞLETMELER
-========================= */
+/* RECENT */
 
 function renderRecent(){
 
@@ -3063,66 +2893,64 @@ function renderRecent(){
     6
   )
   .map(
-  function(b){
+    function(b){
 
+      return `
 
-    return `
+        <tr>
 
-      <tr>
+          <td>
+            ${escapeHtml(b.name)}
+          </td>
 
-        <td>
-          ${escapeHtml(b.name)}
-        </td>
+          <td>
+            ${escapeHtml(
+              b.owner || "-"
+            )}
+          </td>
 
-        <td>
-          ${escapeHtml(
-            b.owner || "-"
-          )}
-        </td>
+          <td>
+            ${escapeHtml(
+              getAutomationName(
+                b.automationSlug
+              )
+            )}
+          </td>
 
-        <td>
-          ${escapeHtml(
-            getAutomationName(
-              b.automationSlug
-            )
-          )}
-        </td>
+          <td>
+            ${escapeHtml(
+              b.status || "-"
+            )}
+          </td>
 
-        <td>
-          ${escapeHtml(
-            b.status || "-"
-          )}
-        </td>
+          <td>
 
-        <td>
+            <button
+              class="primary"
+              onclick="openBusiness('${b.id}')"
+            >
+              Aç
+            </button>
 
-          <button
-            class="primary"
-            onclick="openBusiness('${b.id}')"
-          >
-            Aç
-          </button>
+          </td>
 
-        </td>
+        </tr>
 
-      </tr>
+      `;
 
-    `;
-
-  })
+    }
+  )
   .join("")
   :
   `
 
     <tr>
-
       <td
         colspan="5"
         class="empty"
       >
         Henüz işletme yok.
       </td>
-
     </tr>
 
   `;
@@ -3130,9 +2958,7 @@ function renderRecent(){
 }
 
 
-/* =========================
-   İSTATİSTİK
-========================= */
+/* STATS */
 
 function renderStats(){
 
@@ -3176,9 +3002,7 @@ function renderStats(){
 }
 
 
-/* =========================
-   RENDER
-========================= */
+/* RENDER ALL */
 
 function renderAll(){
 
@@ -3193,9 +3017,7 @@ function renderAll(){
 }
 
 
-/* =========================
-   FIRESTORE
-========================= */
+/* FIRESTORE */
 
 function startFirestore(){
 
@@ -3215,18 +3037,18 @@ function startFirestore(){
 
         businesses =
         snapshot.docs.map(
-        function(item){
+          function(item){
 
-          return {
+            return {
 
-            id:
-            item.id,
+              id:item.id,
 
-            ...item.data()
+              ...item.data()
 
-          };
+            };
 
-        });
+          }
+        );
 
 
         renderAll();
@@ -3269,22 +3091,21 @@ function startFirestore(){
 
         automations =
         snapshot.docs.map(
-        function(item){
+          function(item){
 
-          return {
+            return {
 
-            id:
-            item.id,
+              id:item.id,
 
-            ...item.data()
+              ...item.data()
 
-          };
+            };
 
-        });
+          }
+        );
 
 
         fillAutomationSelect();
-
 
         renderAll();
 
@@ -3318,16 +3139,17 @@ function startFirestore(){
 function stopFirestore(){
 
   listeners.forEach(
-  function(unsubscribe){
+    function(unsubscribe){
 
-    try{
+      try{
 
-      unsubscribe();
+        unsubscribe();
+
+      }
+      catch(error){}
 
     }
-    catch(error){}
-
-  });
+  );
 
 
   listeners = [];
@@ -3335,9 +3157,7 @@ function stopFirestore(){
 }
 
 
-/* =========================
-   GİRİŞ
-========================= */
+/* LOGIN */
 
 loginBtn
 .addEventListener(
@@ -3449,9 +3269,7 @@ function(event){
 );
 
 
-/* =========================
-   ŞİFREMİ UNUTTUM
-========================= */
+/* FORGOT PASSWORD */
 
 forgotBtn
 .addEventListener(
@@ -3544,9 +3362,7 @@ async function(){
 );
 
 
-/* =========================
-   ÇIKIŞ
-========================= */
+/* LOGOUT */
 
 window.logout =
 async function(){
@@ -3569,15 +3385,15 @@ async function(){
 };
 
 
-/* =========================
-   OTURUM
-========================= */
+/* SESSION */
 
 onAuthStateChanged(
 auth,
 function(user){
 
-  if(user){
+  if(
+    user
+  ){
 
 
     loginGate
