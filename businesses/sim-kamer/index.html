@@ -39,6 +39,10 @@ input{
   font:inherit;
 }
 
+button{
+  cursor:pointer;
+}
+
 /* =========================
    GİRİŞ EKRANI
 ========================= */
@@ -50,13 +54,14 @@ input{
   justify-content:center;
   align-items:center;
   padding:24px;
+
   background:
     linear-gradient(
       135deg,
       rgba(5,20,45,.72),
       rgba(26,71,145,.45)
     ),
-    url("../../şablonlar/site-aidat/site-bg.jpg");
+    url("../../templates/site-aidat/site-bg.jpg");
 
   background-size:cover;
   background-position:center;
@@ -94,7 +99,6 @@ input{
   margin:0;
   font-size:30px;
   font-weight:900;
-  letter-spacing:.5px;
 }
 
 .siteSub{
@@ -119,7 +123,6 @@ input{
   border-radius:10px;
   font-weight:800;
   color:#667085;
-  cursor:pointer;
 }
 
 .roleBtn.active{
@@ -136,7 +139,7 @@ input{
   display:block;
   font-size:13px;
   font-weight:800;
-  margin:0 0 6px;
+  margin-bottom:6px;
 }
 
 .field input{
@@ -145,7 +148,6 @@ input{
   border-radius:12px;
   padding:13px 14px;
   outline:none;
-  background:#fff;
 }
 
 .field input:focus{
@@ -162,7 +164,6 @@ input{
   background:linear-gradient(135deg,var(--blue),var(--blue2));
   color:#fff;
   font-weight:900;
-  cursor:pointer;
 }
 
 .forgotBtn{
@@ -172,7 +173,6 @@ input{
   color:var(--blue);
   padding:12px 4px 2px;
   font-weight:800;
-  cursor:pointer;
 }
 
 .loginMsg{
@@ -243,7 +243,6 @@ input{
   padding:12px 13px;
   border-radius:11px;
   margin:3px 0;
-  cursor:pointer;
 }
 
 .menu button:hover,
@@ -266,7 +265,6 @@ input{
   color:#fff;
   border-radius:11px;
   padding:11px;
-  cursor:pointer;
 }
 
 .main{
@@ -292,7 +290,6 @@ input{
   background:#eef2f7;
   border-radius:9px;
   padding:8px 11px;
-  cursor:pointer;
 }
 
 .topbarTitle{
@@ -334,14 +331,14 @@ input{
   display:flex;
   align-items:flex-end;
   color:#fff;
-  position:relative;
+
   background:
     linear-gradient(
       90deg,
       rgba(5,20,45,.86),
       rgba(5,20,45,.25)
     ),
-    url("../../şablonlar/site-aidat/site-bg.jpg");
+    url("../../templates/site-aidat/site-bg.jpg");
 
   background-size:cover;
   background-position:center;
@@ -461,7 +458,6 @@ input{
 
   .loginCard{
     padding:25px 19px;
-    border-radius:23px;
   }
 
   .siteName{
@@ -470,10 +466,6 @@ input{
 
   .content{
     padding:15px;
-  }
-
-  .topbar{
-    padding:10px 14px;
   }
 
   .cards{
@@ -489,15 +481,14 @@ input{
     font-size:27px;
   }
 }
+
 </style>
 </head>
 
 <body>
 
 
-<!-- =========================
-     GİRİŞ
-========================= -->
+<!-- GİRİŞ -->
 
 <div id="loginPage" class="loginPage">
 
@@ -509,10 +500,7 @@ input{
         🏢
       </div>
 
-      <h1
-        id="loginSiteName"
-        class="siteName"
-      >
+      <h1 id="loginSiteName" class="siteName">
         SIM KAMER
       </h1>
 
@@ -615,9 +603,7 @@ input{
 
 
 
-<!-- =========================
-     PANEL
-========================= -->
+<!-- PANEL -->
 
 <div
   id="panelPage"
@@ -705,6 +691,8 @@ input{
 
     <div class="content">
 
+      <!-- ANA SAYFA -->
+
       <section
         id="homePage"
         class="page active"
@@ -791,9 +779,11 @@ input{
             </small>
 
             <strong style="font-size:16px">
+
               <span class="status">
                 Aktif
               </span>
+
             </strong>
 
           </div>
@@ -816,48 +806,7 @@ input{
       </section>
 
 
-
-      <section
-        id="duesPage"
-        class="page"
-      >
-
-        <div class="section">
-
-          <h3>
-            Aidat & Ödemeler
-          </h3>
-
-          <div class="empty">
-            Aidat ve ödeme kayıtları burada gösterilecek.
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      <section
-        id="statementPage"
-        class="page"
-      >
-
-        <div class="section">
-
-          <h3>
-            Hesap Ekstresi
-          </h3>
-
-          <div class="empty">
-            Hesap ekstresi burada gösterilecek.
-          </div>
-
-        </div>
-
-      </section>
-
-
+      <!-- SITE SAKİNLERİ -->
 
       <section
         id="residentsPage"
@@ -879,6 +828,51 @@ input{
       </section>
 
 
+      <!-- AİDAT -->
+
+      <section
+        id="duesPage"
+        class="page"
+      >
+
+        <div class="section">
+
+          <h3>
+            Aidat & Ödemeler
+          </h3>
+
+          <div class="empty">
+            Aidat ve ödeme kayıtları burada gösterilecek.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- HESAP EKSTRESİ -->
+
+      <section
+        id="statementPage"
+        class="page"
+      >
+
+        <div class="section">
+
+          <h3>
+            Hesap Ekstresi
+          </h3>
+
+          <div class="empty">
+            Hesap ekstresi burada gösterilecek.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- GİDERLER -->
 
       <section
         id="expensesPage"
@@ -900,6 +894,7 @@ input{
       </section>
 
 
+      <!-- DUYURULAR -->
 
       <section
         id="announcementsPage"
@@ -921,6 +916,7 @@ input{
       </section>
 
 
+      <!-- ANKETLER -->
 
       <section
         id="surveysPage"
@@ -942,6 +938,7 @@ input{
       </section>
 
 
+      <!-- EVRAKLAR -->
 
       <section
         id="documentsPage"
@@ -963,6 +960,7 @@ input{
       </section>
 
 
+      <!-- SITE BİLGİLERİ -->
 
       <section
         id="siteInfoPage"
@@ -984,6 +982,7 @@ input{
       </section>
 
 
+      <!-- AYARLAR -->
 
       <section
         id="settingsPage"
@@ -1005,6 +1004,7 @@ input{
       </section>
 
 
+      <!-- ŞİFRE -->
 
       <section
         id="passwordPage"
@@ -1092,14 +1092,8 @@ const firebaseConfig = {
 
 
 /*
-  ÖNEMLİ:
-  Ana panel "default" Firebase uygulamasını kullanıyor.
-
-  SIM KAMER ise "nevopay-site-panel" isimli
-  AYRI Firebase uygulamasını kullanıyor.
-
-  Böylece site panelindeki giriş/çıkış
-  ana panelin oturumunu bozmaz.
+  SITE PANELİ AYRI FIREBASE APP KULLANIR.
+  ANA NEVOPAY PANELİNİN OTURUMUNU ETKİLEMEZ.
 */
 
 let siteApp =
@@ -1123,6 +1117,7 @@ if(!siteApp){
 const siteAuth =
 getAuth(siteApp);
 
+
 const db =
 getFirestore(siteApp);
 
@@ -1139,22 +1134,25 @@ function findSiteId(){
   .split("/")
   .filter(Boolean);
 
-  const businessesIndex =
+
+  const index =
   parts.indexOf(
     "businesses"
   );
 
+
   if(
-    businessesIndex !== -1
+    index !== -1
     &&
-    parts[businessesIndex + 1]
+    parts[index + 1]
   ){
 
     return parts[
-      businessesIndex + 1
+      index + 1
     ];
 
   }
+
 
   return "sim-kamer";
 
@@ -1165,14 +1163,14 @@ const siteId =
 findSiteId();
 
 
+
 function titleFromSlug(slug){
 
   return String(slug || "")
   .split("-")
-  .map(word =>
-    word
-    .charAt(0)
-    .toUpperCase()
+  .map(
+    word =>
+    word.charAt(0).toUpperCase()
     +
     word.slice(1)
   )
@@ -1183,7 +1181,8 @@ function titleFromSlug(slug){
 
 let siteName =
 titleFromSlug(siteId)
-|| "SIM KAMER";
+||
+"SIM KAMER";
 
 
 let selectedRole =
@@ -1204,90 +1203,108 @@ document.getElementById(
   "loginPage"
 );
 
+
 const panelPage =
 document.getElementById(
   "panelPage"
 );
+
 
 const loginSiteName =
 document.getElementById(
   "loginSiteName"
 );
 
+
 const sideSiteName =
 document.getElementById(
   "sideSiteName"
 );
+
 
 const heroSiteName =
 document.getElementById(
   "heroSiteName"
 );
 
+
 const phoneInput =
 document.getElementById(
   "phoneInput"
 );
+
 
 const passwordInput =
 document.getElementById(
   "passwordInput"
 );
 
+
 const loginBtn =
 document.getElementById(
   "loginBtn"
 );
+
 
 const forgotBtn =
 document.getElementById(
   "forgotBtn"
 );
 
+
 const loginMsg =
 document.getElementById(
   "loginMsg"
 );
+
 
 const residentRoleBtn =
 document.getElementById(
   "residentRoleBtn"
 );
 
+
 const adminRoleBtn =
 document.getElementById(
   "adminRoleBtn"
 );
+
 
 const menu =
 document.getElementById(
   "menu"
 );
 
+
 const sideRoleText =
 document.getElementById(
   "sideRoleText"
 );
+
 
 const currentUserName =
 document.getElementById(
   "currentUserName"
 );
 
+
 const currentUserRole =
 document.getElementById(
   "currentUserRole"
 );
+
 
 const topTitle =
 document.getElementById(
   "topTitle"
 );
 
+
 const sidebar =
 document.getElementById(
   "sidebar"
 );
+
 
 const mobileMenuBtn =
 document.getElementById(
@@ -1297,7 +1314,7 @@ document.getElementById(
 
 
 /* =========================
-   SITE ADINI YÜKLE
+   SITE ADI
 ========================= */
 
 async function loadSite(){
@@ -1329,7 +1346,7 @@ async function loadSite(){
   catch(error){
 
     console.log(
-      "Site bilgisi şu anda okunamadı.",
+      "Site bilgisi okunamadı:",
       error
     );
 
@@ -1341,16 +1358,20 @@ async function loadSite(){
 }
 
 
+
 function applySiteName(){
 
   document.title =
   `${siteName} - Site Yönetimi`;
 
+
   loginSiteName.textContent =
   siteName;
 
+
   sideSiteName.textContent =
   siteName;
+
 
   heroSiteName.textContent =
   siteName;
@@ -1360,7 +1381,7 @@ function applySiteName(){
 
 
 /* =========================
-   ROL SEÇİMİ
+   ROL SEÇ
 ========================= */
 
 function selectRole(role){
@@ -1427,7 +1448,7 @@ adminRoleBtn
 
 
 /* =========================
-   TELEFON
+   GİRİŞ ALANLARI
 ========================= */
 
 phoneInput
@@ -1460,7 +1481,7 @@ function(){
 
 
 /* =========================
-   TELEFONDAN E-POSTA BUL
+   TELEFONDAN EMAIL BUL
 ========================= */
 
 async function getEmailForPhone(phone){
@@ -1542,6 +1563,7 @@ async function(){
   loginMsg.style.color =
   "#dc2626";
 
+
   loginMsg.textContent =
   "";
 
@@ -1584,6 +1606,7 @@ async function(){
   loginBtn.disabled =
   true;
 
+
   loginBtn.textContent =
   "Giriş yapılıyor...";
 
@@ -1608,30 +1631,29 @@ async function(){
     console.error(error);
 
 
-    let message =
-    error.message ||
-    "Giriş yapılamadı.";
-
-
     if(
       error.code ===
       "auth/invalid-credential"
     ){
 
-      message =
+      loginMsg.textContent =
       "Telefon veya şifre hatalı.";
 
     }
+    else{
 
+      loginMsg.textContent =
+      error.message ||
+      "Giriş yapılamadı.";
 
-    loginMsg.textContent =
-    message;
+    }
 
   }
   finally{
 
     loginBtn.disabled =
     false;
+
 
     loginBtn.textContent =
     "Giriş Yap";
@@ -1640,6 +1662,7 @@ async function(){
 
 }
 );
+
 
 
 passwordInput
@@ -1661,7 +1684,7 @@ event => {
 
 
 /* =========================
-   KULLANICI KONTROLÜ
+   KULLANICI KONTROL
 ========================= */
 
 async function loadCurrentUser(user){
@@ -1714,27 +1737,12 @@ async function loadCurrentUser(user){
     }
 
 
-    if(
-      profile.role !==
-      selectedRole
-    ){
-
-      if(
-        profile.role === "admin"
-      ){
-
-        selectedRole =
-        "admin";
-
-      }
-      else{
-
-        selectedRole =
-        "resident";
-
-      }
-
-    }
+    selectedRole =
+    profile.role === "admin"
+    ?
+    "admin"
+    :
+    "resident";
 
 
     currentProfile =
@@ -1750,14 +1758,6 @@ async function loadCurrentUser(user){
 
     console.error(error);
 
-
-    /*
-      SADECE SIM KAMER'İN
-      AYRI AUTH OTURUMUNU KAPATIR.
-
-      NEVOPAY ANA PANELİNE
-      DOKUNMAZ.
-    */
 
     await signOut(
       siteAuth
@@ -1775,7 +1775,7 @@ async function loadCurrentUser(user){
 
 
 /* =========================
-   PANEL GÖSTER
+   PANEL
 ========================= */
 
 function showPanel(profile){
@@ -1783,7 +1783,10 @@ function showPanel(profile){
   loginPage.style.display =
   "none";
 
-  panelPage.classList.add(
+
+  panelPage
+  .classList
+  .add(
     "show"
   );
 
@@ -1814,9 +1817,7 @@ function showPanel(profile){
     "heroWelcome"
   )
   .textContent =
-  `Hoş geldiniz, ${
-    profile.name || ""
-  }.`;
+  `Hoş geldiniz, ${profile.name || ""}.`;
 
 
   buildMenu(
@@ -1834,7 +1835,7 @@ function showPanel(profile){
 
 
 /* =========================
-   MENÜ
+   MENÜLER
 ========================= */
 
 const residentMenu = [
@@ -1949,6 +1950,7 @@ const adminMenu = [
 ];
 
 
+
 function buildMenu(role){
 
   const items =
@@ -1994,16 +1996,22 @@ function buildMenu(role){
       .querySelectorAll(
         "button"
       )
-      .forEach(btn =>
+      .forEach(btn => {
+
         btn
         .classList
-        .remove("active")
-      );
+        .remove(
+          "active"
+        );
+
+      });
 
 
       this
       .classList
-      .add("active");
+      .add(
+        "active"
+      );
 
 
       openPage(
@@ -2014,7 +2022,9 @@ function buildMenu(role){
 
       sidebar
       .classList
-      .remove("open");
+      .remove(
+        "open"
+      );
 
     });
 
@@ -2025,7 +2035,7 @@ function buildMenu(role){
 
 
 /* =========================
-   SAYFA DEĞİŞTİR
+   SAYFA AÇ
 ========================= */
 
 function openPage(
@@ -2037,11 +2047,15 @@ function openPage(
   .querySelectorAll(
     ".page"
   )
-  .forEach(page =>
+  .forEach(page => {
+
     page
     .classList
-    .remove("active")
-  );
+    .remove(
+      "active"
+    );
+
+  });
 
 
   const page =
@@ -2054,7 +2068,9 @@ function openPage(
 
     page
     .classList
-    .add("active");
+    .add(
+      "active"
+    );
 
   }
 
@@ -2068,7 +2084,7 @@ function openPage(
 
 
 /* =========================
-   OTURUM
+   AUTH DURUMU
 ========================= */
 
 onAuthStateChanged(
@@ -2090,7 +2106,9 @@ async user => {
 
     panelPage
     .classList
-    .remove("show");
+    .remove(
+      "show"
+    );
 
 
     loginPage.style.display =
@@ -2116,8 +2134,8 @@ document
 async function(){
 
   /*
-    BU SADECE SITE AUTH'U KAPATIR.
-    ANA PANEL OTURUMU AÇIK KALIR.
+    SADECE SITE PANELİ OTURUMUNU KAPATIR.
+    NEVOPAY ANA PANEL OTURUMUNA DOKUNMAZ.
   */
 
   await signOut(
@@ -2178,6 +2196,7 @@ async function(){
     loginMsg.style.color =
     "#15803d";
 
+
     loginMsg.textContent =
     "Şifre sıfırlama bağlantısı e-posta adresine gönderildi.";
 
@@ -2186,6 +2205,7 @@ async function(){
 
     loginMsg.style.color =
     "#dc2626";
+
 
     loginMsg.textContent =
     error.message ||
@@ -2209,7 +2229,9 @@ function(){
 
   sidebar
   .classList
-  .toggle("open");
+  .toggle(
+    "open"
+  );
 
 }
 );
