@@ -43,6 +43,7 @@ button{
   cursor:pointer;
 }
 
+
 /* =========================
    GİRİŞ EKRANI
 ========================= */
@@ -61,7 +62,7 @@ button{
       rgba(5,20,45,.72),
       rgba(26,71,145,.45)
     ),
-    url("../../templates/site-aidat/site-bg.jpg");
+    url("../../../templates/site-aidat/site-bg.jpg");
 
   background-size:cover;
   background-position:center;
@@ -338,7 +339,7 @@ button{
       rgba(5,20,45,.86),
       rgba(5,20,45,.25)
     ),
-    url("../../templates/site-aidat/site-bg.jpg");
+    url("../../../templates/site-aidat/site-bg.jpg");
 
   background-size:cover;
   background-position:center;
@@ -691,8 +692,6 @@ button{
 
     <div class="content">
 
-      <!-- ANA SAYFA -->
-
       <section
         id="homePage"
         class="page active"
@@ -806,8 +805,6 @@ button{
       </section>
 
 
-      <!-- SITE SAKİNLERİ -->
-
       <section
         id="residentsPage"
         class="page"
@@ -827,8 +824,6 @@ button{
 
       </section>
 
-
-      <!-- AİDAT -->
 
       <section
         id="duesPage"
@@ -850,8 +845,6 @@ button{
       </section>
 
 
-      <!-- HESAP EKSTRESİ -->
-
       <section
         id="statementPage"
         class="page"
@@ -871,8 +864,6 @@ button{
 
       </section>
 
-
-      <!-- GİDERLER -->
 
       <section
         id="expensesPage"
@@ -894,8 +885,6 @@ button{
       </section>
 
 
-      <!-- DUYURULAR -->
-
       <section
         id="announcementsPage"
         class="page"
@@ -915,8 +904,6 @@ button{
 
       </section>
 
-
-      <!-- ANKETLER -->
 
       <section
         id="surveysPage"
@@ -938,8 +925,6 @@ button{
       </section>
 
 
-      <!-- EVRAKLAR -->
-
       <section
         id="documentsPage"
         class="page"
@@ -959,8 +944,6 @@ button{
 
       </section>
 
-
-      <!-- SITE BİLGİLERİ -->
 
       <section
         id="siteInfoPage"
@@ -982,8 +965,6 @@ button{
       </section>
 
 
-      <!-- AYARLAR -->
-
       <section
         id="settingsPage"
         class="page"
@@ -1003,8 +984,6 @@ button{
 
       </section>
 
-
-      <!-- ŞİFRE -->
 
       <section
         id="passwordPage"
@@ -1061,10 +1040,6 @@ from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
 
-/* =========================
-   FIREBASE
-========================= */
-
 const firebaseConfig = {
 
   apiKey:
@@ -1090,11 +1065,6 @@ const firebaseConfig = {
 
 };
 
-
-/*
-  SITE PANELİ AYRI FIREBASE APP KULLANIR.
-  ANA NEVOPAY PANELİNİN OTURUMUNU ETKİLEMEZ.
-*/
 
 let siteApp =
 getApps().find(
@@ -1123,10 +1093,6 @@ getFirestore(siteApp);
 
 
 
-/* =========================
-   SITE ID
-========================= */
-
 function findSiteId(){
 
   const parts =
@@ -1144,11 +1110,11 @@ function findSiteId(){
   if(
     index !== -1
     &&
-    parts[index + 1]
+    parts[index + 2]
   ){
 
     return parts[
-      index + 1
+      index + 2
     ];
 
   }
@@ -1193,10 +1159,6 @@ let currentProfile =
 null;
 
 
-
-/* =========================
-   ELEMENTLER
-========================= */
 
 const loginPage =
 document.getElementById(
@@ -1313,10 +1275,6 @@ document.getElementById(
 
 
 
-/* =========================
-   SITE ADI
-========================= */
-
 async function loadSite(){
 
   try{
@@ -1379,10 +1337,6 @@ function applySiteName(){
 }
 
 
-
-/* =========================
-   ROL SEÇ
-========================= */
 
 function selectRole(role){
 
@@ -1447,10 +1401,6 @@ adminRoleBtn
 
 
 
-/* =========================
-   GİRİŞ ALANLARI
-========================= */
-
 phoneInput
 .addEventListener(
 "input",
@@ -1479,10 +1429,6 @@ function(){
 );
 
 
-
-/* =========================
-   TELEFONDAN EMAIL BUL
-========================= */
 
 async function getEmailForPhone(phone){
 
@@ -1550,10 +1496,6 @@ async function getEmailForPhone(phone){
 }
 
 
-
-/* =========================
-   GİRİŞ
-========================= */
 
 loginBtn
 .addEventListener(
@@ -1683,10 +1625,6 @@ event => {
 
 
 
-/* =========================
-   KULLANICI KONTROL
-========================= */
-
 async function loadCurrentUser(user){
 
   try{
@@ -1774,10 +1712,6 @@ async function loadCurrentUser(user){
 
 
 
-/* =========================
-   PANEL
-========================= */
-
 function showPanel(profile){
 
   loginPage.style.display =
@@ -1833,10 +1767,6 @@ function showPanel(profile){
 }
 
 
-
-/* =========================
-   MENÜLER
-========================= */
 
 const residentMenu = [
 
@@ -2034,10 +1964,6 @@ function buildMenu(role){
 
 
 
-/* =========================
-   SAYFA AÇ
-========================= */
-
 function openPage(
   pageId,
   title
@@ -2083,10 +2009,6 @@ function openPage(
 
 
 
-/* =========================
-   AUTH DURUMU
-========================= */
-
 onAuthStateChanged(
 siteAuth,
 async user => {
@@ -2121,10 +2043,6 @@ async user => {
 
 
 
-/* =========================
-   ÇIKIŞ
-========================= */
-
 document
 .getElementById(
   "logoutBtn"
@@ -2132,11 +2050,6 @@ document
 .addEventListener(
 "click",
 async function(){
-
-  /*
-    SADECE SITE PANELİ OTURUMUNU KAPATIR.
-    NEVOPAY ANA PANEL OTURUMUNA DOKUNMAZ.
-  */
 
   await signOut(
     siteAuth
@@ -2146,10 +2059,6 @@ async function(){
 );
 
 
-
-/* =========================
-   ŞİFREMİ UNUTTUM
-========================= */
 
 forgotBtn
 .addEventListener(
@@ -2218,10 +2127,6 @@ async function(){
 
 
 
-/* =========================
-   MOBİL MENÜ
-========================= */
-
 mobileMenuBtn
 .addEventListener(
 "click",
@@ -2237,10 +2142,6 @@ function(){
 );
 
 
-
-/* =========================
-   BAŞLAT
-========================= */
 
 loadSite();
 
