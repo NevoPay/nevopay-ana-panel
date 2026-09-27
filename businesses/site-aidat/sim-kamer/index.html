@@ -488,18 +488,13 @@ button{
 
 <body>
 
-
-<!-- GİRİŞ -->
-
 <div id="loginPage" class="loginPage">
 
   <div class="loginCard">
 
     <div class="logoArea">
 
-      <div class="siteLogo">
-        🏢
-      </div>
+      <div class="siteLogo">🏢</div>
 
       <h1 id="loginSiteName" class="siteName">
         SIM KAMER
@@ -510,7 +505,6 @@ button{
       </div>
 
     </div>
-
 
     <div class="roleTabs">
 
@@ -532,7 +526,6 @@ button{
 
     </div>
 
-
     <div class="field">
 
       <label>
@@ -549,7 +542,6 @@ button{
       >
 
     </div>
-
 
     <div class="field">
 
@@ -568,7 +560,6 @@ button{
 
     </div>
 
-
     <button
       id="loginBtn"
       class="loginBtn"
@@ -576,7 +567,6 @@ button{
     >
       Giriş Yap
     </button>
-
 
     <button
       id="forgotBtn"
@@ -587,12 +577,10 @@ button{
       Yönetici Şifremi Unuttum
     </button>
 
-
     <div
       id="loginMsg"
       class="loginMsg"
     ></div>
-
 
     <div class="footerText">
       NevoPay • Site / Aidat Yönetim Sistemi
@@ -602,9 +590,6 @@ button{
 
 </div>
 
-
-
-<!-- PANEL -->
 
 <div
   id="panelPage"
@@ -632,12 +617,10 @@ button{
 
     </div>
 
-
     <nav
       id="menu"
       class="menu"
     ></nav>
-
 
     <div class="logoutArea">
 
@@ -651,7 +634,6 @@ button{
     </div>
 
   </aside>
-
 
   <main class="main">
 
@@ -689,7 +671,6 @@ button{
 
     </header>
 
-
     <div class="content">
 
       <section
@@ -713,7 +694,6 @@ button{
 
         </div>
 
-
         <div class="cards">
 
           <div class="card">
@@ -732,7 +712,6 @@ button{
 
           </div>
 
-
           <div class="card">
 
             <div class="cardIcon">
@@ -749,7 +728,6 @@ button{
 
           </div>
 
-
           <div class="card">
 
             <div class="cardIcon">
@@ -765,7 +743,6 @@ button{
             </strong>
 
           </div>
-
 
           <div class="card">
 
@@ -788,7 +765,6 @@ button{
           </div>
 
         </div>
-
 
         <div class="section">
 
@@ -1011,7 +987,6 @@ button{
 </div>
 
 
-
 <script type="module">
 
 import {
@@ -1037,7 +1012,6 @@ import {
   getDoc
 }
 from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-
 
 
 const firebaseConfig = {
@@ -1092,7 +1066,6 @@ const db =
 getFirestore(siteApp);
 
 
-
 function findSiteId(){
 
   const parts =
@@ -1129,7 +1102,6 @@ const siteId =
 findSiteId();
 
 
-
 function titleFromSlug(slug){
 
   return String(slug || "")
@@ -1157,7 +1129,6 @@ let selectedRole =
 
 let currentProfile =
 null;
-
 
 
 const loginPage =
@@ -1274,7 +1245,6 @@ document.getElementById(
 );
 
 
-
 async function loadSite(){
 
   try{
@@ -1316,7 +1286,6 @@ async function loadSite(){
 }
 
 
-
 function applySiteName(){
 
   document.title =
@@ -1335,7 +1304,6 @@ function applySiteName(){
   siteName;
 
 }
-
 
 
 function selectRole(role){
@@ -1400,7 +1368,6 @@ adminRoleBtn
 );
 
 
-
 phoneInput
 .addEventListener(
 "input",
@@ -1427,7 +1394,6 @@ function(){
 
 }
 );
-
 
 
 async function getEmailForPhone(phone){
@@ -1494,7 +1460,6 @@ async function getEmailForPhone(phone){
   return data.email;
 
 }
-
 
 
 loginBtn
@@ -1606,7 +1571,6 @@ async function(){
 );
 
 
-
 passwordInput
 .addEventListener(
 "keydown",
@@ -1622,7 +1586,6 @@ event => {
 
 }
 );
-
 
 
 async function loadCurrentUser(user){
@@ -1711,7 +1674,6 @@ async function loadCurrentUser(user){
 }
 
 
-
 function showPanel(profile){
 
   loginPage.style.display =
@@ -1765,7 +1727,6 @@ function showPanel(profile){
   );
 
 }
-
 
 
 const residentMenu = [
@@ -1880,7 +1841,6 @@ const adminMenu = [
 ];
 
 
-
 function buildMenu(role){
 
   const items =
@@ -1963,7 +1923,6 @@ function buildMenu(role){
 }
 
 
-
 function openPage(
   pageId,
   title
@@ -2008,7 +1967,6 @@ function openPage(
 }
 
 
-
 onAuthStateChanged(
 siteAuth,
 async user => {
@@ -2042,7 +2000,6 @@ async user => {
 );
 
 
-
 document
 .getElementById(
   "logoutBtn"
@@ -2057,7 +2014,6 @@ async function(){
 
 }
 );
-
 
 
 forgotBtn
@@ -2126,7 +2082,6 @@ async function(){
 );
 
 
-
 mobileMenuBtn
 .addEventListener(
 "click",
@@ -2140,7 +2095,6 @@ function(){
 
 }
 );
-
 
 
 loadSite();
