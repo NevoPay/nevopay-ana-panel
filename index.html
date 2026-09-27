@@ -1329,38 +1329,61 @@ function(){
 };
 
 
-document
-.getElementById("bizName")
-.addEventListener(
-"input",
-function(){
+function updateBusinessPaths(){
 
   if(editingBusinessId){
     return;
   }
 
   const slug =
-  slugify(this.value);
+  slugify(
+    document
+    .getElementById("bizName")
+    .value
+  );
+
+  const automationSlug =
+  document
+  .getElementById("bizAutomation")
+  .value;
+
+  const hasPath =
+  slug && automationSlug;
 
   document
   .getElementById("bizFilePath")
   .value =
-  slug
+  hasPath
   ?
-  `businesses/${slug}/index.html`
+  `businesses/${automationSlug}/${slug}/index.html`
   :
   "";
 
   document
   .getElementById("bizPanelUrl")
   .value =
-  slug
+  hasPath
   ?
-  `https://nevopay.github.io/nevopay-ana-panel/businesses/${slug}/`
+  `https://nevopay.github.io/nevopay-ana-panel/businesses/${automationSlug}/${slug}/`
   :
   "";
 
 }
+
+
+document
+.getElementById("bizName")
+.addEventListener(
+  "input",
+  updateBusinessPaths
+);
+
+
+document
+.getElementById("bizAutomation")
+.addEventListener(
+  "change",
+  updateBusinessPaths
 );
 
 
@@ -1660,11 +1683,11 @@ async function(){
 
 
   const panelUrl =
-  `https://nevopay.github.io/nevopay-ana-panel/businesses/${slug}/`;
+  `https://nevopay.github.io/nevopay-ana-panel/businesses/${automationSlug}/${slug}/`;
 
 
   const filePath =
-  `businesses/${slug}/index.html`;
+  `businesses/${automationSlug}/${slug}/index.html`;
 
 
   const saveButton =
@@ -1986,7 +2009,7 @@ function(){
   .value =
   slug
   ?
-  `şablonlar/${slug}/index.html`
+  `templates/${slug}/index.html`
   :
   "";
 
