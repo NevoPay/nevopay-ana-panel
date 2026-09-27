@@ -868,13 +868,8 @@ th{
           </div>
 
           <div class="infoRow">
-            <b>Yeni işletme:</b>
-            İşletme + Yönetici hesabı otomatik oluşturulur
-          </div>
-
-          <div class="infoRow">
-            <b>İşletme silme:</b>
-            Bağlı Firebase kayıtları ve kullanıcılar birlikte silinir
+            <b>İşletme Silme:</b>
+            Bağlı site ve kullanıcı kayıtları birlikte silinir
           </div>
 
         </div>
@@ -1158,8 +1153,10 @@ let editingAutomationId = null;
 
 
 function escapeHtml(value){
+
   return String(value ?? "")
   .replace(/[&<>"']/g,function(char){
+
     return {
       "&":"&amp;",
       "<":"&lt;",
@@ -1167,11 +1164,14 @@ function escapeHtml(value){
       '"':"&quot;",
       "'":"&#39;"
     }[char];
+
   });
+
 }
 
 
 function slugify(text){
+
   return String(text || "")
   .toLocaleLowerCase("tr-TR")
   .replace(/ı/g,"i")
@@ -1182,18 +1182,23 @@ function slugify(text){
   .replace(/ç/g,"c")
   .replace(/[^a-z0-9]+/g,"-")
   .replace(/^-+|-+$/g,"");
+
 }
 
 
 function getAutomation(slug){
+
   return automations.find(
     a => a.slug === slug
   );
+
 }
 
 
 function getAutomationName(slug){
+
   return getAutomation(slug)?.name || "-";
+
 }
 
 
@@ -1221,14 +1226,17 @@ function(id,button){
   }
 
   renderAll();
+
 };
 
 
 window.openModal =
 function(id){
+
   document
   .getElementById(id)
   .classList.add("show");
+
 };
 
 
@@ -1246,6 +1254,7 @@ function(id){
   if(id === "automationModal"){
     editingAutomationId = null;
   }
+
 };
 
 
@@ -1257,11 +1266,14 @@ function fillAutomationSelect(){
   select.innerHTML =
   automations
   .map(a => `
+
     <option value="${escapeHtml(a.slug)}">
       ${escapeHtml(a.name)}
     </option>
+
   `)
   .join("");
+
 }
 
 
@@ -1347,6 +1359,7 @@ function(){
   `https://nevopay.github.io/nevopay-ana-panel/businesses/${slug}/`
   :
   "";
+
 }
 );
 
@@ -1361,6 +1374,7 @@ function(){
   this.value
   .replace(/\D/g,"")
   .slice(0,11);
+
 }
 );
 
@@ -1375,6 +1389,7 @@ function(){
   this.value
   .replace(/\D/g,"")
   .slice(0,6);
+
 }
 );
 
@@ -1391,7 +1406,8 @@ function(id){
     return;
   }
 
-  editingBusinessId = id;
+  editingBusinessId =
+  id;
 
   fillAutomationSelect();
 
@@ -1447,6 +1463,7 @@ function(id){
   window.openModal(
     "businessModal"
   );
+
 };
 
 
@@ -1501,32 +1518,61 @@ async function(){
 
 
   if(!name){
-    alert("İşletme / site adını yazın.");
+
+    alert(
+      "İşletme / site adını yazın."
+    );
+
     return;
+
   }
 
+
   if(!owner){
-    alert("Yetkili adı soyadını yazın.");
+
+    alert(
+      "Yetkili adı soyadını yazın."
+    );
+
     return;
+
   }
+
 
   if(
     phone.length !== 11
     ||
     !phone.startsWith("05")
   ){
-    alert("Telefon 05xxxxxxxxx şeklinde olmalı.");
+
+    alert(
+      "Telefon 05xxxxxxxxx şeklinde olmalı."
+    );
+
     return;
+
   }
+
 
   if(!email){
-    alert("Yetkili e-posta adresini yazın.");
+
+    alert(
+      "Yetkili e-posta adresini yazın."
+    );
+
     return;
+
   }
 
+
   if(!automationSlug){
-    alert("Otomasyon türünü seçin.");
+
+    alert(
+      "Otomasyon türünü seçin."
+    );
+
     return;
+
   }
 
 
@@ -1535,11 +1581,13 @@ async function(){
     try{
 
       await updateDoc(
+
         doc(
           db,
           "businesses",
           editingBusinessId
         ),
+
         {
           name,
           owner,
@@ -1552,6 +1600,7 @@ async function(){
           updatedAt:
           serverTimestamp()
         }
+
       );
 
       window.closeModal(
@@ -1576,6 +1625,7 @@ async function(){
       );
 
       return;
+
     }
 
   }
@@ -1584,10 +1634,13 @@ async function(){
   if(
     !/^\d{6}$/.test(password)
   ){
+
     alert(
       "Geçici şifre tam 6 rakam olmalı."
     );
+
     return;
+
   }
 
 
@@ -1596,8 +1649,13 @@ async function(){
 
 
   if(!slug){
-    alert("İşletme adı geçerli değil.");
+
+    alert(
+      "İşletme adı geçerli değil."
+    );
+
     return;
+
   }
 
 
@@ -1610,9 +1668,8 @@ async function(){
 
 
   const saveButton =
-  document.getElementById(
-    "businessSaveBtn"
-  );
+  document
+  .getElementById("businessSaveBtn");
 
 
   saveButton.disabled =
@@ -1631,7 +1688,6 @@ async function(){
     );
 
 
-    const result =
     await createBusiness({
 
       name,
@@ -1648,11 +1704,6 @@ async function(){
       filePath
 
     });
-
-
-    console.log(
-      result.data
-    );
 
 
     alert(
@@ -1694,6 +1745,7 @@ async function(){
 
     saveButton.textContent =
     "İşletmeyi Oluştur";
+
   }
 
 };
@@ -1718,6 +1770,7 @@ function(id){
     );
 
     return;
+
   }
 
   window.open(
@@ -1725,6 +1778,7 @@ function(id){
     "_blank",
     "noopener"
   );
+
 };
 
 
@@ -1743,11 +1797,13 @@ async function(id){
   try{
 
     await updateDoc(
+
       doc(
         db,
         "businesses",
         id
       ),
+
       {
         status:
         business.status === "Aktif"
@@ -1759,6 +1815,7 @@ async function(id){
         updatedAt:
         serverTimestamp()
       }
+
     );
 
   }
@@ -1778,10 +1835,6 @@ async function(id){
 };
 
 
-/* =========================================================
-   TAM SİLME
-========================================================= */
-
 window.deleteBusiness =
 async function(id){
 
@@ -1795,22 +1848,20 @@ async function(id){
   }
 
 
-  const ok =
+  const first =
   confirm(
     `"${business.name}" tamamen silinsin mi?\n\n`
     +
-    "Bu işlem işletme kaydını, siteyi, yönetici ve site sakinlerini, giriş kayıtlarını ve Firebase Authentication kullanıcılarını silecektir.\n\n"
-    +
-    "Bu işlem geri alınamaz."
+    "İşletme, site, giriş kayıtları ve bağlı kullanıcı hesapları silinecek."
   );
 
 
-  if(!ok){
+  if(!first){
     return;
   }
 
 
-  const secondConfirm =
+  const second =
   confirm(
     "Son onay:\n\n"
     +
@@ -1818,11 +1869,11 @@ async function(id){
     +
     " ve bağlı tüm kullanıcılar tamamen silinecek.\n\n"
     +
-    "Devam edilsin mi?"
+    "Bu işlem geri alınamaz."
   );
 
 
-  if(!secondConfirm){
+  if(!second){
     return;
   }
 
@@ -1843,7 +1894,6 @@ async function(id){
 
 
     console.log(
-      "Tam silme sonucu:",
       result.data
     );
 
@@ -1909,6 +1959,7 @@ function(){
   window.openModal(
     "automationModal"
   );
+
 };
 
 
@@ -1938,6 +1989,7 @@ function(){
   `şablonlar/${slug}/index.html`
   :
   "";
+
 }
 );
 
@@ -1988,6 +2040,7 @@ function(id){
   window.openModal(
     "automationModal"
   );
+
 };
 
 
@@ -2011,6 +2064,7 @@ async function(){
     );
 
     return;
+
   }
 
   const data = {
@@ -2047,16 +2101,19 @@ async function(){
     if(editingAutomationId){
 
       await updateDoc(
+
         doc(
           db,
           "automations",
           editingAutomationId
         ),
+
         {
           ...data,
           updatedAt:
           serverTimestamp()
         }
+
       );
 
     }
@@ -2073,26 +2130,32 @@ async function(){
         );
 
         return;
+
       }
 
       await addDoc(
+
         collection(
           db,
           "automations"
         ),
+
         {
           ...data,
           createdAt:
           serverTimestamp()
         }
+
       );
+
     }
 
     window.closeModal(
       "automationModal"
     );
 
-    editingAutomationId = null;
+    editingAutomationId =
+    null;
 
   }
   catch(error){
@@ -2141,6 +2204,7 @@ async function(id){
     );
 
     return;
+
   }
 
   if(
@@ -2154,12 +2218,15 @@ async function(id){
   }
 
   await deleteDoc(
+
     doc(
       db,
       "automations",
       id
     )
+
   );
+
 };
 
 
@@ -2531,10 +2598,12 @@ function startFirestore(){
   listeners.push(
 
     onSnapshot(
+
       collection(
         db,
         "businesses"
       ),
+
       snapshot => {
 
         businesses =
@@ -2544,7 +2613,9 @@ function startFirestore(){
         }));
 
         renderAll();
+
       },
+
       error => {
 
         console.error(error);
@@ -2557,7 +2628,9 @@ function startFirestore(){
             error.code
           )
         );
+
       }
+
     )
 
   );
@@ -2566,10 +2639,12 @@ function startFirestore(){
   listeners.push(
 
     onSnapshot(
+
       collection(
         db,
         "automations"
       ),
+
       snapshot => {
 
         automations =
@@ -2580,7 +2655,9 @@ function startFirestore(){
 
         fillAutomationSelect();
         renderAll();
+
       },
+
       error => {
 
         console.error(error);
@@ -2593,7 +2670,9 @@ function startFirestore(){
             error.code
           )
         );
+
       }
+
     )
 
   );
@@ -2605,10 +2684,12 @@ function stopFirestore(){
 
   listeners.forEach(
     unsubscribe => {
+
       try{
         unsubscribe();
       }
       catch(error){}
+
     }
   );
 
@@ -2640,6 +2721,7 @@ async function(){
     "E-posta ve şifreyi girin.";
 
     return;
+
   }
 
   loginBtn.disabled =
@@ -2712,6 +2794,7 @@ async function(){
     "Önce e-posta adresinizi yazın.";
 
     return;
+
   }
 
   try{
@@ -2749,7 +2832,9 @@ async function(){
 
 window.logout =
 async function(){
+
   await signOut(auth);
+
 };
 
 
