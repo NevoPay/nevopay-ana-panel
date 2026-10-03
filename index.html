@@ -1858,6 +1858,81 @@ async function(id){
 };
 
 
+
+window.updateBusinessTemplateSafe =
+async function(id){
+
+  const business =
+  businesses.find(
+    b => b.id === id
+  );
+
+  if(!business){
+    return;
+  }
+
+  const ok =
+  confirm(
+    `"${business.name}" yeni ${
+      getAutomationName(business.automationSlug)
+    } şablonuna güncellensin mi?\n\n`
+    +
+    "Site sakinleri, kullanıcılar, aidatlar, ödemeler, siparişler ve diğer Firebase verileri SİLİNMEYECEK.\n\n"
+    +
+    "Sadece işletmenin index.html dosyası güncellenecek."
+  );
+
+  if(!ok){
+    return;
+  }
+
+  try{
+
+    const updateBusinessTemplate =
+    httpsCallable(
+      functions,
+      "updateBusinessTemplate"
+    );
+
+    const result =
+    await updateBusinessTemplate({
+      businessId:id
+    });
+
+    console.log(
+      "Şablon güncelleme:",
+      result.data
+    );
+
+    alert(
+      "✅ Şablon güncellendi.\n\n"
+      +
+      "Firebase verileri korunmuştur."
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      "updateBusinessTemplate:",
+      error
+    );
+
+    alert(
+      "Şablon güncellenemedi:\n"
+      +
+      (
+        error.message ||
+        error.code ||
+        "Bilinmeyen hata"
+      )
+    );
+
+  }
+
+};
+
+
 window.deleteBusiness =
 async function(id){
 
@@ -2473,6 +2548,13 @@ function(){
             onclick="editBusiness('${b.id}')"
           >
             Düzenle
+          </button>
+
+          <button
+            class="ghost"
+            onclick="updateBusinessTemplateSafe('${b.id}')"
+          >
+            Şablonu Güncelle
           </button>
 
           <button
