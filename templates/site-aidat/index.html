@@ -93,13 +93,13 @@
       }
       return raw.replace(/[-_]+/g,' ');
     }
+    const $=id=>document.getElementById(id); const money=n=>new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY'}).format(Number(n||0));
     const initialSiteName=prettySiteNameFromSlug(siteId);
     if($('loginSiteWatermark'))$('loginSiteWatermark').textContent=initialSiteName;
     if(!siteId)throw new Error('Site kimliği URL yolundan bulunamadı.');
     await setPersistence(auth,browserSessionPersistence);
     const createResidentCall=httpsCallable(functions,'createResident');
     const deleteResidentCall=httpsCallable(functions,'deleteResident');
-    const $=id=>document.getElementById(id); const money=n=>new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY'}).format(Number(n||0));
     const phoneKey=p=>String(p).replace(/\D/g,'').replace(/^90/,'').replace(/^0/,'');
     async function emailForPhone(phone){const s=await getDoc(doc(db,'loginLookup',`${siteId}_${phoneKey(phone)}`));if(!s.exists())throw new Error('not-found');return s.data().email}
     let profile=null,residents=[],statements=[],surveys=[],ads=[],bank={},loginMode='resident',selectedDuesId='',duesStatus='all',duesBlockFilter='all',duesSearchText='',activeExpenseScope='all',adTimer=null; let unsubs=[];
