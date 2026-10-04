@@ -1933,6 +1933,106 @@ async function(id){
 };
 
 
+
+window.resetBusinessAdminPasswordSafe =
+async function(id){
+
+  const business =
+  businesses.find(
+    b => b.id === id
+  );
+
+  if(!business){
+    return;
+  }
+
+  const newPassword =
+  prompt(
+    `"${business.name}" yöneticisi için yeni 6 haneli şifreyi girin:`
+  );
+
+  if(newPassword === null){
+    return;
+  }
+
+  if(!/^\d{6}$/.test(newPassword)){
+    alert("Şifre tam 6 rakam olmalıdır.");
+    return;
+  }
+
+  const again =
+  prompt(
+    "Yeni 6 haneli şifreyi tekrar girin:"
+  );
+
+  if(again === null){
+    return;
+  }
+
+  if(newPassword !== again){
+    alert("Girdiğiniz şifreler aynı değil.");
+    return;
+  }
+
+  const ok =
+  confirm(
+    `"${business.name}" yönetici şifresi değiştirilsin mi?\n\n`
+    +
+    "Kullanıcı, site, aidat ve diğer veriler silinmeyecek. Sadece giriş şifresi değişecek."
+  );
+
+  if(!ok){
+    return;
+  }
+
+  try{
+
+    const resetBusinessAdminPassword =
+    httpsCallable(
+      functions,
+      "resetBusinessAdminPassword"
+    );
+
+    const result =
+    await resetBusinessAdminPassword({
+      businessId:id,
+      newPassword:newPassword
+    });
+
+    console.log(
+      "Yönetici şifre sıfırlama:",
+      result.data
+    );
+
+    alert(
+      "✅ Yönetici şifresi değiştirildi.\n\n"
+      +
+      "Yeni şifre artık girişte kullanılabilir."
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      "resetBusinessAdminPassword:",
+      error
+    );
+
+    alert(
+      "Şifre değiştirilemedi:\n"
+      +
+      (
+        error.message ||
+        error.code ||
+        "Bilinmeyen hata"
+      )
+    );
+
+  }
+
+};
+
+
 window.deleteBusiness =
 async function(id){
 
@@ -2555,6 +2655,15 @@ function(){
             onclick="updateBusinessTemplateSafe('${b.id}')"
           >
             Şablonu Güncelle
+          </button>
+
+
+
+          <button
+            class="ghost"
+            onclick="resetBusinessAdminPasswordSafe('${b.id}')"
+          >
+            Şifre Değiştir
           </button>
 
           <button
