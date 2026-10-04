@@ -2427,6 +2427,156 @@ async function(){
 };
 
 
+
+window.deleteAutomation =
+async function(id){
+
+  const automation =
+  automations.find(
+    a => a.id === id
+  );
+
+  if(!automation){
+    return;
+  }
+
+  const connected =
+  businesses.filter(
+    b =>
+    b.automationSlug ===
+    automation.slug
+  ).length;
+
+  if(connected > 0){
+
+    alert(
+      "Bu otomasyona bağlı "
+      +
+      connected
+      +
+      " işletme var.\n\n"
+      +
+      "Önce bağlı işletmeleri kaldırmadan otomasyon silinemez."
+    );
+
+    return;
+  }
+
+  const first =
+  confirm(
+    `"${automation.name}" otomasyonu silinsin mi?\n\n`
+    +
+    "Bu işlem otomasyon kaydını kaldıracaktır."
+  );
+
+  if(!first){
+    return;
+  }
+
+  const adminPassword =
+  prompt(
+    "Güvenlik doğrulaması:\n\n"
+    +
+    "Otomasyonu silmek için ANA PANEL yönetici şifrenizi girin:"
+  );
+
+  if(adminPassword === null){
+    return;
+  }
+
+  if(!adminPassword.trim()){
+    alert("Yönetici şifresi girilmedi.");
+    return;
+  }
+
+  try{
+
+    const currentUser = auth.currentUser;
+
+    if(!currentUser || !currentUser.email){
+      alert("Yönetici oturumu bulunamadı. Lütfen çıkış yapıp tekrar giriş yapın.");
+      return;
+    }
+
+    const credential =
+    EmailAuthProvider.credential(
+      currentUser.email,
+      adminPassword
+    );
+
+    await reauthenticateWithCredential(
+      currentUser,
+      credential
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      "Otomasyon silme şifre doğrulama:",
+      error
+    );
+
+    alert(
+      "Yönetici şifresi yanlış.\n\n"
+      +
+      "Otomasyon silinmedi."
+    );
+
+    return;
+  }
+
+  const second =
+  confirm(
+    "Son onay:\n\n"
+    +
+    automation.name
+    +
+    " otomasyonu silinecek.\n\n"
+    +
+    "Bu işlem geri alınamaz."
+  );
+
+  if(!second){
+    return;
+  }
+
+  try{
+
+    await deleteDoc(
+      doc(
+        db,
+        "automations",
+        id
+      )
+    );
+
+    alert(
+      "✅ Otomasyon silindi."
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      "deleteAutomation:",
+      error
+    );
+
+    alert(
+      "Otomasyon silinemedi:\n"
+      +
+      (
+        error.message ||
+        error.code ||
+        "Bilinmeyen hata"
+      )
+    );
+  }
+
+};
+
+
 function renderAutomations(){
 
   const html =
@@ -2495,6 +2645,14 @@ function renderAutomations(){
           >
             Düzenle
           </button>
+
+          <button
+            class="danger"
+            onclick="deleteAutomation('${a.id}')"
+          >
+            Sil
+          </button>
+
 </div>
 
       </div>
