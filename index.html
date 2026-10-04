@@ -2386,19 +2386,24 @@ async function(){
 
       }
 
-      await addDoc(
+      const createAutomationWithTemplate =
+      httpsCallable(
+        functions,
+        "createAutomationWithTemplate"
+      );
 
-        collection(
-          db,
-          "automations"
-        ),
+      const result =
+      await createAutomationWithTemplate({
+        name:data.name,
+        icon:data.icon,
+        slug:data.slug,
+        status:data.status,
+        description:data.description
+      });
 
-        {
-          ...data,
-          createdAt:
-          serverTimestamp()
-        }
-
+      console.log(
+        "createAutomationWithTemplate:",
+        result.data
       );
 
     }
@@ -2406,6 +2411,16 @@ async function(){
     window.closeModal(
       "automationModal"
     );
+
+    if(!editingAutomationId){
+      alert(
+        "✅ Otomasyon oluşturuldu.\n\n"
+        +
+        "GitHub şablonu da otomatik oluşturuldu:\n"
+        +
+        `templates/${slug}/index.html`
+      );
+    }
 
     editingAutomationId =
     null;
