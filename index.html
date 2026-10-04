@@ -543,6 +543,64 @@ th{
   .form{grid-template-columns:1fr}
   .form .wide,.adminBox{grid-column:auto}
 }
+
+.adGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;
+}
+.adCard{
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+  overflow:hidden;
+  box-shadow:0 8px 24px rgba(15,23,42,.05);
+}
+.adCard img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  display:block;
+  background:#f3f4f6;
+}
+.adCardBody{
+  padding:16px;
+}
+.adCardBody h4{
+  margin:0 0 8px;
+  font-size:18px;
+}
+.adMeta{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:8px;
+  line-height:1.5;
+}
+.adSites{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:8px;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fafafa;
+}
+.adSites label{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  font-size:14px;
+}
+.adPreview{
+  width:100%;
+  max-height:260px;
+  object-fit:contain;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fafafa;
+  display:none;
+}
+
 </style>
 </head>
 
@@ -604,6 +662,10 @@ th{
 
       <button onclick="showView('automations',this)">
         ⚙ Otomasyonlar
+      </button>
+
+      <button onclick="showView('ads',this)">
+        📢 Reklamlar
       </button>
 
       <button onclick="showView('settings',this)">
@@ -837,6 +899,131 @@ th{
         </div>
 
         <div id="automationGrid" class="modules"></div>
+
+      </section>
+
+
+
+      <section id="ads" class="view">
+
+        <div class="sectionTitle">
+          <h3>📢 Reklam Yönetimi</h3>
+
+          <button
+            class="primary"
+            onclick="resetAdForm()"
+          >
+            + Yeni Reklam
+          </button>
+        </div>
+
+        <div class="panel">
+
+          <div class="panelHead">
+            <h3 id="adFormTitle">Yeni Reklam</h3>
+          </div>
+
+          <div class="panelBody">
+
+            <div class="form">
+
+              <input
+                id="adTitle"
+                class="wide"
+                placeholder="Reklam başlığı"
+              >
+
+              <textarea
+                id="adDescription"
+                class="wide"
+                placeholder="Reklam açıklaması"
+              ></textarea>
+
+              <input
+                id="adButtonText"
+                placeholder="Buton metni"
+                value="İncele"
+              >
+
+              <select id="adActive">
+                <option value="true">Aktif</option>
+                <option value="false">Pasif</option>
+              </select>
+
+              <input
+                id="adLink"
+                class="wide"
+                placeholder="Bağlantı - https://..."
+              >
+
+              <input
+                id="adWhatsapp"
+                inputmode="numeric"
+                maxlength="11"
+                placeholder="WhatsApp - 05xxxxxxxxx"
+              >
+
+              <input
+                id="adImageFile"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+              >
+
+              <input
+                id="adImageUrl"
+                class="wide"
+                placeholder="Görsel bağlantısı"
+                readonly
+              >
+
+              <img
+                id="adImagePreview"
+                class="adPreview wide"
+                alt="Reklam görseli önizleme"
+              >
+
+              <div class="wide">
+                <b>Gösterilecek Site/Aidat İşletmeleri</b>
+                <div
+                  id="adTargetSites"
+                  class="adSites"
+                  style="margin-top:10px"
+                ></div>
+              </div>
+
+              <div
+                id="adMsg"
+                class="wide"
+                style="min-height:24px;font-weight:700"
+              ></div>
+
+              <div class="wide actions">
+                <button
+                  class="primary"
+                  onclick="saveAd()"
+                >
+                  Reklamı Kaydet
+                </button>
+
+                <button
+                  class="ghost"
+                  onclick="resetAdForm()"
+                >
+                  Formu Temizle
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="sectionTitle" style="margin-top:24px">
+          <h3>Kayıtlı Reklamlar</h3>
+        </div>
+
+        <div id="adList" class="adGrid"></div>
 
       </section>
 
@@ -1149,9 +1336,12 @@ document.getElementById("userEmail");
 
 let businesses = [];
 let automations = [];
+let platformAds = [];
 let listeners = [];
 let editingBusinessId = null;
 let editingAutomationId = null;
+let editingAdId = null;
+let editingAdStoragePath = "";
 
 
 function escapeHtml(value){
@@ -2959,12 +3149,639 @@ function renderStats(){
 }
 
 
+
+function getSiteAidatBusinesses(){
+  return businesses.filter(
+    b => b.automationSlug === "site-aidat"
+  );
+}
+
+function renderAdTargetSites(selected = ["all"]){
+
+  const box =
+  document.getElementById("adTargetSites");
+
+  if(!box){
+    return;
+  }
+
+  const sites =
+  getSiteAidatBusinesses();
+
+  const chosen =
+  Array.isArray(selected) && selected.length
+  ? selected
+  : ["all"];
+
+  box.innerHTML =
+  `
+    <label>
+      <input
+        type="checkbox"
+        value="all"
+        ${chosen.includes("all") ? "checked" : ""}
+      >
+      Tüm Site/Aidat işletmeleri
+    </label>
+  `
+  +
+  sites.map(site => `
+    <label>
+      <input
+        type="checkbox"
+        value="${escapeHtml(site.slug || site.id)}"
+        ${
+          chosen.includes(site.slug || site.id)
+          ? "checked"
+          : ""
+        }
+      >
+      ${escapeHtml(site.name || site.slug || site.id)}
+    </label>
+  `).join("");
+
+}
+
+function showAdImage(url = ""){
+
+  const input =
+  document.getElementById("adImageUrl");
+
+  const preview =
+  document.getElementById("adImagePreview");
+
+  if(input){
+    input.value = url || "";
+  }
+
+  if(preview){
+    preview.src = url || "";
+    preview.style.display =
+      url ? "block" : "none";
+  }
+
+}
+
+window.resetAdForm =
+function(){
+
+  editingAdId = null;
+  editingAdStoragePath = "";
+
+  document.getElementById("adFormTitle").textContent =
+    "Yeni Reklam";
+
+  document.getElementById("adTitle").value = "";
+  document.getElementById("adDescription").value = "";
+  document.getElementById("adButtonText").value = "İncele";
+  document.getElementById("adActive").value = "true";
+  document.getElementById("adLink").value = "";
+  document.getElementById("adWhatsapp").value = "";
+  document.getElementById("adImageFile").value = "";
+  document.getElementById("adMsg").textContent = "";
+
+  showAdImage("");
+  renderAdTargetSites(["all"]);
+
+};
+
+
+window.editAd =
+function(id){
+
+  const ad =
+  platformAds.find(
+    item => item.id === id
+  );
+
+  if(!ad){
+    return;
+  }
+
+  editingAdId = ad.id;
+  editingAdStoragePath =
+    ad.storagePath || "";
+
+  document.getElementById("adFormTitle").textContent =
+    "Reklamı Düzenle";
+
+  document.getElementById("adTitle").value =
+    ad.title || "";
+
+  document.getElementById("adDescription").value =
+    ad.description || "";
+
+  document.getElementById("adButtonText").value =
+    ad.buttonText || "İncele";
+
+  document.getElementById("adActive").value =
+    String(ad.active !== false);
+
+  document.getElementById("adLink").value =
+    ad.link || "";
+
+  document.getElementById("adWhatsapp").value =
+    ad.whatsapp
+    ? "0" + String(ad.whatsapp).replace(/\D/g,"").slice(-10)
+    : "";
+
+  document.getElementById("adImageFile").value = "";
+  document.getElementById("adMsg").textContent = "";
+
+  showAdImage(ad.imageUrl || "");
+  renderAdTargetSites(ad.targetSites || ["all"]);
+
+  window.showView(
+    "ads",
+    [...document.querySelectorAll(".nav button")]
+      .find(btn => btn.textContent.includes("Reklamlar"))
+  );
+
+  document
+  .getElementById("adFormTitle")
+  .scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+};
+
+
+window.saveAd =
+async function(){
+
+  const msg =
+  document.getElementById("adMsg");
+
+  msg.style.color = "#52627f";
+  msg.textContent = "";
+
+  const targetSites =
+  [
+    ...document
+    .querySelectorAll(
+      '#adTargetSites input[type="checkbox"]:checked'
+    )
+  ]
+  .map(input => input.value);
+
+  if(!targetSites.length){
+    msg.style.color = "#d92d20";
+    msg.textContent =
+      "En az bir hedef site seçin.";
+    return;
+  }
+
+  const title =
+  document.getElementById("adTitle")
+  .value.trim();
+
+  if(!title){
+    msg.style.color = "#d92d20";
+    msg.textContent =
+      "Reklam başlığı gerekli.";
+    return;
+  }
+
+  const file =
+  document.getElementById("adImageFile")
+  .files?.[0];
+
+  let imageUrl =
+  document.getElementById("adImageUrl")
+  .value.trim();
+
+  let storagePath =
+  editingAdStoragePath || "";
+
+  try{
+
+    if(file){
+
+      if(
+        ![
+          "image/jpeg",
+          "image/png",
+          "image/webp"
+        ].includes(file.type)
+      ){
+        throw new Error(
+          "Görsel JPG, PNG veya WEBP olmalıdır."
+        );
+      }
+
+      if(file.size > 5 * 1024 * 1024){
+        throw new Error(
+          "Görsel en fazla 5 MB olabilir."
+        );
+      }
+
+      msg.textContent =
+        "Görsel yükleniyor...";
+
+      const base64 =
+      await new Promise(
+        (resolve,reject) => {
+
+          const reader =
+          new FileReader();
+
+          reader.onload =
+          () => {
+
+            const value =
+            String(reader.result || "");
+
+            resolve(
+              value.split(",")[1] || ""
+            );
+
+          };
+
+          reader.onerror =
+          () =>
+          reject(
+            new Error(
+              "Görsel okunamadı."
+            )
+          );
+
+          reader.readAsDataURL(file);
+
+        }
+      );
+
+      const uploadAdImage =
+      httpsCallable(
+        functions,
+        "platformUploadAdImage"
+      );
+
+      const uploaded =
+      await uploadAdImage({
+        base64,
+        contentType:file.type
+      });
+
+      imageUrl =
+      uploaded.data.imageUrl || "";
+
+      storagePath =
+      uploaded.data.storagePath || "";
+
+      showAdImage(imageUrl);
+
+    }
+
+    msg.textContent =
+      "Reklam kaydediliyor...";
+
+    const platformSaveAd =
+    httpsCallable(
+      functions,
+      "platformSaveAd"
+    );
+
+    await platformSaveAd({
+      id:editingAdId || "",
+      title,
+      description:
+        document
+        .getElementById("adDescription")
+        .value.trim(),
+      buttonText:
+        document
+        .getElementById("adButtonText")
+        .value.trim(),
+      link:
+        document
+        .getElementById("adLink")
+        .value.trim(),
+      whatsapp:
+        document
+        .getElementById("adWhatsapp")
+        .value.trim(),
+      imageUrl,
+      storagePath,
+      active:
+        document
+        .getElementById("adActive")
+        .value === "true",
+      targetSites
+    });
+
+    msg.style.color = "#087b58";
+    msg.textContent =
+      "✅ Reklam kaydedildi.";
+
+    setTimeout(
+      () => window.resetAdForm(),
+      700
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      "saveAd:",
+      error
+    );
+
+    msg.style.color = "#d92d20";
+    msg.textContent =
+      error.message ||
+      error.code ||
+      "Reklam kaydedilemedi.";
+
+  }
+
+};
+
+
+window.deleteAd =
+async function(id){
+
+  const ad =
+  platformAds.find(
+    item => item.id === id
+  );
+
+  if(!ad){
+    return;
+  }
+
+  if(
+    !confirm(
+      `"${ad.title}" reklamı silinsin mi?`
+    )
+  ){
+    return;
+  }
+
+  try{
+
+    const platformDeleteAd =
+    httpsCallable(
+      functions,
+      "platformDeleteAd"
+    );
+
+    await platformDeleteAd({
+      id
+    });
+
+  }
+  catch(error){
+
+    console.error(
+      "deleteAd:",
+      error
+    );
+
+    alert(
+      "Reklam silinemedi:\n"
+      +
+      (
+        error.message ||
+        error.code ||
+        "Bilinmeyen hata"
+      )
+    );
+
+  }
+
+};
+
+
+function renderAds(){
+
+  const list =
+  document.getElementById("adList");
+
+  if(!list){
+    return;
+  }
+
+  if(!platformAds.length){
+
+    list.innerHTML =
+      `<div class="empty">Henüz reklam eklenmedi.</div>`;
+
+    return;
+  }
+
+  const siteMap =
+  new Map(
+    getSiteAidatBusinesses()
+    .map(site => [
+      site.slug || site.id,
+      site.name || site.slug || site.id
+    ])
+  );
+
+  list.innerHTML =
+  platformAds.map(ad => {
+
+    const targets =
+    Array.isArray(ad.targetSites)
+    ? ad.targetSites
+    : ["all"];
+
+    const targetText =
+    targets.includes("all")
+    ? "Tüm Site/Aidat işletmeleri"
+    : targets
+      .map(id => siteMap.get(id) || id)
+      .join(", ");
+
+    return `
+      <article class="adCard">
+
+        ${
+          ad.imageUrl
+          ?
+          `<img
+            src="${escapeHtml(ad.imageUrl)}"
+            alt="${escapeHtml(ad.title || "Reklam")}"
+          >`
+          :
+          ""
+        }
+
+        <div class="adCardBody">
+
+          <h4>
+            ${escapeHtml(ad.title || "Reklam")}
+          </h4>
+
+          <div>
+            ${escapeHtml(ad.description || "")}
+          </div>
+
+          <div class="adMeta">
+            <b>Durum:</b>
+            ${ad.active !== false ? "Aktif" : "Pasif"}
+            <br>
+
+            <b>Hedef:</b>
+            ${escapeHtml(targetText)}
+
+            ${
+              ad.whatsapp
+              ?
+              `<br><b>WhatsApp:</b> ${escapeHtml(ad.whatsapp)}`
+              :
+              ""
+            }
+          </div>
+
+          <div class="actions" style="margin-top:14px">
+
+            <button
+              class="ghost"
+              onclick="editAd('${ad.id}')"
+            >
+              Düzenle
+            </button>
+
+            <button
+              class="danger"
+              onclick="deleteAd('${ad.id}')"
+            >
+              Sil
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+    `;
+
+  }).join("");
+
+}
+
+
+document.addEventListener(
+  "change",
+  event => {
+
+    if(
+      event.target.matches(
+        '#adTargetSites input[type="checkbox"]'
+      )
+    ){
+
+      const all =
+      document.querySelector(
+        '#adTargetSites input[value="all"]'
+      );
+
+      if(
+        event.target.value === "all"
+        &&
+        event.target.checked
+      ){
+
+        document
+        .querySelectorAll(
+          '#adTargetSites input:not([value="all"])'
+        )
+        .forEach(
+          input => input.checked = false
+        );
+
+      }
+      else if(
+        event.target.value !== "all"
+        &&
+        event.target.checked
+        &&
+        all
+      ){
+
+        all.checked = false;
+
+      }
+
+    }
+
+    if(
+      event.target.id === "adImageFile"
+    ){
+
+      const file =
+      event.target.files?.[0];
+
+      if(!file){
+        return;
+      }
+
+      if(
+        ![
+          "image/jpeg",
+          "image/png",
+          "image/webp"
+        ].includes(file.type)
+        ||
+        file.size > 5 * 1024 * 1024
+      ){
+
+        event.target.value = "";
+
+        alert(
+          "JPG, PNG veya WEBP biçiminde ve en fazla 5 MB bir görsel seçin."
+        );
+
+        return;
+      }
+
+      const preview =
+      document.getElementById(
+        "adImagePreview"
+      );
+
+      preview.src =
+      URL.createObjectURL(file);
+
+      preview.style.display =
+      "block";
+
+    }
+
+  }
+);
+
+
+document.addEventListener(
+  "input",
+  event => {
+
+    if(
+      event.target.id === "adWhatsapp"
+    ){
+      event.target.value =
+      event.target.value
+      .replace(/\D/g,"")
+      .slice(0,11);
+    }
+
+  }
+);
+
+
 function renderAll(){
 
   renderAutomations();
   window.renderBusinesses();
   renderRecent();
   renderStats();
+  renderAds();
+
+  if(!editingAdId){
+    renderAdTargetSites(["all"]);
+  }
 
 }
 
@@ -3047,6 +3864,63 @@ function startFirestore(){
             error.message ||
             error.code
           )
+        );
+
+      }
+
+    )
+
+  );
+
+
+  listeners.push(
+
+    onSnapshot(
+
+      collection(
+        db,
+        "platformAds"
+      ),
+
+      snapshot => {
+
+        platformAds =
+        snapshot.docs.map(item => ({
+          id:item.id,
+          ...item.data()
+        }));
+
+        platformAds.sort(
+          (a,b) => {
+
+            const at =
+            a.updatedAt?.toMillis?.()
+            ||
+            a.createdAt?.toMillis?.()
+            ||
+            0;
+
+            const bt =
+            b.updatedAt?.toMillis?.()
+            ||
+            b.createdAt?.toMillis?.()
+            ||
+            0;
+
+            return bt - at;
+
+          }
+        );
+
+        renderAds();
+
+      },
+
+      error => {
+
+        console.error(
+          "platformAds:",
+          error
         );
 
       }
@@ -3255,6 +4129,7 @@ user => {
 );
 
 
+window.resetAdForm();
 renderAll();
 
 </script>
