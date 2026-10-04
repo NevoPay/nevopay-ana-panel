@@ -1077,7 +1077,9 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  EmailAuthProvider,
+  reauthenticateWithCredential
 }
 from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
@@ -2058,6 +2060,59 @@ async function(id){
     return;
   }
 
+  const adminPassword =
+  prompt(
+    "Güvenlik doğrulaması:\n\n"
+    +
+    "İşletmeyi tamamen silmek için ANA PANEL yönetici şifrenizi girin:"
+  );
+
+  if(adminPassword === null){
+    return;
+  }
+
+  if(!adminPassword.trim()){
+    alert("Yönetici şifresi girilmedi.");
+    return;
+  }
+
+  try{
+
+    const currentUser = auth.currentUser;
+
+    if(!currentUser || !currentUser.email){
+      alert("Yönetici oturumu bulunamadı. Lütfen çıkış yapıp tekrar giriş yapın.");
+      return;
+    }
+
+    const credential =
+    EmailAuthProvider.credential(
+      currentUser.email,
+      adminPassword
+    );
+
+    await reauthenticateWithCredential(
+      currentUser,
+      credential
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      "Yönetici şifre doğrulama:",
+      error
+    );
+
+    alert(
+      "Yönetici şifresi yanlış.\n\n"
+      +
+      "Silme işlemi yapılmadı."
+    );
+
+    return;
+  }
+
 
   const second =
   confirm(
@@ -2372,62 +2427,6 @@ async function(){
 };
 
 
-window.deleteAutomation =
-async function(id){
-
-  const automation =
-  automations.find(
-    a => a.id === id
-  );
-
-  if(!automation){
-    return;
-  }
-
-  const connected =
-  businesses.filter(
-    b =>
-    b.automationSlug ===
-    automation.slug
-  ).length;
-
-  if(connected > 0){
-
-    alert(
-      "Bu otomasyona bağlı "
-      +
-      connected
-      +
-      " işletme var."
-    );
-
-    return;
-
-  }
-
-  if(
-    !confirm(
-      automation.name
-      +
-      " silinsin mi?"
-    )
-  ){
-    return;
-  }
-
-  await deleteDoc(
-
-    doc(
-      db,
-      "automations",
-      id
-    )
-
-  );
-
-};
-
-
 function renderAutomations(){
 
   const html =
@@ -2496,15 +2495,7 @@ function renderAutomations(){
           >
             Düzenle
           </button>
-
-          <button
-            class="danger"
-            onclick="deleteAutomation('${a.id}')"
-          >
-            Sil
-          </button>
-
-        </div>
+</div>
 
       </div>
 
