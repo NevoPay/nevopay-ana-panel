@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>NevoPay Ana Firma Paneli</title>
+<title>NevoPay Site/Aidat Paneli</title>
 
 <style>
 *{box-sizing:border-box}
@@ -648,7 +648,7 @@ th{
   <aside class="side">
 
     <div class="brand">NEVOPAY</div>
-    <div class="tag">ANA FİRMA YÖNETİM PANELİ</div>
+    <div class="tag">SİTE / AİDAT YÖNETİM PANELİ</div>
 
     <nav class="nav">
 
@@ -659,12 +659,7 @@ th{
       <button onclick="showView('businesses',this)">
         🏢 İşletmeler
       </button>
-
-      <button onclick="showView('automations',this)">
-        ⚙ Otomasyonlar
-      </button>
-
-      <button onclick="showView('ads',this)">
+<button onclick="showView('ads',this)">
         📢 Reklamlar
       </button>
 
@@ -686,7 +681,7 @@ th{
 
     <header class="top">
 
-      <h2>NevoPay Yönetim Paneli</h2>
+      <h2>NevoPay Site/Aidat Yönetim Paneli</h2>
 
       <div class="topSpacer"></div>
 
@@ -709,11 +704,11 @@ th{
         <div class="hero">
 
           <div>
-            <h1>NevoPay Ana Firma Paneli</h1>
-            <p>Tüm işletmeler ve otomasyonlar tek merkezden yönetilir.</p>
+            <h1>NevoPay Site/Aidat Paneli</h1>
+            <p>Tüm siteler, yöneticiler, reklamlar ve aidat işlemleri tek merkezden yönetilir.</p>
           </div>
 
-          <div class="pill">Merkezi Yönetim</div>
+          <div class="pill">Site/Aidat Yönetimi</div>
 
         </div>
 
@@ -743,43 +738,16 @@ th{
             </div>
             <span class="icon">⛔</span>
           </div>
+</div>
+<div class="sectionTitle">
 
-          <div class="stat">
-            <div>
-              <small>Otomasyon Sayısı</small>
-              <b id="statAutomations">0</b>
-            </div>
-            <span class="icon">⚙</span>
-          </div>
-
-        </div>
-
-
-        <div class="sectionTitle">
-
-          <h3>NevoPay Otomasyonları</h3>
-
-          <button
-            class="primary"
-            onclick="openAutomationModal()"
-          >
-            + Yeni Otomasyon
-          </button>
-
-        </div>
-
-        <div id="moduleGrid" class="modules"></div>
-
-
-        <div class="sectionTitle">
-
-          <h3>Son İşletmeler</h3>
+          <h3>Son Siteler</h3>
 
           <button
             class="primary"
             onclick="openBusinessModal()"
           >
-            + Yeni İşletme
+            + Yeni Site
           </button>
 
         </div>
@@ -795,7 +763,6 @@ th{
                 <tr>
                   <th>İşletme</th>
                   <th>Yetkili</th>
-                  <th>Otomasyon</th>
                   <th>Durum</th>
                   <th>Panel</th>
                 </tr>
@@ -818,13 +785,13 @@ th{
 
           <div class="panelHead">
 
-            <h3>🏢 İşletmeler</h3>
+            <h3>🏢 Siteler</h3>
 
             <button
               class="primary"
               onclick="openBusinessModal()"
             >
-              + Yeni İşletme
+              + Yeni Site
             </button>
 
           </div>
@@ -836,7 +803,7 @@ th{
 
               <input
                 id="businessSearch"
-                placeholder="İşletme, yetkili, telefon veya otomasyon ara..."
+                placeholder="Site, yetkili, telefon veya şehir ara..."
                 oninput="renderBusinesses()"
               >
 
@@ -863,7 +830,6 @@ th{
                     <th>Yetkili</th>
                     <th>Telefon</th>
                     <th>Şehir</th>
-                    <th>Otomasyon</th>
                     <th>Durum</th>
                     <th>Dosya</th>
                     <th>İşlem</th>
@@ -881,30 +847,7 @@ th{
         </div>
 
       </section>
-
-
-      <section id="automations" class="view">
-
-        <div class="sectionTitle">
-
-          <h3>⚙ Otomasyonlar</h3>
-
-          <button
-            class="primary"
-            onclick="openAutomationModal()"
-          >
-            + Yeni Otomasyon
-          </button>
-
-        </div>
-
-        <div id="automationGrid" class="modules"></div>
-
-      </section>
-
-
-
-      <section id="ads" class="view">
+<section id="ads" class="view">
 
         <div class="sectionTitle">
           <h3>📢 Reklam Yönetimi</h3>
@@ -1055,7 +998,7 @@ th{
           </div>
 
           <div class="infoRow">
-            <b>İşletme Silme:</b>
+            <b>Site Silme:</b>
             Bağlı site ve kullanıcı kayıtları birlikte silinir
           </div>
 
@@ -1075,7 +1018,7 @@ th{
   <div class="modalBox">
 
     <h3 id="businessModalTitle">
-      Yeni İşletme Ekle
+      Yeni Site Ekle
     </h3>
 
     <div class="notice">
@@ -1126,7 +1069,7 @@ th{
         placeholder="Şehir / İlçe"
       >
 
-      <select id="bizAutomation"></select>
+      <input id="bizAutomation" type="hidden" value="site-aidat">
 
       <select id="bizStatus">
         <option value="Aktif">Aktif</option>
@@ -1178,79 +1121,6 @@ th{
   </div>
 
 </div>
-
-
-<div id="automationModal" class="modal">
-
-  <div class="modalBox">
-
-    <h3 id="automationModalTitle">
-      Yeni Otomasyon
-    </h3>
-
-    <div class="form">
-
-      <input
-        id="autoName"
-        class="wide"
-        placeholder="Otomasyon adı"
-      >
-
-      <input
-        id="autoIcon"
-        placeholder="İkon"
-        value="⚙"
-      >
-
-      <input
-        id="autoSlug"
-        placeholder="slug"
-      >
-
-      <input
-        id="autoTemplatePath"
-        class="wide"
-        placeholder="Şablon yolu"
-      >
-
-      <select id="autoStatus">
-        <option value="Aktif">Aktif</option>
-        <option value="Hazırlanıyor">Hazırlanıyor</option>
-      </select>
-
-      <textarea
-        id="autoDescription"
-        class="wide"
-        placeholder="Açıklama"
-      ></textarea>
-
-    </div>
-
-
-    <div class="modalActions">
-
-      <button
-        class="ghost"
-        onclick="closeModal('automationModal')"
-      >
-        Vazgeç
-      </button>
-
-      <button
-        id="automationSaveBtn"
-        class="primary"
-        onclick="saveAutomation()"
-      >
-        Kaydet
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
 <script type="module">
 
 import {
@@ -1388,9 +1258,9 @@ function getAutomation(slug){
 
 
 function getAutomationName(slug){
-
-  return getAutomation(slug)?.name || "-";
-
+  return slug === "site-aidat"
+    ? "Site / Aidat Yönetimi"
+    : "-";
 }
 
 
@@ -1451,21 +1321,10 @@ function(id){
 
 
 function fillAutomationSelect(){
-
-  const select =
-  document.getElementById("bizAutomation");
-
-  select.innerHTML =
-  automations
-  .map(a => `
-
-    <option value="${escapeHtml(a.slug)}">
-      ${escapeHtml(a.name)}
-    </option>
-
-  `)
-  .join("");
-
+  const select = document.getElementById("bizAutomation");
+  if(select){
+    select.value = "site-aidat";
+  }
 }
 
 
@@ -1497,12 +1356,12 @@ function(){
   document
   .getElementById("businessModalTitle")
   .textContent =
-  "Yeni İşletme + Yönetici Oluştur";
+  "Yeni Site + Yönetici Oluştur";
 
   document
   .getElementById("businessSaveBtn")
   .textContent =
-  "İşletmeyi Oluştur";
+  "Siteyi Oluştur";
 
   document
   .getElementById("bizPassword")
@@ -1534,10 +1393,7 @@ function updateBusinessPaths(){
     .value
   );
 
-  const automationSlug =
-  document
-  .getElementById("bizAutomation")
-  .value;
+  const automationSlug = "site-aidat";
 
   const hasPath =
   slug && automationSlug;
@@ -1569,16 +1425,6 @@ document
   "input",
   updateBusinessPaths
 );
-
-
-document
-.getElementById("bizAutomation")
-.addEventListener(
-  "change",
-  updateBusinessPaths
-);
-
-
 document
 .getElementById("bizPhone")
 .addEventListener(
@@ -1629,7 +1475,7 @@ function(id){
   document
   .getElementById("businessModalTitle")
   .textContent =
-  "İşletmeyi Düzenle";
+  "Siteyi Düzenle";
 
   document
   .getElementById("businessSaveBtn")
@@ -1660,8 +1506,7 @@ function(id){
   document.getElementById("bizCity").value =
   business.city || "";
 
-  document.getElementById("bizAutomation").value =
-  business.automationSlug || "";
+  document.getElementById("bizAutomation").value = "site-aidat";
 
   document.getElementById("bizStatus").value =
   business.status || "Aktif";
@@ -1716,10 +1561,7 @@ async function(){
   .getElementById("bizCity")
   .value.trim();
 
-  const automationSlug =
-  document
-  .getElementById("bizAutomation")
-  .value;
+  const automationSlug = "site-aidat";
 
   const status =
   document
@@ -1778,20 +1620,7 @@ async function(){
     return;
 
   }
-
-
-  if(!automationSlug){
-
-    alert(
-      "Otomasyon türünü seçin."
-    );
-
-    return;
-
-  }
-
-
-  if(editingBusinessId){
+if(editingBusinessId){
 
     try{
 
@@ -1959,7 +1788,7 @@ async function(){
     false;
 
     saveButton.textContent =
-    "İşletmeyi Oluştur";
+    "Siteyi Oluştur";
 
   }
 
@@ -2899,7 +2728,9 @@ function(){
   ?.value || "";
 
   const list =
-  businesses.filter(b => {
+  businesses
+  .filter(b => b.automationSlug === "site-aidat")
+  .filter(b => {
 
     const text =
     (
@@ -2912,10 +2743,6 @@ function(){
       + (b.email || "")
       + " "
       + (b.city || "")
-      + " "
-      + getAutomationName(
-        b.automationSlug
-      )
     )
     .toLocaleLowerCase("tr-TR");
 
@@ -2959,16 +2786,7 @@ function(){
       <td>
         ${escapeHtml(b.city || "-")}
       </td>
-
-      <td>
-        ${escapeHtml(
-          getAutomationName(
-            b.automationSlug
-          )
-        )}
-      </td>
-
-      <td>
+<td>
 
         <span
           class="badge ${
@@ -3051,7 +2869,7 @@ function(){
   :
   `
     <tr>
-      <td colspan="9" class="empty">
+      <td colspan="8" class="empty">
         Henüz işletme yok.
       </td>
     </tr>
@@ -3068,6 +2886,7 @@ function renderRecent(){
   businesses.length
   ?
   businesses
+  .filter(b => b.automationSlug === "site-aidat")
   .slice(0,6)
   .map(b => `
 
@@ -3080,16 +2899,7 @@ function renderRecent(){
       <td>
         ${escapeHtml(b.owner || "-")}
       </td>
-
-      <td>
-        ${escapeHtml(
-          getAutomationName(
-            b.automationSlug
-          )
-        )}
-      </td>
-
-      <td>
+<td>
         ${escapeHtml(b.status || "-")}
       </td>
 
@@ -3111,7 +2921,7 @@ function renderRecent(){
   :
   `
     <tr>
-      <td colspan="5" class="empty">
+      <td colspan="4" class="empty">
         Henüz işletme yok.
       </td>
     </tr>
@@ -3122,29 +2932,29 @@ function renderRecent(){
 
 function renderStats(){
 
+  const siteBusinesses =
+  businesses.filter(
+    b => b.automationSlug === "site-aidat"
+  );
+
   document
   .getElementById("statBusinesses")
   .textContent =
-  businesses.length;
+  siteBusinesses.length;
 
   document
   .getElementById("statActive")
   .textContent =
-  businesses.filter(
+  siteBusinesses.filter(
     b => b.status === "Aktif"
   ).length;
 
   document
   .getElementById("statPassive")
   .textContent =
-  businesses.filter(
+  siteBusinesses.filter(
     b => b.status === "Pasif"
   ).length;
-
-  document
-  .getElementById("statAutomations")
-  .textContent =
-  automations.length;
 
 }
 
@@ -3773,7 +3583,6 @@ document.addEventListener(
 
 function renderAll(){
 
-  renderAutomations();
   window.renderBusinesses();
   renderRecent();
   renderStats();
