@@ -2235,35 +2235,45 @@ function(){
 };
 
 
-document
-.getElementById("autoName")
-.addEventListener(
-"input",
-function(){
+const autoNameInput =
+document.getElementById("autoName");
 
-  if(editingAutomationId){
-    return;
-  }
+if(autoNameInput){
 
-  const slug =
-  slugify(this.value);
+  autoNameInput.addEventListener(
+    "input",
+    function(){
 
-  document
-  .getElementById("autoSlug")
-  .value =
-  slug;
+      if(editingAutomationId){
+        return;
+      }
 
-  document
-  .getElementById("autoTemplatePath")
-  .value =
-  slug
-  ?
-  `templates/${slug}/index.html`
-  :
-  "";
+      const slug =
+      slugify(this.value);
+
+      const autoSlug =
+      document.getElementById("autoSlug");
+
+      const autoTemplatePath =
+      document.getElementById("autoTemplatePath");
+
+      if(autoSlug){
+        autoSlug.value = slug;
+      }
+
+      if(autoTemplatePath){
+        autoTemplatePath.value =
+        slug
+        ?
+        `templates/${slug}/index.html`
+        :
+        "";
+      }
+
+    }
+  );
 
 }
-);
 
 
 window.editAutomation =
