@@ -267,6 +267,97 @@
       background:#f3f6fb;
     }
 
+
+    /* TÜM MENÜLERDE SATIR AYRIMI / ZEBRA GÖRÜNÜM */
+    .table tbody tr{
+      transition:background .15s ease;
+    }
+    .table tbody tr:nth-child(odd){
+      background:#ffffff;
+    }
+    .table tbody tr:nth-child(even){
+      background:#f3f6fb;
+    }
+    .table tbody tr:hover{
+      background:#eaf1ff;
+    }
+
+    /* Site sakinleri, aidat/ödemeler, ödemeyenler ve diğer tablo satırları */
+    #residentRows tr:nth-child(odd),
+    #duesBlocks tbody tr:nth-child(odd),
+    #unpaidPageReport tbody tr:nth-child(odd){
+      background:#ffffff;
+    }
+    #residentRows tr:nth-child(even),
+    #duesBlocks tbody tr:nth-child(even),
+    #unpaidPageReport tbody tr:nth-child(even){
+      background:#f3f6fb;
+    }
+
+    /* Gider giriş satırları */
+    #expenseRows .expense-row{
+      border-radius:10px;
+      padding:8px;
+      margin-bottom:5px;
+      transition:background .15s ease;
+    }
+    #expenseRows .expense-row:nth-child(odd){
+      background:#ffffff;
+    }
+    #expenseRows .expense-row:nth-child(even){
+      background:#f3f6fb;
+    }
+    #expenseRows .expense-row:hover{
+      background:#eaf1ff;
+    }
+
+    /* Yayınlanan giderler ve arşiv gider satırları */
+    .expense-zebra-list{
+      border:1px solid #e3e8f2;
+      border-radius:13px;
+      overflow:hidden;
+    }
+    .expense-zebra-item{
+      padding:11px 12px;
+      border-top:1px solid #e6eaf2;
+      background:#ffffff;
+      transition:background .15s ease;
+    }
+    .expense-zebra-item:first-child{
+      border-top:0;
+    }
+    .expense-zebra-item:nth-child(even){
+      background:#f3f6fb;
+    }
+    .expense-zebra-item:hover{
+      background:#eaf1ff;
+    }
+
+    /* Anket seçeneklerinde de satır ayrımı */
+    #surveyList article .survey-option{
+      transition:background .15s ease,border-color .15s ease;
+    }
+    #surveyList article .survey-option:nth-of-type(odd){
+      background:#ffffff;
+    }
+    #surveyList article .survey-option:nth-of-type(even){
+      background:#f3f6fb;
+    }
+    #surveyList article .survey-option:hover{
+      background:#eaf1ff !important;
+      border-color:#b7c7ef;
+    }
+
+    /* Mobilde de aynı ayrım korunsun */
+    @media(max-width:700px){
+      .table tbody tr:nth-child(even){
+        background:#f3f6fb;
+      }
+      .table tbody tr:nth-child(odd){
+        background:#ffffff;
+      }
+    }
+
 </style>
 </head>
 <body>
