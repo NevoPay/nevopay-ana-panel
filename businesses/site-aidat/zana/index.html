@@ -391,6 +391,17 @@
       }
     }
 
+
+    .resident-filter-grid{
+      display:grid;
+      grid-template-columns:minmax(0,2fr) minmax(180px,1fr);
+      gap:12px;
+      align-items:end;
+    }
+    @media(max-width:650px){
+      .resident-filter-grid{grid-template-columns:1fr}
+    }
+
 </style>
 </head>
 <body>
@@ -436,6 +447,23 @@
           <h3 style="margin:0">Site Sakini Yönetimi</h3>
           <button class="btn primary" data-modal="residentModal">+ Sakin Ekle</button>
         </div>
+
+        <div class="card" style="margin-bottom:14px">
+          <div class="resident-filter-grid">
+            <div class="field" style="margin:0">
+              <label>Site sakini ara</label>
+              <input id="residentSearch" type="search" placeholder="Ad soyad, telefon veya daire ara">
+            </div>
+            <div class="field" style="margin:0">
+              <label>Blok seç</label>
+              <select id="residentBlockFilter">
+                <option value="all">Tüm Bloklar</option>
+              </select>
+            </div>
+          </div>
+          <div id="residentFilterInfo" class="sub" style="margin-top:10px"></div>
+        </div>
+
         <div class="card table-wrap"><table class="table"><thead><tr><th>Blok</th><th>Kat</th><th>Daire</th><th>Ad Soyad</th><th>Telefon</th><th>Durum</th><th>İşlem</th></tr></thead><tbody id="residentRows"></tbody></table></div>
       </div>
 
@@ -515,7 +543,7 @@
     const deleteResidentCall=httpsCallable(functions,'deleteResident');
     const phoneKey=p=>String(p).replace(/\D/g,'').replace(/^90/,'').replace(/^0/,'');
     async function emailForPhone(phone){const s=await getDoc(doc(db,'loginLookup',`${siteId}_${phoneKey(phone)}`));if(!s.exists())throw new Error('not-found');return s.data().email}
-    let profile=null,residents=[],statements=[],surveys=[],ads=[],bank={},loginMode='resident',selectedDuesId='',duesStatus='all',duesBlockFilter='all',duesSearchText='',activeExpenseScope='all',adTimer=null; let unsubs=[];
+    let profile=null,residents=[],statements=[],surveys=[],ads=[],bank={},loginMode='resident',selectedDuesId='',duesStatus='all',duesBlockFilter='all',duesSearchText='',residentSearchText='',residentBlockFilter='all',activeExpenseScope='all',adTimer=null; let unsubs=[];
     const months=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
     $('statementMonth').innerHTML=months.map((m,i)=>`<option value="${i+1}">${m}</option>`).join(''); $('statementMonth').value=new Date().getMonth()+1; $('statementYear').value=new Date().getFullYear();
     function toast(t){$('toast').textContent=t;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),2400)}
@@ -612,7 +640,19 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-modal]');i
 
     onAuthStateChanged(auth,async user=>{unsubs.forEach(f=>f());unsubs=[];if(!user){profile=null;$('app').classList.add('hidden');$('login').classList.remove('hidden');return}const [snap,siteSnap]=await Promise.all([getDoc(doc(db,'users',user.uid)),getDoc(doc(db,'sites',siteId))]);if(!snap.exists()||snap.data().active===false||snap.data().siteId!==siteId||!siteSnap.exists()||siteSnap.data().active===false){await signOut(auth);$('loginMsg').textContent='Bu kullanıcı veya site aktif değil.';return}const siteData=siteSnap.data();profile={id:user.uid,siteName:siteData.name||siteId,billingMode:siteData.billingMode==='block'?'block':'shared',blocks:Array.isArray(siteData.blocks)?siteData.blocks:[],...snap.data()};document.title=`${profile.siteName} · Site Aidatı`;$('loginSiteName').textContent=profile.siteName;$('sidebarSiteName').textContent=profile.siteName;if($('loginSiteWatermark'))$('loginSiteWatermark').textContent=profile.siteName;setSiteBlockOptions();$('login').classList.add('hidden');$('app').classList.remove('hidden');setupUI();renderAdminAccount();listenData()});
     function siteBlocks(){return Array.isArray(profile?.blocks)?profile.blocks:[]}
-    function setSiteBlockOptions(){const blocks=siteBlocks();$('residentBlock').innerHTML='<option value="">Blok seçin</option>'+blocks.map(x=>`<option value="${safe(x)}">${safe(x)} Blok</option>`).join('');$('duesBlockSelect').innerHTML='<option value="all">Tümü</option>'+blocks.map(x=>`<option value="${safe(x)}">${safe(x)} Blok</option>`).join('')}
+    function setSiteBlockOptions(){
+      const blocks=siteBlocks();
+      $('residentBlock').innerHTML='<option value="">Blok seçin</option>'+blocks.map(x=>`<option value="${safe(x)}">${safe(x)} Blok</option>`).join('');
+      $('duesBlockSelect').innerHTML='<option value="all">Tümü</option>'+blocks.map(x=>`<option value="${safe(x)}">${safe(x)} Blok</option>`).join('');
+
+      const residentBlockFilterEl=$('residentBlockFilter');
+      if(residentBlockFilterEl){
+        const currentFilter=residentBlockFilter;
+        residentBlockFilterEl.innerHTML='<option value="all">Tüm Bloklar</option>'+blocks.map(x=>`<option value="${safe(x)}">${safe(x)} Blok</option>`).join('');
+        residentBlockFilterEl.value=blocks.includes(currentFilter)?currentFilter:'all';
+        residentBlockFilter=residentBlockFilterEl.value;
+      }
+    }
     function normalizeBlockName(value){
       return String(value||'')
         .trim()
@@ -758,8 +798,54 @@ $('addBlockBtn')?.addEventListener('click',async()=>{
     function renderMetrics(){const published=statements.filter(s=>s.status==='published'),current=published[0],total=current?.total||0,residentProfile=residents.find(r=>r.id===profile.id)||profile,per=dueFor(current,residentProfile),paid=Math.min(Number(current?.payments?.[profile.id]||0),per),left=Math.max(0,per-paid),manualDebt=Number(residentProfile.legacyDebt||0),oldDebt=manualDebt+published.slice(1).reduce((sum,s)=>sum+Math.max(0,dueFor(s,residentProfile)-Number(s.payments?.[profile.id]||0)),0);const adminPer=profile.billingMode==='block'?'Bloklara göre':money(Number(current?.perUnit||0)),html=profile.role==='admin'?[['Site sakini',residents.length],['Aylık toplam',money(total)],['Aidat türü',adminPer]]:current?[[`${months[current.month-1]} Ayı Aidatı`,money(per)],['Kalan Borç',money(left)],['Eski Borçlar',money(oldDebt)]]:[['Mevcut Ay Aidatı',money(0)],['Kalan Borç',money(0)],['Eski Borçlar',money(oldDebt)]];$('metrics').innerHTML=html.map(x=>`<div class="card metric"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('');$('periodLabel').textContent=current?`${months[current.month-1]} ${current.year}`:'Henüz yayın yok'}
     function renderOldDebts(){if(!profile||profile.role==='admin')return;const published=statements.filter(s=>s.status==='published'),residentProfile=residents.find(r=>r.id===profile.id)||profile,manualDebt=Number(residentProfile.legacyDebt||0),old=published.slice(1).map(s=>{const due=dueFor(s,residentProfile),paid=Math.min(Number(s.payments?.[profile.id]||0),due),left=Math.max(0,due-paid);return{s,due,paid,left}}).filter(x=>x.left>0),total=manualDebt+old.reduce((sum,x)=>sum+x.left,0),manualCard=manualDebt>0?`<div class="card" style="margin-bottom:14px"><div class="section-head" style="margin:0"><h2>Önceki dönemlerden devreden borç</h2><span class="pill unpaid">Ödenmedi</span></div><div class="metric" style="margin-top:14px"><span>Kalan borç</span><b>${money(manualDebt)}</b></div></div>`:'';$('oldDebtList').innerHTML=total>0?`<div class="card metric" style="margin:16px 0"><span>Toplam eski borç</span><b>${money(total)}</b></div>${manualCard}${old.map(({s,due,paid,left})=>`<div class="card" style="margin-bottom:14px"><div class="section-head" style="margin:0"><h2>${months[s.month-1]} ${s.year}</h2><span class="pill unpaid">Ödenmedi</span></div><div class="grid" style="margin-top:14px"><div class="metric"><span>Aylık aidat</span><b>${money(due)}</b></div><div class="metric"><span>Ödenen</span><b>${money(paid)}</b></div><div class="metric"><span>Kalan borç</span><b>${money(left)}</b></div></div></div>`).join('')}`:'<div class="card empty">Ödenmemiş eski borcunuz bulunmuyor.</div>'}
     function renderBank(){if(profile?.role==='admin'){$('bankName').value=bank.bankName||'';$('accountName').value=bank.accountName||'';$('iban').value=bank.iban||''}const has=bank.iban;$('bankCard').innerHTML=`<div class="card bank-box" style="margin-top:16px"><h3 style="margin-top:0">Ödeme hesabı</h3>${has?`<div><b>${safe(bank.bankName)}</b><p class="sub">${safe(bank.accountName)}</p><div class="bank-line"><span style="font-weight:850;word-break:break-all">${safe(bank.iban)}</span><button id="copyIban" class="btn">IBAN'ı kopyala</button></div></div>`:'<p class="sub">Yönetici henüz banka bilgisi eklemedi.</p>'}</div>`;if(has)$('copyIban').onclick=async()=>{await navigator.clipboard.writeText(bank.iban.replace(/\s/g,''));toast('IBAN kopyalandı')}}
-    function renderResidents(){$('residentRows').innerHTML=residents.length?residents.map(r=>`<tr><td><b>${safe(r.block)} Blok</b></td><td>${safe(r.floor||'—')}</td><td><b>${safe(r.unit)}</b></td><td>${safe(r.name)}</td><td>${safe(r.phone)}</td><td><span class="pill ${r.active===false?'unpaid':'paid'}">${r.active===false?'Pasif':'Aktif'}</span></td><td><button class="btn edit-resident" data-id="${r.id}">Düzenle</button> <button class="btn red delete-resident" data-id="${r.id}">Sil</button></td></tr>`).join(''):'<tr><td colspan="7" class="empty">Henüz site sakini yok.</td></tr>';renderAdminLegacyDebts()}
-    $('residentRows').onclick=async e=>{const id=e.target.dataset.id;if(!id)return;const r=residents.find(x=>x.id===id);if(e.target.classList.contains('edit-resident')){$('residentId').value=id;$('residentName').value=r.name;$('residentPhone').value=r.phone;$('residentBlock').value=r.block;$('residentFloor').value=r.floor||'';$('residentUnit').value=r.unit;$('residentPassword').value='';$('residentActive').value=String(r.active!==false);$('residentModalTitle').textContent='Site sakinini düzenle';openModal('residentModal')}if(e.target.classList.contains('delete-resident')&&confirm(`${r.name} silinsin mi?`)){try{await deleteResidentCall({residentUid:id});toast('Site sakini silindi')}catch(err){toast(err?.message||'Site sakini silinemedi')}}};
+    function renderResidents(){
+      const q=String(residentSearchText||'').trim().toLocaleLowerCase('tr-TR');
+      const filtered=residents.filter(r=>{
+        const blockOk=residentBlockFilter==='all'||String(r.block||'')===residentBlockFilter;
+        if(!blockOk)return false;
+        if(!q)return true;
+
+        const haystack=[
+          r.name,
+          r.phone,
+          r.unit,
+          r.floor,
+          r.block,
+          `${r.block||''} blok`,
+          `daire ${r.unit||''}`
+        ].join(' ').toLocaleLowerCase('tr-TR');
+
+        return haystack.includes(q);
+      });
+
+      $('residentRows').innerHTML=filtered.length
+        ? filtered.map(r=>`<tr><td><b>${safe(r.block)} Blok</b></td><td>${safe(r.floor||'—')}</td><td><b>${safe(r.unit)}</b></td><td>${safe(r.name)}</td><td>${safe(r.phone)}</td><td><span class="pill ${r.active===false?'unpaid':'paid'}">${r.active===false?'Pasif':'Aktif'}</span></td><td><button class="btn edit-resident" data-id="${r.id}">Düzenle</button> <button class="btn red delete-resident" data-id="${r.id}">Sil</button></td></tr>`).join('')
+        : '<tr><td colspan="7" class="empty">Aramaya uygun site sakini bulunamadı.</td></tr>';
+
+      const info=$('residentFilterInfo');
+      if(info){
+        const parts=[];
+        if(residentBlockFilter!=='all')parts.push(`${residentBlockFilter} Blok`);
+        if(q)parts.push(`"${safe(residentSearchText)}" araması`);
+        info.innerHTML=parts.length
+          ? `${parts.join(' · ')} — <b>${filtered.length}</b> kayıt bulundu`
+          : `Toplam <b>${residents.length}</b> site sakini`;
+      }
+
+      renderAdminLegacyDebts();
+    }
+    
+    $('residentSearch')?.addEventListener('input',e=>{
+      residentSearchText=e.target.value||'';
+      renderResidents();
+    });
+
+    $('residentBlockFilter')?.addEventListener('change',e=>{
+      residentBlockFilter=e.target.value||'all';
+      renderResidents();
+    });
+
+$('residentRows').onclick=async e=>{const id=e.target.dataset.id;if(!id)return;const r=residents.find(x=>x.id===id);if(e.target.classList.contains('edit-resident')){$('residentId').value=id;$('residentName').value=r.name;$('residentPhone').value=r.phone;$('residentBlock').value=r.block;$('residentFloor').value=r.floor||'';$('residentUnit').value=r.unit;$('residentPassword').value='';$('residentActive').value=String(r.active!==false);$('residentModalTitle').textContent='Site sakinini düzenle';openModal('residentModal')}if(e.target.classList.contains('delete-resident')&&confirm(`${r.name} silinsin mi?`)){try{await deleteResidentCall({residentUid:id});toast('Site sakini silindi')}catch(err){toast(err?.message||'Site sakini silinemedi')}}};
     function renderAdminLegacyDebts(){if(!profile||profile.role!=='admin'){$('legacyDebtAdmin').innerHTML='';return}const blocks=siteBlocks();$('legacyDebtAdmin').innerHTML=`<details class="card" style="margin:16px 0"><summary style="cursor:pointer;font-weight:850;font-size:17px">Devreden Eski Borçları Yönet</summary><p class="sub">Sistem kullanılmaya başlamadan önceki borçları buradan girin veya ödendi olarak kapatın.</p>${blocks.map(block=>{const list=residents.filter(r=>r.block===block);if(!list.length)return'';return`<div style="margin-top:18px"><h3>${block} Blok</h3><div class="table-wrap"><table class="table"><thead><tr><th>Daire</th><th>Site sakini</th><th>Devreden borç</th><th>İşlem</th></tr></thead><tbody>${list.map(r=>`<tr><td><b>${safe(r.unit)}</b></td><td>${safe(r.name)}</td><td><b>${money(r.legacyDebt)}</b></td><td><button class="btn legacy-edit" data-id="${r.id}">Borç Gir/Düzenle</button> ${Number(r.legacyDebt||0)>0?`<button class="btn green legacy-paid" data-id="${r.id}">Ödendi</button>`:''}</td></tr>`).join('')}</tbody></table></div></div>`}).join('')}</details>`}
     $('legacyDebtAdmin').onclick=async e=>{const button=e.target.closest('.legacy-edit,.legacy-paid');if(!button)return;const r=residents.find(x=>x.id===button.dataset.id);if(!r)return;if(button.classList.contains('legacy-edit')){const entered=prompt(`${r.name} için önceki dönemlerden devreden toplam borcu yazın.`,String(Number(r.legacyDebt||0)));if(entered===null)return;const amount=Number(entered.replace(',','.'));if(!Number.isFinite(amount)||amount<0){alert('Geçerli bir borç tutarı yazın.');return}await updateDoc(doc(db,'users',r.id),{legacyDebt:amount,legacyDebtUpdatedAt:serverTimestamp()});toast(amount>0?`Devreden borç ${money(amount)} olarak kaydedildi`:'Devreden borç kaldırıldı');return}if(!confirm(`${r.name} için ${money(r.legacyDebt)} devreden borç ödendi olarak kapatılsın mı?`))return;const paidAmount=Number(r.legacyDebt||0),chatWindow=window.open('about:blank','_blank');await updateDoc(doc(db,'users',r.id),{legacyDebt:0,legacyDebtPaidAt:serverTimestamp(),legacyDebtUpdatedAt:serverTimestamp()});toast('Devreden borç ödendi ve sıfırlandı');if(r.phone){const digits=String(r.phone).replace(/\D/g,''),whatsappPhone=digits.startsWith('0')?`90${digits.slice(1)}`:digits.startsWith('90')?digits:`90${digits}`,message=`Sayın ${r.name}, önceki dönemlerden devreden ${money(paidAmount)} tutarındaki borcunuzun ödemesi alınmıştır. Devreden borcunuz sıfırlanmıştır.`,url=`https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`;if(chatWindow)chatWindow.location.href=url;else window.open(url,'_blank')}else if(chatWindow)chatWindow.close()};
     $('residentForm').onsubmit=async e=>{
