@@ -1002,13 +1002,14 @@ $('menuBtn').onclick=()=>$('sidebar').classList.toggle('open');
 
     /* =========================================================
        ORTAK GİDER ŞABLONU OVERRIDE
-       Blok ayrımı tamamen kapalıdır.
+       Aidat hesabı bloktan bağımsızdır; sakin blok bilgisi görünür.
     ========================================================= */
 
     renderResidents=function(){
       $('residentRows').innerHTML=residents.length
       ? residents.map(r=>`
         <tr>
+          <td><b>${safe(r.block||'—')}${r.block?' Blok':''}</b></td>
           <td>${safe(r.floor||'—')}</td>
           <td><b>${safe(r.unit)}</b></td>
           <td>${safe(r.name)}</td>
@@ -1020,7 +1021,7 @@ $('menuBtn').onclick=()=>$('sidebar').classList.toggle('open');
           </td>
         </tr>
       `).join('')
-      : '<tr><td colspan="6" class="empty">Henüz site sakini yok.</td></tr>';
+      : '<tr><td colspan="7" class="empty">Henüz site sakini yok.</td></tr>';
       renderAdminLegacyDebts();
     };
 
