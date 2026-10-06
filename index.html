@@ -830,6 +830,7 @@ th{
                     <th>Yetkili</th>
                     <th>Telefon</th>
                     <th>Şehir</th>
+                    <th>Gider Tipi</th>
                     <th>Durum</th>
                     <th>Dosya</th>
                     <th>İşlem</th>
@@ -1022,7 +1023,7 @@ th{
     </h3>
 
     <div class="notice">
-      Yeni işletme oluşturulduğunda yönetici hesabı da otomatik oluşturulur.
+      Yeni site oluşturulurken önce Ortak Gider veya Blok Bazlı şablon seçilir. Yönetici hesabı da otomatik oluşturulur.
       Şifre Firestore veritabanına kaydedilmez.
     </div>
 
@@ -1070,6 +1071,16 @@ th{
       >
 
       <input id="bizAutomation" type="hidden" value="site-aidat">
+
+      <select id="bizTemplateType" class="wide">
+        <option value="shared">Ortak Gider Site Şablonu</option>
+        <option value="block">Blok Bazlı Site Şablonu</option>
+      </select>
+
+      <div class="notice wide" id="bizTemplateHelp">
+        Ortak Gider: bütün giderler tüm site sakinlerine bölünür.
+        Blok Bazlı: ortak gider tüm siteye; blok gideri yalnız seçilen bloğa bölünür.
+      </div>
 
       <select id="bizStatus">
         <option value="Aktif">Aktif</option>
@@ -1336,6 +1347,8 @@ function clearBusinessForm(){
   document.getElementById("bizEmail").value = "";
   document.getElementById("bizPassword").value = "";
   document.getElementById("bizCity").value = "";
+  document.getElementById("bizTemplateType").value = "shared";
+  document.getElementById("bizTemplateType").disabled = false;
   document.getElementById("bizStatus").value = "Aktif";
   document.getElementById("bizPanelUrl").value = "";
   document.getElementById("bizFilePath").value = "";
@@ -1508,6 +1521,12 @@ function(id){
 
   document.getElementById("bizAutomation").value = "site-aidat";
 
+  document.getElementById("bizTemplateType").value =
+  business.siteTemplateType ||
+  (business.billingMode === "block" ? "block" : "shared");
+
+  document.getElementById("bizTemplateType").disabled = true;
+
   document.getElementById("bizStatus").value =
   business.status || "Aktif";
 
@@ -1562,6 +1581,13 @@ async function(){
   .value.trim();
 
   const automationSlug = "site-aidat";
+
+  const siteTemplateType =
+  document
+  .getElementById("bizTemplateType")
+  .value === "block"
+  ? "block"
+  : "shared";
 
   const status =
   document
@@ -1639,6 +1665,8 @@ if(editingBusinessId){
           email,
           city,
           automationSlug,
+          siteTemplateType,
+          billingMode: siteTemplateType === "block" ? "block" : "shared",
           status,
           note,
           updatedAt:
@@ -1742,6 +1770,7 @@ if(editingBusinessId){
       password,
       city,
       automationSlug,
+      siteTemplateType,
       status,
       note,
       panelUrl,
@@ -2879,7 +2908,7 @@ function(){
   :
   `
     <tr>
-      <td colspan="8" class="empty">
+      <td colspan="9" class="empty">
         Henüz işletme yok.
       </td>
     </tr>
