@@ -215,7 +215,34 @@
       }
     }
 
-  </style>
+  
+  /* LOGIN SITE ADI GÖRÜNÜRLÜK DÜZELTMESİ */
+  #login.login{
+    padding-top:150px;
+    align-items:flex-start;
+  }
+  #login .login-card{
+    position:relative;
+    z-index:3;
+    margin-top:0;
+  }
+  @media (max-width:700px){
+    #login.login{
+      padding-top:118px;
+    }
+  }
+
+
+  #loginSiteBgName,
+  .login-site-name,
+  .site-bg-name,
+  .login-site-title{
+    top:28px!important;
+    transform:translateX(-50%)!important;
+    z-index:2!important;
+  }
+
+</style>
 </head>
 <body>
   <section id="login" class="login">
