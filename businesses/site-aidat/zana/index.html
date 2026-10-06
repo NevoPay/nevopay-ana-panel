@@ -713,7 +713,27 @@
     const baseStatementCard=statementCard;
     statementCard=function(s,archive=false){let html=baseStatementCard(s,archive);if(s.billingMode==='block'){const summary=Object.entries(s.duesByBlock||{}).filter(([,amount])=>Number(amount)>0).map(([block,amount])=>`${safe(block)} Blok: <b>${money(amount)}</b>`).join(' • ');html=html.replace('</p>',`</p><p class="sub"><b>Bloklara göre aidat:</b> ${summary||'Henüz hesaplanmadı'}</p>`)}return archive?html.replace('</article>',`<div class="actions" style="margin-top:14px"><button class="btn primary archive-pdf" data-id="${s.id}">PDF İndir</button><button class="btn archive-print" data-id="${s.id}">Yazdır</button></div></article>`):html};
     function renderArchive(){const list=statements.filter(s=>s.status==='published');if(!list.length){$('archiveList').innerHTML='<div class="card empty">Henüz yayınlanmış aylık kayıt yok.</div>';return}const periods=new Map;list.forEach(s=>{const start=Number(s.month)>=9?Number(s.year):Number(s.year)-1,key=String(start);if(!periods.has(key))periods.set(key,[]);periods.get(key).push(s)});$('archiveList').innerHTML=[...periods.entries()].sort((a,b)=>Number(b[0])-Number(a[0])).map(([start,items])=>`<div style="margin-bottom:24px"><div class="section-head" style="margin-bottom:12px"><h3>${start}–${Number(start)+1} Dönemi</h3><span class="pill published">Eylül–Ağustos · ${items.length} ay</span></div><div class="grid">${items.sort((a,b)=>Number(b.year)-Number(a.year)||Number(b.month)-Number(a.month)).map(s=>statementCard(s,true)).join('')}</div></div>`).join('')}
-    function renderLatest(){const s=statements.find(x=>x.status==='published');$('latestStatement').innerHTML=s?`<div class="section-head"><h2>Son yayınlanan giderler</h2></div><div class="card"><h3>${months[s.month-1]} ${s.year}</h3>${(s.expenses||[]).map(x=>`<div style="display:flex;justify-content:space-between;border-top:1px solid var(--line);padding:11px 0"><span>${safe(x.name)}</span><b>${money(x.amount)}</b></div>`).join('')}</div>`:''}
+    function renderLatest(){
+      const s=statements.find(x=>x.status==='published');
+
+      $('latestStatement').innerHTML=s
+        ? `<div class="section-head"><h2>Son yayınlanan giderler</h2></div>
+           <div class="card">
+             <h3>${months[s.month-1]} ${s.year}</h3>
+
+             <div class="expense-zebra-list">
+               ${(s.expenses||[]).map(x=>`
+                 <div class="expense-zebra-item">
+                   <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+                     <span>${safe(x.name)}</span>
+                     <b>${money(x.amount)}</b>
+                   </div>
+                 </div>
+               `).join('')}
+             </div>
+           </div>`
+        : '';
+    }
     function editStatement(s){
       if(isFinalized(s)){toast('Bu ay kesinleştiği için değiştirilemez.');return}
 
