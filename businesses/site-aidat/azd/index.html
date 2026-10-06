@@ -215,7 +215,15 @@
       }
     }
 
-  </style>
+  
+  /* ORTAK GİDER ŞABLONU: blok arayüzleri gösterilmez */
+  #duesBlockTabs,
+  #unpaidBlockTabs,
+  #archiveBlockTabs,
+  #expenseScopeTabs,
+  #duesBlockSelect{display:none!important}
+
+</style>
 </head>
 <body>
   <section id="login" class="login">
@@ -239,7 +247,7 @@
       <header class="top"><div style="display:flex;align-items:center;gap:10px"><button id="menuBtn" class="btn mobile-menu">☰</button><h1 id="pageTitle">Genel Bakış</h1></div><div style="display:flex;align-items:center;gap:9px"><a class="nevopay-resident-brand" href="https://wa.me/905520846890?text=Merhaba%20NevoPay%2C%20site%20aidat%C4%B1%20uygulamas%C4%B1%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener" aria-label="WhatsApp ile NevoPay'e ulaş"><span class="nevopay-mark">N</span><span class="nevopay-word"><b>NevoPay</b><small>Bize Ulaşın</small></span></a><span id="periodLabel" class="pill published"></span></div></header>
 
       <section id="dashboard" class="section active"><div id="residentAds" class="hidden"></div><div id="metrics" class="grid"></div><div id="bankCard"></div><div id="latestStatement"></div></section>
-      <section id="residents" class="section"><div class="section-head"><h2>Site sakinleri</h2><button class="btn primary" data-modal="residentModal">+ Sakin ekle</button></div><div class="card table-wrap"><table class="table"><thead><tr><th>Blok</th><th>Kat</th><th>Daire</th><th>Ad Soyad</th><th>Telefon</th><th>Durum</th><th>İşlem</th></tr></thead><tbody id="residentRows"></tbody></table></div></section>
+      <section id="residents" class="section"><div class="section-head"><h2>Site sakinleri</h2><button class="btn primary" data-modal="residentModal">+ Sakin ekle</button></div><div class="card table-wrap"><table class="table"><thead><tr><th>Kat</th><th>Daire</th><th>Ad Soyad</th><th>Telefon</th><th>Durum</th><th>İşlem</th></tr></thead><tbody id="residentRows"></tbody></table></div></section>
       <section id="dues" class="section"><div class="section-head"><h2>Aidat ve Ödemeler</h2></div><div id="duesAdminTools" class="card" style="display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-bottom:14px"><div class="field" style="margin:0;min-width:210px;flex:1"><label>Ay seçin</label><select id="duesPeriodSelect"></select></div><button id="exportDuesPdf" class="btn primary hidden" type="button">Ödemeyenleri Listele / PDF</button><select id="duesBlockSelect" class="hidden"><option value="all">Tümü</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><input id="duesSearch" class="hidden"></div><div id="duesPeriods" class="hidden"></div><div id="duesSummary" class="hidden"></div><div id="duesTabs" class="actions" style="margin:0 0 10px"></div><div id="duesBlockTabs" class="actions" style="margin:0 0 14px"></div><div id="unpaidReport" class="hidden"></div><div id="duesBlocks"></div><div id="legacyDebtAdmin"></div></section>
       <section id="unpaid" class="section"><div class="section-head"><h2>Ödemeyenleri Listele</h2></div><div class="card" style="margin-bottom:14px"><div class="field" style="margin:0"><label>Ay seçin</label><select id="unpaidPeriodSelect"></select></div></div><div id="unpaidBlockTabs" class="actions" style="margin:0 0 14px"></div><div id="unpaidPageReport"></div></section>
       <section id="oldDebts" class="section"><div class="section-head"><h2>Eski Borçlar</h2></div><p class="sub">Güncel aydan önceki aylara ait ödenmemiş aidatlarınız burada gösterilir.</p><div id="oldDebtList"></div></section>
@@ -250,7 +258,7 @@
     </main>
   </div>
 
-  <div id="residentModal" class="modal hidden"><form id="residentForm" class="dialog"><div class="dialog-head"><h2 id="residentModalTitle">Site sakini ekle</h2><button type="button" class="x" data-close>×</button></div><input id="residentId" type="hidden"><div class="form-grid"><div class="field"><label>Ad soyad</label><input id="residentName" required></div><div class="field"><label>Cep telefonu</label><input id="residentPhone" inputmode="numeric" maxlength="11" pattern="0[0-9]{10}" placeholder="05xxxxxxxxx" required></div><div class="field"><label>Blok</label><select id="residentBlock" required><option value="">Blok seçin</option><option value="A">A Blok</option><option value="B">B Blok</option><option value="C">C Blok</option><option value="D">D Blok</option><option value="E">E Blok</option></select></div><div class="field"><label>Kat</label><input id="residentFloor" required placeholder="4"></div><div class="field"><label>Daire</label><input id="residentUnit" required placeholder="9"></div><div class="field"><label>Yönetici tarafından verilen şifre</label><input id="residentPassword" type="password" inputmode="numeric" minlength="6" maxlength="6" pattern="[0-9]{6}"><small class="sub">Yeni sakin eklerken tam 6 rakam yazın.</small></div><div class="field"><label>Durum</label><select id="residentActive"><option value="true">Aktif</option><option value="false">Pasif</option></select></div></div><button class="btn primary full">Site sakinini kaydet</button><div id="residentMsg" class="msg"></div></form></div>
+  <div id="residentModal" class="modal hidden"><form id="residentForm" class="dialog"><div class="dialog-head"><h2 id="residentModalTitle">Site sakini ekle</h2><button type="button" class="x" data-close>×</button></div><input id="residentId" type="hidden"><div class="form-grid"><div class="field"><label>Ad soyad</label><input id="residentName" required></div><div class="field"><label>Cep telefonu</label><input id="residentPhone" inputmode="numeric" maxlength="11" pattern="0[0-9]{10}" placeholder="05xxxxxxxxx" required></div><input id="residentBlock" type="hidden" value="ORTAK"><div class="field"><label>Kat</label><input id="residentFloor" required placeholder="4"></div><div class="field"><label>Daire</label><input id="residentUnit" required placeholder="9"></div><div class="field"><label>Yönetici tarafından verilen şifre</label><input id="residentPassword" type="password" inputmode="numeric" minlength="6" maxlength="6" pattern="[0-9]{6}"><small class="sub">Yeni sakin eklerken tam 6 rakam yazın.</small></div><div class="field"><label>Durum</label><select id="residentActive"><option value="true">Aktif</option><option value="false">Pasif</option></select></div></div><button class="btn primary full">Site sakinini kaydet</button><div id="residentMsg" class="msg"></div></form></div>
 
   <div id="statementModal" class="modal hidden"><form id="statementForm" class="dialog"><div class="dialog-head"><h2>Aylık gider dökümü</h2><button type="button" class="x" data-close>×</button></div><input id="statementId" type="hidden"><div class="form-grid"><div class="field"><label>Ay</label><select id="statementMonth" required></select></div><div class="field"><label>Yıl</label><input id="statementYear" type="number" min="2020" max="2100" required></div><div class="field"><label>Aktif site sakini sayısı</label><input id="unitCount" type="number" readonly><small class="sub">Yönetici paneline eklenen aktif site sakinlerinden otomatik hesaplanır.</small></div><div class="field"><label>Son ödeme tarihi</label><input id="dueDate" type="date"></div><div class="field wide"><label>Giderler ve faturalar</label><div id="expenseScopeTabs" class="actions" style="margin:10px 0 12px"></div><p id="expenseScopeInfo" class="sub">Sabit giderler otomatik gelir. Her giderin yanından isteğe bağlı fotoğraf seçebilirsin.</p><div id="expenseRows"></div><button id="addExpense" type="button" class="btn">+ Yeni gider ekle</button></div></div><div class="grid" style="margin-top:18px;grid-template-columns:repeat(2,minmax(0,1fr))"><div class="card metric" style="background:#f5f7fb"><span>Toplam aylık gider</span><b id="expenseTotal">0,00 TL</b></div><div class="card metric" style="background:#eaf0ff;border-color:#b9c8ff"><span>Kişi başı toplam aidat</span><select id="perPersonBlockSelect" class="hidden" style="margin:8px 0;padding:9px 12px;border:1px solid #b9c8ff;border-radius:10px;background:#fff;color:#2345c5;font-weight:750"></select><button id="openBlockDuesBtn" type="button" class="btn primary hidden" style="margin:0 0 12px">Aç</button><b id="perPersonTotal" class="hidden" style="color:#2345c5">0,00 TL</b><div id="perPersonBreakdown" class="hidden" style="margin-top:10px;text-align:left;font-size:13px;color:#52627f"></div></div><div id="blockPerPersonTotals" class="grid hidden" style="grid-column:1/-1;grid-template-columns:repeat(auto-fit,minmax(145px,1fr))"></div></div><div class="actions" style="margin-top:18px"><button id="saveDraftBtn" class="btn primary" name="action" value="draft">Taslak olarak kaydet</button><button id="publishStatementBtn" class="btn green" name="action" value="publish">Kaydet ve yayınla</button></div><div id="statementMsg" class="msg"></div></form></div>
 
@@ -376,11 +384,16 @@
     };
     $('logoutBtn').onclick=()=>signOut(auth);
 
-    onAuthStateChanged(auth,async user=>{unsubs.forEach(f=>f());unsubs=[];if(!user){profile=null;$('app').classList.add('hidden');$('login').classList.remove('hidden');return}const [snap,siteSnap]=await Promise.all([getDoc(doc(db,'users',user.uid)),getDoc(doc(db,'sites',siteId))]);if(!snap.exists()||snap.data().active===false||snap.data().siteId!==siteId||!siteSnap.exists()||siteSnap.data().active===false){await signOut(auth);$('loginMsg').textContent='Bu kullanıcı veya site aktif değil.';return}const siteData=siteSnap.data();profile={id:user.uid,siteName:siteData.name||siteId,billingMode:siteData.billingMode==='block'?'block':'shared',blocks:Array.isArray(siteData.blocks)&&siteData.blocks.length?siteData.blocks:['A','B','C','D','E'],...snap.data()};document.title=`${profile.siteName} · Site Aidatı`;$('loginSiteName').textContent=profile.siteName;$('sidebarSiteName').textContent=profile.siteName;if($('loginSiteWatermark'))$('loginSiteWatermark').textContent=profile.siteName;setSiteBlockOptions();$('login').classList.add('hidden');$('app').classList.remove('hidden');setupUI();renderAdminAccount();listenData()});
-    function siteBlocks(){return profile?.blocks?.length?profile.blocks:['A','B','C','D','E']}
-    function setSiteBlockOptions(){const blocks=siteBlocks();$('residentBlock').innerHTML='<option value="">Blok seçin</option>'+blocks.map(x=>`<option value="${safe(x)}">${safe(x)} Blok</option>`).join('');$('duesBlockSelect').innerHTML='<option value="all">Tümü</option>'+blocks.map(x=>`<option value="${safe(x)}">${safe(x)} Blok</option>`).join('')}
+    onAuthStateChanged(auth,async user=>{unsubs.forEach(f=>f());unsubs=[];if(!user){profile=null;$('app').classList.add('hidden');$('login').classList.remove('hidden');return}const [snap,siteSnap]=await Promise.all([getDoc(doc(db,'users',user.uid)),getDoc(doc(db,'sites',siteId))]);if(!snap.exists()||snap.data().active===false||snap.data().siteId!==siteId||!siteSnap.exists()||siteSnap.data().active===false){await signOut(auth);$('loginMsg').textContent='Bu kullanıcı veya site aktif değil.';return}const siteData=siteSnap.data();profile={id:user.uid,siteName:siteData.name||siteId,billingMode:'shared',blocks:[],...snap.data(),block:'ORTAK'};document.title=`${profile.siteName} · Site Aidatı`;$('loginSiteName').textContent=profile.siteName;$('sidebarSiteName').textContent=profile.siteName;if($('loginSiteWatermark'))$('loginSiteWatermark').textContent=profile.siteName;setSiteBlockOptions();$('login').classList.add('hidden');$('app').classList.remove('hidden');setupUI();renderAdminAccount();listenData()});
+    function siteBlocks(){return []}
+    function setSiteBlockOptions(){
+      const residentBlock=$('residentBlock');
+      if(residentBlock) residentBlock.value='ORTAK';
+      const duesBlockSelect=$('duesBlockSelect');
+      if(duesBlockSelect) duesBlockSelect.innerHTML='<option value="all">Tümü</option>';
+    }
     function renderAdminAccount(){const admin=profile?.role==='admin';if(admin){$('whoUnit').textContent='Yönetici';$('adminPhone').value=profile.phone||'';$('adminEmail').value=auth.currentUser?.email||profile.email||''}}
-    function setupUI(){const admin=profile.role==='admin';$('whoName').textContent=profile.name;$('whoUnit').textContent=admin?'Yönetici':`${profile.block||''} Blok • Daire ${profile.unit||''}`;const items=admin?[['dashboard','Genel bakış'],['dues','Aidat ve ödemeler'],['unpaid','Ödemeyenleri Listele'],['statements','Aylık Giderler'],['residents','Site sakinleri'],['archive','Arşiv'],['surveys','Anketler'],['settings','Ayarlar']]:[['dashboard','Ana sayfa'],['dues','Aidat ve ödemeler'],['oldDebts','Eski Borçlar'],['archive','Arşiv'],['surveys','Anketler'],['settings','Şifre değiştir']];$('nav').innerHTML=items.map((x,i)=>`<button class="${i?'':'active'}" data-page="${x[0]}">${x[1]}</button>`).join('');document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));$('dashboard').classList.add('active');$('pageTitle').textContent=admin?'Genel Bakış':'Ana Sayfa';$('nav').onclick=e=>{const b=e.target.closest('[data-page]');if(!b)return;document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));$(b.dataset.page).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');$('pageTitle').textContent=b.textContent;$('sidebar').classList.remove('open');if(admin&&b.dataset.page==='statements')newStatement();if(admin&&b.dataset.page==='unpaid')renderUnpaidPage()};$('newSurveyBtn').classList.toggle('hidden',!admin);$('bankForm').classList.toggle('hidden',!admin);$('exportDuesPdf').classList.add('hidden')}
+    function setupUI(){const admin=profile.role==='admin';$('whoName').textContent=profile.name;$('whoUnit').textContent=admin?'Yönetici':`Daire ${profile.unit||''}`;const items=admin?[['dashboard','Genel bakış'],['dues','Aidat ve ödemeler'],['unpaid','Ödemeyenleri Listele'],['statements','Aylık Giderler'],['residents','Site sakinleri'],['archive','Arşiv'],['surveys','Anketler'],['settings','Ayarlar']]:[['dashboard','Ana sayfa'],['dues','Aidat ve ödemeler'],['oldDebts','Eski Borçlar'],['archive','Arşiv'],['surveys','Anketler'],['settings','Şifre değiştir']];$('nav').innerHTML=items.map((x,i)=>`<button class="${i?'':'active'}" data-page="${x[0]}">${x[1]}</button>`).join('');document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));$('dashboard').classList.add('active');$('pageTitle').textContent=admin?'Genel Bakış':'Ana Sayfa';$('nav').onclick=e=>{const b=e.target.closest('[data-page]');if(!b)return;document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));$(b.dataset.page).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');$('pageTitle').textContent=b.textContent;$('sidebar').classList.remove('open');if(admin&&b.dataset.page==='statements')newStatement();if(admin&&b.dataset.page==='unpaid')renderUnpaidPage()};$('newSurveyBtn').classList.toggle('hidden',!admin);$('bankForm').classList.toggle('hidden',!admin);$('exportDuesPdf').classList.add('hidden')}
     function activeResidentCount(){return residents.filter(r=>r.active!==false).length}
     function syncUnitCount(){$('unitCount').value=activeResidentCount();updateExpenseShares()}
     function listenData(){const usersSource=profile.role==='admin'?query(collection(db,'users'),where('siteId','==',siteId)):doc(db,'users',profile.id);unsubs.push(onSnapshot(usersSource,s=>{const docs=s.docs||[s];residents=docs.filter(d=>d.exists()).map(d=>({id:d.id,...d.data()})).filter(x=>x.role!=='admin').sort((a,b)=>(a.block||'').localeCompare(b.block||'','tr')||Number(a.unit)-Number(b.unit));if(profile.role!=='admin'&&!residents.length)residents=[profile];syncUnitCount();if(profile.role==='admin')renderResidents();renderDues();renderMetrics();renderOldDebts()}));unsubs.push(onSnapshot(query(collection(db,'statements'),where('siteId','==',siteId)),s=>{statements=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>b.period.localeCompare(a.period));const published=statements.filter(x=>x.status==='published');if(!published.some(x=>x.id===selectedDuesId))selectedDuesId=published[0]?.id||'';renderStatements();renderArchive();renderDues();renderMetrics();renderOldDebts()}));unsubs.push(onSnapshot(query(collection(db,'surveys'),where('siteId','==',siteId)),s=>{surveys=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));renderSurveys()}));unsubs.push(onSnapshot(doc(db,'settings',`${siteId}_bank`),s=>{bank=s.exists()?s.data():{};renderBank()}))}
@@ -494,6 +507,256 @@
     };
     $('archiveBlockTabs').onclick=e=>{const button=e.target.closest('.archive-block-tab');if(!button)return;archiveBlockFilter=button.dataset.block;renderArchive()};
     $('archiveList').onclick=async e=>{const button=e.target.closest('.edit-published,.archive-pdf,.archive-print');if(!button)return;const original=statements.find(x=>x.id===button.dataset.id);if(!original)return;if(button.classList.contains('edit-published')){editStatement(original);return}const block=button.dataset.block||'all',s=archiveStatementForBlock(original,block),blockLabel=block==='all'?'':`${block} Blok · `,html=archiveDocument(s).replace('Aylık Gider Dökümü',`${blockLabel}Aylık Gider Dökümü`);if(button.classList.contains('archive-print')){const w=window.open('','_blank');if(!w){toast('Yazdırma penceresi açılamadı. Tarayıcı açılır pencere iznini kontrol edin.');return}w.document.write(`<!doctype html><html lang="tr"><head><meta charset="utf-8"><title>${blockLabel}${months[s.month-1]} ${s.year} Gider Dökümü</title><style>@page{size:A4;margin:8mm}body{margin:0;display:flex;justify-content:center}</style></head><body>${html}<script>window.onload=()=>setTimeout(()=>window.print(),300)<\/script></body></html>`);w.document.close();return}if(!window.html2pdf){toast('PDF sistemi yüklenemedi. İnternet bağlantısını kontrol edin.');return}const root=document.createElement('div');root.innerHTML=html;document.body.append(root);button.disabled=true;button.textContent='PDF hazırlanıyor…';try{await window.html2pdf().set({margin:0,filename:`gider-dokumu-${s.period}-${block==='all'?'tum-bloklar':block.toLowerCase()+'-blok'}.pdf`,image:{type:'jpeg',quality:.98},html2canvas:{scale:2,useCORS:true,scrollY:0},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy'],before:[]}}).from(root.firstElementChild).save();toast(`PDF indirildi · ${(s.expenses||[]).length} gider kalemi`)}catch(err){toast('PDF oluşturulamadı.')}finally{root.remove();button.disabled=false;button.textContent='PDF İndir'}};
+
+    /* =========================================================
+       ORTAK GİDER ŞABLONU OVERRIDE
+       Blok ayrımı tamamen kapalıdır.
+    ========================================================= */
+
+    renderResidents=function(){
+      $('residentRows').innerHTML=residents.length
+      ? residents.map(r=>`
+        <tr>
+          <td>${safe(r.floor||'—')}</td>
+          <td><b>${safe(r.unit)}</b></td>
+          <td>${safe(r.name)}</td>
+          <td>${safe(r.phone)}</td>
+          <td><span class="pill ${r.active===false?'unpaid':'paid'}">${r.active===false?'Pasif':'Aktif'}</span></td>
+          <td>
+            <button class="btn edit-resident" data-id="${r.id}">Düzenle</button>
+            <button class="btn red delete-resident" data-id="${r.id}">Sil</button>
+          </td>
+        </tr>
+      `).join('')
+      : '<tr><td colspan="6" class="empty">Henüz site sakini yok.</td></tr>';
+      renderAdminLegacyDebts();
+    };
+
+    renderDues=function(){
+      const admin=profile.role==='admin';
+      const allPublished=statements.filter(s=>s.status==='published');
+      const published=admin?allPublished:allPublished.slice(0,1);
+      const current=published.find(s=>s.id===selectedDuesId)||published[0];
+
+      $('duesAdminTools').classList.toggle('hidden',!admin);
+      $('duesPeriodSelect').innerHTML=published.length
+        ? published.map(s=>`<option value="${s.id}" ${s.id===current?.id?'selected':''}>${months[s.month-1]} ${s.year}</option>`).join('')
+        : '<option value="">Yayınlanmış ay yok</option>';
+
+      $('duesBlockTabs').innerHTML='';
+      $('duesBlockSelect').value='all';
+      duesBlockFilter='all';
+
+      if(!current){
+        $('duesTabs').innerHTML='';
+        $('duesSummary').innerHTML='';
+        $('duesBlocks').innerHTML='<div class="card empty">Önce aylık gider dökümünü yayınlayın.</div>';
+        return;
+      }
+
+      if(!selectedDuesId) selectedDuesId=current.id;
+      if(admin&&duesStatus==='all') duesStatus='unpaid';
+
+      const eligible=admin
+        ? residents.filter(r=>r.active!==false)
+        : residents.filter(r=>r.id===profile.id);
+
+      const due=Number(current.perUnit||0);
+      const paidAmount=r=>Math.min(Number(current.payments?.[r.id]||0),due);
+      const isPaid=r=>paidAmount(r)>=due;
+      const paidCount=eligible.filter(isPaid).length;
+      const unpaidCount=eligible.length-paidCount;
+
+      $('duesSummary').innerHTML=admin
+        ? `<div class="card metric"><span>Toplam sakin</span><b>${eligible.length}</b></div>
+           <div class="card metric"><span>Ödeyen</span><b style="color:var(--green)">${paidCount}</b></div>
+           <div class="card metric"><span>Ödemeyen</span><b style="color:var(--red)">${unpaidCount}</b></div>`
+        : '';
+
+      $('duesTabs').innerHTML=admin
+        ? `<button class="btn due-status ${duesStatus==='unpaid'?'primary':''}" data-status="unpaid">Ödemeyenler (${unpaidCount})</button>
+           <button class="btn due-status ${duesStatus==='paid'?'green':''}" data-status="paid">Ödeyenler (${paidCount})</button>`
+        : '';
+
+      const filtered=eligible
+        .filter(r=>!admin||(duesStatus==='paid'?isPaid(r):!isPaid(r)))
+        .sort((a,b)=>
+          String(a.floor||'').localeCompare(String(b.floor||''),'tr',{numeric:true})
+          ||
+          String(a.unit||'').localeCompare(String(b.unit||''),'tr',{numeric:true})
+        );
+
+      const rows=filtered.map(r=>{
+        const paid=paidAmount(r);
+        const left=Math.max(0,due-paid);
+        return `<tr>
+          <td>${safe(r.floor||'—')}</td>
+          <td><b>${safe(r.unit)}</b></td>
+          <td>${safe(r.name)}</td>
+          <td>${money(due)}</td>
+          <td>${money(left)}</td>
+          <td>${admin
+            ? (left
+              ? `<button class="btn green mark-paid" data-id="${r.id}">Ödendi</button>`
+              : `<button class="btn red cancel-payment" data-id="${r.id}">Ödemeyi İptal Et</button>`)
+            : `<span class="pill ${left?'unpaid':'paid'}">${left?'Ödenmedi':'Ödendi ✓'}</span>`
+          }</td>
+        </tr>`;
+      }).join('');
+
+      $('duesBlocks').innerHTML=`
+        <div class="card">
+          <div class="dues-list-head">
+            <h3>${months[current.month-1]} ${current.year} · ${admin?(duesStatus==='paid'?'Ödeyenler':'Ödemeyenler'):'Aidat Durumunuz'}</h3>
+            <span class="pill ${admin&&duesStatus==='paid'?'paid':'unpaid'}">${filtered.length} kişi</span>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Kat</th>
+                  <th>Daire</th>
+                  <th>Ad Soyad</th>
+                  <th>Aidat</th>
+                  <th>Kalan Borç</th>
+                  <th>${admin?'İşlem':'Durum'}</th>
+                </tr>
+              </thead>
+              <tbody>${rows||'<tr><td colspan="6" class="empty">Bu bölümde kişi bulunmuyor.</td></tr>'}</tbody>
+            </table>
+          </div>
+        </div>`;
+    };
+
+    unpaidTableHtml=function(current,list,pdf=false){
+      const cell=pdf?'border:1px solid #aaa;padding:8px':'';
+      return `<table class="${pdf?'':'table'}" style="width:100%;border-collapse:collapse;${pdf?'font-size:13px':''}">
+        <thead><tr style="${pdf?'background:#eaf0ff':''}">
+          <th style="${cell}">Kat</th>
+          <th style="${cell}">Daire</th>
+          <th style="${cell}">Ad Soyad</th>
+          <th style="${cell}">Telefon</th>
+          <th style="${cell}">Aidat</th>
+          <th style="${cell}">Ödenen</th>
+          <th style="${cell}">Kalan Borç</th>
+          ${pdf?'':'<th>WhatsApp</th>'}
+        </tr></thead>
+        <tbody>${list.map(r=>{
+          const due=Number(current.perUnit||0);
+          const paid=Number(current.payments?.[r.id]||0);
+          const left=Math.max(0,due-paid);
+          return `<tr style="${pdf?'page-break-inside:avoid':''}">
+            <td style="${cell}">${safe(r.floor||'—')}</td>
+            <td style="${cell}"><b>${safe(r.unit)}</b></td>
+            <td style="${cell}">${safe(r.name)}</td>
+            <td style="${cell}">${safe(r.phone)}</td>
+            <td style="${cell}">${money(due)}</td>
+            <td style="${cell}">${money(paid)}</td>
+            <td style="${cell};font-weight:bold;color:#c92a31">${money(left)}</td>
+            ${pdf?'':`<td><button class="btn green unpaid-whatsapp" type="button" data-id="${safe(r.id)}">Mesaj Gönder</button></td>`}
+          </tr>`;
+        }).join('')}</tbody>
+      </table>`;
+    };
+
+    unpaidPageData=function(){
+      const published=statements.filter(s=>s.status==='published');
+      const current=published.find(s=>s.id===unpaidPageStatementId)||published[0];
+      if(current&&!unpaidPageStatementId) unpaidPageStatementId=current.id;
+      const list=current
+        ? residents
+          .filter(r=>r.active!==false&&Number(current.payments?.[r.id]||0)<Number(current.perUnit||0))
+          .sort((a,b)=>
+            String(a.floor||'').localeCompare(String(b.floor||''),'tr',{numeric:true})
+            ||
+            String(a.unit||'').localeCompare(String(b.unit||''),'tr',{numeric:true})
+          )
+        : [];
+      return {published,current,list};
+    };
+
+    renderUnpaidPage=function(){
+      if(!profile||profile.role!=='admin') return;
+      const {published,current,list}=unpaidPageData();
+
+      $('unpaidPeriodSelect').innerHTML=published.length
+        ? published.map(s=>`<option value="${s.id}" ${s.id===current?.id?'selected':''}>${months[s.month-1]} ${s.year}</option>`).join('')
+        : '<option value="">Yayınlanmış ay yok</option>';
+
+      $('unpaidBlockTabs').innerHTML='';
+      unpaidPageBlock='all';
+
+      if(!current){
+        $('unpaidPageReport').innerHTML='<div class="card empty">Önce aylık gider dökümünü yayınlayın.</div>';
+        return;
+      }
+
+      $('unpaidPageReport').innerHTML=`
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <h2>${months[current.month-1]} ${current.year} · Ödeme Yapmayanlar</h2>
+              <p class="sub">Toplam ${list.length} kişi</p>
+            </div>
+            ${list.length?'<button id="unpaidPagePdf" class="btn primary" type="button">PDF İndir</button>':''}
+          </div>
+          ${list.length
+            ? `<div class="table-wrap">${unpaidTableHtml(current,list)}</div>`
+            : '<div class="empty">Bu ay ödeme yapmayan site sakini bulunmuyor.</div>'
+          }
+        </div>`;
+    };
+
+    archiveBlockFilter='all';
+
+    archiveStatementForBlock=function(statement){
+      return {...statement,billingMode:'shared'};
+    };
+
+    renderArchiveBlockTabs=function(){
+      const tabs=$('archiveBlockTabs');
+      if(tabs) tabs.innerHTML='';
+    };
+
+    renderArchive=function(){
+      renderArchiveBlockTabs();
+      const list=statements.filter(s=>s.status==='published');
+
+      if(!list.length){
+        $('archiveList').innerHTML='<div class="card empty">Henüz yayınlanmış aylık kayıt yok.</div>';
+        return;
+      }
+
+      const periods=new Map;
+      list.forEach(s=>{
+        const start=Number(s.month)>=9?Number(s.year):Number(s.year)-1;
+        const key=String(start);
+        if(!periods.has(key)) periods.set(key,[]);
+        periods.get(key).push(s);
+      });
+
+      $('archiveList').innerHTML=[...periods.entries()]
+        .sort((a,b)=>Number(b[0])-Number(a[0]))
+        .map(([start,items])=>`
+          <div style="margin-bottom:24px">
+            <div class="section-head" style="margin-bottom:12px">
+              <h3>${start}–${Number(start)+1} Dönemi</h3>
+              <span class="pill published">${items.length} ay</span>
+            </div>
+            <div class="grid">
+              ${items
+                .sort((a,b)=>Number(b.year)-Number(a.year)||Number(b.month)-Number(a.month))
+                .map(s=>statementCard({...s,billingMode:'shared'},true))
+                .join('')
+              }
+            </div>
+          </div>
+        `).join('');
+    };
+
+    const residentBlockInput=$('residentBlock');
+    if(residentBlockInput) residentBlockInput.value='ORTAK';
+
     setInterval(()=>{if(profile){renderArchive();renderDues();if(profile.role==='admin'&&$('unpaid').classList.contains('active'))renderUnpaidPage()}},60000);
     $('adminAccountForm').onsubmit=async e=>{e.preventDefault();const phone=$('adminPhone').value.trim(),newKey=phoneKey(phone),oldKey=profile.phoneKey||phoneKey(profile.phone||''),email=$('adminEmail').value.trim().toLowerCase();if(!/^0\d{10}$/.test(phone)){toast('Telefon numarası 0 ile başlayan 11 rakam olmalı');return}try{const newLookupId=`${siteId}_${newKey}`,oldLookupId=`${siteId}_${oldKey}`,existing=await getDoc(doc(db,'loginLookup',newLookupId));if(existing.exists()&&existing.data().uid!==profile.id)throw new Error('phone-in-use');if(email!==auth.currentUser.email)await updateEmail(auth.currentUser,email);await setDoc(doc(db,'loginLookup',newLookupId),{siteId,email,uid:profile.id});await updateDoc(doc(db,'users',profile.id),{siteId,phone,phoneKey:newKey,email,updatedAt:serverTimestamp()});if(oldKey&&oldKey!==newKey)await deleteDoc(doc(db,'loginLookup',oldLookupId));profile={...profile,phone,phoneKey:newKey,email};toast('Yönetici telefon ve e-posta bilgileri güncellendi')}catch(err){if(err.message==='phone-in-use')toast('Bu telefon numarası başka bir hesapta kayıtlı');else if(err.code==='auth/requires-recent-login')toast('Güvenlik için çıkış yapıp yeniden giriş yaptıktan sonra tekrar deneyin');else if(err.code==='auth/email-already-in-use')toast('Bu e-posta başka bir hesapta kullanılıyor');else toast('Bilgiler güncellenemedi')}};
     $('bankForm').onsubmit=async e=>{e.preventDefault();await setDoc(doc(db,'settings',`${siteId}_bank`),{siteId,bankName:$('bankName').value.trim(),accountName:$('accountName').value.trim(),iban:$('iban').value.trim().toUpperCase(),updatedAt:serverTimestamp()});toast('Banka bilgileri kaydedildi')};
