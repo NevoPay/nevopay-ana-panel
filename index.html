@@ -1396,6 +1396,257 @@ function(){
 function updateBusinessPaths(){
 
   if(editingBusinessId){
+    return;
+  }
+
+  const slug =
+  slugify(
+    document
+    .getElementById("bizName")
+    .value
+  );
+
+  const automationSlug = "site-aidat";
+
+  const hasPath =
+  slug && automationSlug;
+
+  document
+  .getElementById("bizFilePath")
+  .value =
+  hasPath
+  ?
+  `businesses/${automationSlug}/${slug}/index.html`
+  :
+  "";
+
+  document
+  .getElementById("bizPanelUrl")
+  .value =
+  hasPath
+  ?
+  `https://nevopay.github.io/nevopay-ana-panel/businesses/${automationSlug}/${slug}/`
+  :
+  "";
+
+}
+
+
+document
+.getElementById("bizName")
+.addEventListener(
+  "input",
+  updateBusinessPaths
+);
+document
+.getElementById("bizPhone")
+.addEventListener(
+"input",
+function(){
+
+  this.value =
+  this.value
+  .replace(/\D/g,"")
+  .slice(0,11);
+
+}
+);
+
+
+document
+.getElementById("bizPassword")
+.addEventListener(
+"input",
+function(){
+
+  this.value =
+  this.value
+  .replace(/\D/g,"")
+  .slice(0,6);
+
+}
+);
+
+
+window.editBusiness =
+function(id){
+
+  const business =
+  businesses.find(
+    b => b.id === id
+  );
+
+  if(!business){
+    return;
+  }
+
+  editingBusinessId =
+  id;
+
+  fillAutomationSelect();
+
+  document
+  .getElementById("businessModalTitle")
+  .textContent =
+  "Siteyi Düzenle";
+
+  document
+  .getElementById("businessSaveBtn")
+  .textContent =
+  "Güncelle";
+
+  document.getElementById("bizName").value =
+  business.name || "";
+
+  document.getElementById("bizOwner").value =
+  business.owner || "";
+
+  document.getElementById("bizPhone").value =
+  business.phone || "";
+
+  document.getElementById("bizEmail").value =
+  business.email || "";
+
+  document.getElementById("bizPassword").value =
+  "";
+
+  document.getElementById("bizPassword").disabled =
+  true;
+
+  document.getElementById("bizPassword").placeholder =
+  "Şifre düzenleme ayrı yapılacak";
+
+  document.getElementById("bizCity").value =
+  business.city || "";
+
+  document.getElementById("bizAutomation").value = "site-aidat";
+
+  document.getElementById("bizTemplateType").value =
+  business.siteTemplateType ||
+  (business.billingMode === "block" ? "block" : "shared");
+
+  document.getElementById("bizTemplateType").disabled = true;
+
+  document.getElementById("bizStatus").value =
+  business.status || "Aktif";
+
+  document.getElementById("bizPanelUrl").value =
+  business.panelUrl || "";
+
+  document.getElementById("bizFilePath").value =
+  business.filePath || "";
+
+  document.getElementById("bizNote").value =
+  business.note || "";
+
+  window.openModal(
+    "businessModal"
+  );
+
+};
+
+
+window.saveBusiness =
+async function(){
+
+  const name =
+  document
+  .getElementById("bizName")
+  .value.trim();
+
+  const owner =
+  document
+  .getElementById("bizOwner")
+  .value.trim();
+
+  const phone =
+  document
+  .getElementById("bizPhone")
+  .value
+  .replace(/\D/g,"");
+
+  const email =
+  document
+  .getElementById("bizEmail")
+  .value.trim();
+
+  const password =
+  document
+  .getElementById("bizPassword")
+  .value.trim();
+
+  const city =
+  document
+  .getElementById("bizCity")
+  .value.trim();
+
+  const automationSlug = "site-aidat";
+
+  const siteTemplateType =
+  document
+  .getElementById("bizTemplateType")
+  .value === "block"
+  ? "block"
+  : "shared";
+
+  const status =
+  document
+  .getElementById("bizStatus")
+  .value;
+
+  const note =
+  document
+  .getElementById("bizNote")
+  .value.trim();
+
+
+  if(!name){
+
+    alert(
+      "İşletme / site adını yazın."
+    );
+
+    return;
+
+  }
+
+
+  if(!owner){
+
+    alert(
+      "Yetkili adı soyadını yazın."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    phone.length !== 11
+    ||
+    !phone.startsWith("05")
+  ){
+
+    alert(
+      "Telefon 05xxxxxxxxx şeklinde olmalı."
+    );
+
+    return;
+
+  }
+
+
+  if(!email){
+
+    alert(
+      "Yetkili e-posta adresini yazın."
+    );
+
+    return;
+
+  }
+if(editingBusinessId){
 
     const saveButton =
     document
@@ -1473,6 +1724,7 @@ function updateBusinessPaths(){
     }
 
   }
+
 
   if(
     !/^\d{6}$/.test(password)
