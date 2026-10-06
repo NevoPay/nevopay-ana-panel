@@ -1650,42 +1650,36 @@ if(editingBusinessId){
 
     try{
 
-      await updateDoc(
-
-        doc(
-          db,
-          "businesses",
-          editingBusinessId
-        ),
-
-        {
-          name,
-          owner,
-          phone,
-          email,
-          city,
-          automationSlug,
-          siteTemplateType,
-          billingMode: siteTemplateType === "block" ? "block" : "shared",
-          status,
-          note,
-          updatedAt:
-          serverTimestamp()
-        }
-
+      const updateBusinessAdminDetails = httpsCallable(
+        functions,
+        "updateBusinessAdminDetails"
       );
+
+      await updateBusinessAdminDetails({
+        businessId: editingBusinessId,
+        name,
+        owner,
+        phone,
+        email,
+        city,
+        status,
+        note
+      });
 
       window.closeModal(
         "businessModal"
       );
 
-      editingBusinessId =
-      null;
+      editingBusinessId = null;
+
+      alert("Site ve yönetici bilgileri güncellendi. Yeni telefon numarasıyla giriş yapılabilir.");
 
       return;
 
     }
     catch(error){
+
+      console.error("updateBusinessAdminDetails:", error);
 
       alert(
         "Güncelleme hatası: "
