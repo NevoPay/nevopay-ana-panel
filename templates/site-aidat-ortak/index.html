@@ -300,6 +300,85 @@
     #expenseRows .expense-row:nth-child(even){background:#f3f6fb}
     #expenseRows .expense-row:hover{background:#eaf1ff}
 
+
+    /* ORTAK GİDER ŞABLONU - KAPSAMLI ZEBRA */
+    .table tbody tr:nth-child(odd){
+      background:#ffffff !important;
+    }
+    .table tbody tr:nth-child(even){
+      background:#f1f5fb !important;
+    }
+    .table tbody tr:hover{
+      background:#e6efff !important;
+    }
+
+    .expense-zebra-list{
+      border:1px solid #e0e6f0;
+      border-radius:13px;
+      overflow:hidden;
+    }
+    .expense-zebra-item{
+      padding:11px 12px;
+      border-top:1px solid #e4e9f1;
+      transition:background .15s ease;
+    }
+    .expense-zebra-item:first-child{
+      border-top:0;
+    }
+    .expense-zebra-item:nth-child(odd){
+      background:#ffffff !important;
+    }
+    .expense-zebra-item:nth-child(even){
+      background:#f1f5fb !important;
+    }
+    .expense-zebra-item:hover{
+      background:#e6efff !important;
+    }
+
+    #expenseRows .expense-row:nth-child(odd){
+      background:#ffffff !important;
+    }
+    #expenseRows .expense-row:nth-child(even){
+      background:#f1f5fb !important;
+    }
+    #expenseRows .expense-row:hover{
+      background:#e6efff !important;
+    }
+
+    /* Eski borç kartları da birbirinden ayrı görünsün */
+    #oldDebtList > .card:not(.metric):nth-of-type(odd){
+      background:#ffffff !important;
+    }
+    #oldDebtList > .card:not(.metric):nth-of-type(even){
+      background:#f3f6fb !important;
+    }
+
+    /* Anket seçenekleri: seçili oy vurgusu korunur, diğer satırlar zebra */
+    #surveyList .survey-option.zebra-odd:not(.zebra-selected){
+      background:#ffffff !important;
+    }
+    #surveyList .survey-option.zebra-even:not(.zebra-selected){
+      background:#f1f5fb !important;
+    }
+    #surveyList .survey-option.zebra-selected{
+      background:#e8edff !important;
+      border-color:#839cff !important;
+    }
+    #surveyList .survey-option:hover{
+      background:#e6efff !important;
+    }
+
+    /* Dinamik div listeleri için */
+    .auto-zebra-row:nth-child(odd){
+      background:#ffffff !important;
+    }
+    .auto-zebra-row:nth-child(even){
+      background:#f1f5fb !important;
+    }
+    .auto-zebra-row:hover{
+      background:#e6efff !important;
+    }
+
 </style>
 </head>
 <body>
@@ -610,7 +689,25 @@
     const baseStatementCard=statementCard;
     statementCard=function(s,archive=false){let html=baseStatementCard(s,archive);if(s.billingMode==='block'){const summary=Object.entries(s.duesByBlock||{}).filter(([,amount])=>Number(amount)>0).map(([block,amount])=>`${safe(block)} Blok: <b>${money(amount)}</b>`).join(' • ');html=html.replace('</p>',`</p><p class="sub"><b>Bloklara göre aidat:</b> ${summary||'Henüz hesaplanmadı'}</p>`)}return archive?html.replace('</article>',`<div class="actions" style="margin-top:14px"><button class="btn primary archive-pdf" data-id="${s.id}">PDF İndir</button><button class="btn archive-print" data-id="${s.id}">Yazdır</button></div></article>`):html};
     function renderArchive(){const list=statements.filter(s=>s.status==='published');if(!list.length){$('archiveList').innerHTML='<div class="card empty">Henüz yayınlanmış aylık kayıt yok.</div>';return}const periods=new Map;list.forEach(s=>{const start=Number(s.month)>=9?Number(s.year):Number(s.year)-1,key=String(start);if(!periods.has(key))periods.set(key,[]);periods.get(key).push(s)});$('archiveList').innerHTML=[...periods.entries()].sort((a,b)=>Number(b[0])-Number(a[0])).map(([start,items])=>`<div style="margin-bottom:24px"><div class="section-head" style="margin-bottom:12px"><h3>${start}–${Number(start)+1} Dönemi</h3><span class="pill published">Eylül–Ağustos · ${items.length} ay</span></div><div class="grid">${items.sort((a,b)=>Number(b.year)-Number(a.year)||Number(b.month)-Number(a.month)).map(s=>statementCard(s,true)).join('')}</div></div>`).join('')}
-    function renderLatest(){const s=statements.find(x=>x.status==='published');$('latestStatement').innerHTML=s?`<div class="section-head"><h2>Son yayınlanan giderler</h2></div><div class="card"><h3>${months[s.month-1]} ${s.year}</h3>${(s.expenses||[]).map(x=>`<div style="display:flex;justify-content:space-between;border-top:1px solid var(--line);padding:11px 0"><span>${safe(x.name)}</span><b>${money(x.amount)}</b></div>`).join('')}</div>`:''}
+    function renderLatest(){
+      const s=statements.find(x=>x.status==='published');
+      $('latestStatement').innerHTML=s
+        ? `<div class="section-head"><h2>Son yayınlanan giderler</h2></div>
+           <div class="card">
+             <h3>${months[s.month-1]} ${s.year}</h3>
+             <div class="expense-zebra-list">
+               ${(s.expenses||[]).map(x=>`
+                 <div class="expense-zebra-item">
+                   <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+                     <span>${safe(x.name)}</span>
+                     <b>${money(x.amount)}</b>
+                   </div>
+                 </div>
+               `).join('')}
+             </div>
+           </div>`
+        : '';
+    }
     function editStatement(s){
       if(isFinalized(s)){toast('Bu ay kesinleştiği için değiştirilemez.');return}
       activeExpenseScope='all';
@@ -978,6 +1075,69 @@
     function renderSurveys(){$('surveyList').innerHTML=surveys.length?surveys.map(s=>{const votes=s.votes||{},counts=s.options.map((_,i)=>Object.values(votes).filter(v=>Number(v)===i).length),total=Object.keys(votes).length,mine=votes[profile.id];return`<article class="card"><div class="section-head" style="margin:0 0 10px"><h3 style="margin:0">${safe(s.question)}</h3>${profile.role==='admin'?`<button class="btn red delete-survey" data-survey="${s.id}">Anketi Sil</button>`:''}</div>${s.options.map((o,i)=>{const pct=total?Math.round(counts[i]*100/total):0;return`<button class="survey-option vote" data-survey="${s.id}" data-option="${i}" style="width:100%;text-align:left;background:${Number(mine)===i?'#eef2ff':'#fff'}"><b>${safe(o)}</b><span style="float:right">${counts[i]} oy • %${pct}</span><div class="bar"><i style="width:${pct}%"></i></div></button>`}).join('')}<p class="sub">Toplam ${total} oy. Seçimini istediğin zaman değiştirebilirsin.</p></article>`}).join(''):'<div class="card empty">Henüz yayınlanmış anket yok.</div>'}
     $('surveyList').onclick=async e=>{const deleteButton=e.target.closest('.delete-survey');if(deleteButton){const survey=surveys.find(x=>x.id===deleteButton.dataset.survey);if(!survey||!confirm(`“${survey.question}” anketi ve bütün oyları kalıcı olarak silinsin mi?`))return;deleteButton.disabled=true;await deleteDoc(doc(db,'surveys',survey.id));toast('Anket silindi');return}const b=e.target.closest('.vote');if(!b)return;const s=surveys.find(x=>x.id===b.dataset.survey),votes={...(s.votes||{})};votes[profile.id]=Number(b.dataset.option);await updateDoc(doc(db,'surveys',s.id),{votes,updatedAt:serverTimestamp()});toast('Oyun kaydedildi')};
 
-  </script>
+  
+    function applyGlobalZebra(){
+      // Tüm tablolar
+      document.querySelectorAll('.table tbody').forEach(tbody=>{
+        [...tbody.children].forEach((row,i)=>{
+          if(!(row instanceof HTMLElement))return;
+          row.style.background=i%2===0?'#ffffff':'#f1f5fb';
+        });
+      });
+
+      // Yayınlanan ve arşiv giderleri
+      document.querySelectorAll('.expense-zebra-list').forEach(list=>{
+        [...list.children].forEach((row,i)=>{
+          if(!(row instanceof HTMLElement))return;
+          row.style.background=i%2===0?'#ffffff':'#f1f5fb';
+        });
+      });
+
+      // Gider giriş satırları
+      document.querySelectorAll('#expenseRows .expense-row').forEach((row,i)=>{
+        row.style.background=i%2===0?'#ffffff':'#f1f5fb';
+      });
+
+      // Anket seçenekleri: seçili oy korunur.
+      document.querySelectorAll('#surveyList article').forEach(article=>{
+        const options=[...article.querySelectorAll('.survey-option')];
+        options.forEach((option,i)=>{
+          option.classList.remove('zebra-odd','zebra-even','zebra-selected');
+          option.classList.add(i%2===0?'zebra-odd':'zebra-even');
+
+          const bg=(option.getAttribute('style')||'').toLowerCase();
+          if(bg.includes('#eef2ff')||bg.includes('#e8edff')){
+            option.classList.add('zebra-selected');
+          }
+        });
+      });
+
+      // Eski borç bölümündeki aylık kartlar
+      [...document.querySelectorAll('#oldDebtList > .card:not(.metric)')].forEach((card,i)=>{
+        card.style.background=i%2===0?'#ffffff':'#f3f6fb';
+      });
+
+      // Son yayınlanan giderler eski bir render yapısıyla oluşursa onu da yakala.
+      document.querySelectorAll('#latestStatement .card').forEach(card=>{
+        const rawRows=[...card.children].filter(el=>
+          el.tagName==='DIV' &&
+          !el.classList.contains('expense-zebra-list') &&
+          !el.classList.contains('section-head')
+        );
+        rawRows.forEach((row,i)=>{
+          if(row.querySelector('span')&&row.querySelector('b')){
+            row.classList.add('auto-zebra-row');
+            row.style.padding='11px 12px';
+            row.style.background=i%2===0?'#ffffff':'#f1f5fb';
+          }
+        });
+      });
+    }
+
+    const zebraObserver=new MutationObserver(()=>applyGlobalZebra());
+    zebraObserver.observe(document.body,{childList:true,subtree:true});
+    requestAnimationFrame(applyGlobalZebra);
+
+</script>
 </body>
 </html>
