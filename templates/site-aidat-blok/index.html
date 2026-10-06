@@ -616,8 +616,52 @@
     function publishedMillis(s){return s.publishedAt?.toMillis?s.publishedAt.toMillis():(s.publishedAt?.seconds||0)*1000}
     function isFinalized(s){const t=publishedMillis(s);return s.status==='published'&&t>0&&Date.now()>=t+FINALIZE_MS}
     function remainingText(s){const left=Math.max(0,publishedMillis(s)+FINALIZE_MS-Date.now());if(!left)return'Kesinleşti · Değiştirilemez';const hours=Math.floor(left/3600000),mins=Math.ceil((left%3600000)/60000);return`Kesinleşmesine ${hours} sa. ${mins} dk.`}
-    function revisionWarning(s){const history=s.revisionHistory||[];if(!history.length)return'';const last=history[history.length-1],when=last.at?new Date(last.at).toLocaleString('tr-TR'):'';return`<div style="margin:14px 0;padding:14px;border:1px solid #f0ad28;background:#fff8df;border-radius:12px;color:#7a4d00"><b>⚠ Yayınlandıktan sonra değiştirilmiştir.</b>${when?`<div class="sub">Son değişiklik: ${safe(when)}</div>`:''}<ul style="margin:8px 0 0;padding-left:20px">${(last.changes||[]).map(x=>`<li>${safe(x)}</li>`).join('')}</ul></div>`}
-    function statementCard(s,archive=false){const finalized=isFinalized(s),canEdit=profile.role==='admin'&&s.status==='published'&&!finalized;return`<article class="card"><div style="display:flex;justify-content:space-between;gap:8px"><h3 style="margin:0">${months[s.month-1]} ${s.year}</h3><span class="pill ${finalized?'paid':'published'}">${finalized?'Kesinleşti · Değiştirilemez':s.status==='published'?remainingText(s):'Taslak · Düzenlenebilir'}</span></div><p class="sub">Toplam: <b>${money(s.total)}</b> • ${s.unitCount} daire • Daire başı: <b>${money(s.perUnit)}</b></p>${archive?revisionWarning(s):''}<div>${(s.expenses||[]).map(x=>`<div style="border-top:1px solid var(--line);padding:9px 0"><div style="display:flex;justify-content:space-between;gap:8px"><span>${safe(x.name)}</span><b>${money(x.amount)}</b></div>${x.photoUrl?`<a href="${safe(x.photoUrl)}" target="_blank"><img class="photo" src="${safe(x.photoUrl)}" alt="${safe(x.name)} faturası"></a>`:''}</div>`).join('')}</div>${archive&&canEdit?`<div class="actions"><button class="btn edit-published" data-id="${s.id}">48 saat içinde düzelt</button></div>`:''}${!archive&&profile.role==='admin'&&s.status==='draft'?`<div class="actions"><button class="btn edit-statement" data-id="${s.id}">Düzenle</button><button class="btn green publish" data-id="${s.id}">Yayınla</button></div>`:''}</article>`}
+    function revisionWarning(s){return''}
+    function statementCard(s,archive=false){
+      const finalized=isFinalized(s);
+      const canEdit=profile.role==='admin'&&s.status==='published'&&!finalized;
+
+      const summary=archive
+        ? `<div class="archive-summary-box" style="margin:14px 0 16px;background:#f5f8ff;border:2px solid #b8c8f3;border-radius:16px;padding:14px">
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+              <div style="background:#fff;border:1px solid #d9e1f5;border-radius:13px;padding:13px;text-align:center">
+                <div style="font-size:11px;font-weight:900;color:#667085;letter-spacing:.3px">TOPLAM GİDER</div>
+                <div style="font-size:25px;font-weight:950;color:#111827;margin-top:4px">${money(s.total)}</div>
+              </div>
+              <div style="background:#fff;border:1px solid #d9e1f5;border-radius:13px;padding:13px;text-align:center">
+                <div style="font-size:11px;font-weight:900;color:#667085;letter-spacing:.3px">DAİRE SAYISI</div>
+                <div style="font-size:25px;font-weight:950;color:#111827;margin-top:4px">${s.unitCount}</div>
+              </div>
+              <div style="background:#eef4ff;border:2px solid #315cf6;border-radius:13px;padding:13px;text-align:center">
+                <div style="font-size:11px;font-weight:900;color:#315cf6;letter-spacing:.3px">DAİRE BAŞINA AİDAT</div>
+                <div style="font-size:27px;font-weight:950;color:#153eaa;margin-top:4px">${money(s.perUnit)}</div>
+              </div>
+            </div>
+          </div>`
+        : `<p class="sub">Toplam: <b>${money(s.total)}</b> • ${s.unitCount} daire • Daire başı: <b>${money(s.perUnit)}</b></p>`;
+
+      return `<article class="card">
+        <div style="display:flex;justify-content:space-between;gap:8px;align-items:center">
+          <h3 style="margin:0;font-size:${archive?'22px':'inherit'}">${months[s.month-1]} ${s.year}</h3>
+          <span class="pill ${finalized?'paid':'published'}">${finalized?'Kesinleşti · Değiştirilemez':s.status==='published'?remainingText(s):'Taslak · Düzenlenebilir'}</span>
+        </div>
+
+        ${summary}
+
+        <div>${(s.expenses||[]).map(x=>`
+          <div style="border-top:1px solid var(--line);padding:10px 0">
+            <div style="display:flex;justify-content:space-between;gap:8px">
+              <span>${safe(x.name)}</span>
+              <b>${money(x.amount)}</b>
+            </div>
+            ${x.photoUrl?`<a href="${safe(x.photoUrl)}" target="_blank"><img class="photo" src="${safe(x.photoUrl)}" alt="${safe(x.name)} faturası"></a>`:''}
+          </div>`).join('')}
+        </div>
+
+        ${archive&&canEdit?`<div class="actions"><button class="btn edit-published" data-id="${s.id}">48 saat içinde düzelt</button></div>`:''}
+        ${!archive&&profile.role==='admin'&&s.status==='draft'?`<div class="actions"><button class="btn edit-statement" data-id="${s.id}">Düzenle</button><button class="btn green publish" data-id="${s.id}">Yayınla</button></div>`:''}
+      </article>`;
+    }
     function renderStatements(){if(profile?.role!=='admin'){$('statementList').innerHTML='';renderLatest();return}const list=statements.filter(s=>s.status==='draft');$('statementList').innerHTML=list.length?list.map(s=>statementCard(s)).join(''):'<div class="card empty">Kayıtlı taslak gider dökümü yok.</div>';renderLatest()}
     const baseStatementCard=statementCard;
     statementCard=function(s,archive=false){let html=baseStatementCard(s,archive);if(s.billingMode==='block'){const summary=Object.entries(s.duesByBlock||{}).filter(([,amount])=>Number(amount)>0).map(([block,amount])=>`${safe(block)} Blok: <b>${money(amount)}</b>`).join(' • ');html=html.replace('</p>',`</p><p class="sub"><b>Bloklara göre aidat:</b> ${summary||'Henüz hesaplanmadı'}</p>`)}return archive?html.replace('</article>',`<div class="actions" style="margin-top:14px"><button class="btn primary archive-pdf" data-id="${s.id}">PDF İndir</button><button class="btn archive-print" data-id="${s.id}">Yazdır</button></div></article>`):html};
@@ -901,7 +945,10 @@
       const tabs=$('archiveBlockTabs');if(!tabs)return;const blocks=siteBlocks();if(archiveBlockFilter!=='all'&&!blocks.includes(archiveBlockFilter))archiveBlockFilter='all';tabs.innerHTML=['all',...blocks].map(block=>`<button type="button" class="btn archive-block-tab ${archiveBlockFilter===block?'primary':''}" data-block="${safe(block)}">${block==='all'?'Tüm Bloklar':safe(block)+' Blok'}</button>`).join('');
     }
     renderArchive=function(){
-      renderArchiveBlockTabs();const list=statements.filter(s=>s.status==='published');if(!list.length){$('archiveList').innerHTML='<div class="card empty">Henüz yayınlanmış aylık kayıt yok.</div>';return}const periods=new Map;list.forEach(s=>{const start=Number(s.month)>=9?Number(s.year):Number(s.year)-1,key=String(start);if(!periods.has(key))periods.set(key,[]);periods.get(key).push(s)});$('archiveList').innerHTML=[...periods.entries()].sort((a,b)=>Number(b[0])-Number(a[0])).map(([start,items])=>`<div style="margin-bottom:24px"><div class="section-head" style="margin-bottom:12px"><h3>${start}–${Number(start)+1} Dönemi</h3><span class="pill published">${archiveBlockFilter==='all'?'Tüm Bloklar':safe(archiveBlockFilter)+' Blok'} · ${items.length} ay</span></div><div class="grid">${items.sort((a,b)=>Number(b.year)-Number(a.year)||Number(b.month)-Number(a.month)).map(original=>{const s=archiveStatementForBlock(original,archiveBlockFilter),label=archiveBlockFilter==='all'?'':`<p class="sub" style="margin:8px 0 0"><b>${safe(archiveBlockFilter)} Blok giderleri ve ortak giderler</b></p>`;return statementCard(s,true).replace('<p class="sub">',label+'<p class="sub">').replaceAll(`data-id="${s.id}"`,`data-id="${s.id}" data-block="${safe(archiveBlockFilter)}"`)}).join('')}</div></div>`).join('')
+      renderArchiveBlockTabs();const list=statements.filter(s=>s.status==='published');if(!list.length){$('archiveList').innerHTML='<div class="card empty">Henüz yayınlanmış aylık kayıt yok.</div>';return}const periods=new Map;list.forEach(s=>{const start=Number(s.month)>=9?Number(s.year):Number(s.year)-1,key=String(start);if(!periods.has(key))periods.set(key,[]);periods.get(key).push(s)});$('archiveList').innerHTML=[...periods.entries()].sort((a,b)=>Number(b[0])-Number(a[0])).map(([start,items])=>`<div style="margin-bottom:24px"><div class="section-head" style="margin-bottom:12px"><h3>${start}–${Number(start)+1} Dönemi</h3><span class="pill published">${archiveBlockFilter==='all'?'Tüm Bloklar':safe(archiveBlockFilter)+' Blok'} · ${items.length} ay</span></div><div class="grid">${items.sort((a,b)=>Number(b.year)-Number(a.year)||Number(b.month)-Number(a.month)).map(original=>{const s=archiveStatementForBlock(original,archiveBlockFilter),label=archiveBlockFilter==='all'?'':`<div style="margin:14px 0 4px;padding:13px 15px;background:#eef4ff;border-left:5px solid #315cf6;border-radius:12px">
+          <div style="font-size:18px;font-weight:950;color:#153eaa">${safe(archiveBlockFilter)} BLOK GİDERLERİ + ORTAK GİDERLER</div>
+          <div style="font-size:12px;color:#667085;margin-top:4px">Bu özet yalnızca seçili blok için geçerlidir.</div>
+        </div>`;return statementCard(s,true).replace('<div class="archive-summary-box"',label+'<div class="archive-summary-box"').replaceAll(`data-id="${s.id}"`,`data-id="${s.id}" data-block="${safe(archiveBlockFilter)}"`)}).join('')}</div></div>`).join('')
     };
     $('archiveBlockTabs').onclick=e=>{const button=e.target.closest('.archive-block-tab');if(!button)return;archiveBlockFilter=button.dataset.block;renderArchive()};
     $('archiveList').onclick=async e=>{const button=e.target.closest('.edit-published,.archive-pdf,.archive-print');if(!button)return;const original=statements.find(x=>x.id===button.dataset.id);if(!original)return;if(button.classList.contains('edit-published')){editStatement(original);return}const block=button.dataset.block||'all',s=archiveStatementForBlock(original,block),blockLabel=block==='all'?'':`${block} Blok · `,html=archiveDocument(s).replace('Aylık Gider Dökümü',`${blockLabel}Aylık Gider Dökümü`);if(button.classList.contains('archive-print')){const w=window.open('','_blank');if(!w){toast('Yazdırma penceresi açılamadı. Tarayıcı açılır pencere iznini kontrol edin.');return}w.document.write(`<!doctype html><html lang="tr"><head><meta charset="utf-8"><title>${blockLabel}${months[s.month-1]} ${s.year} Gider Dökümü</title><style>@page{size:A4;margin:8mm}body{margin:0;display:flex;justify-content:center}</style></head><body>${html}<script>window.onload=()=>setTimeout(()=>window.print(),300)<\/script></body></html>`);w.document.close();return}if(!window.html2pdf){toast('PDF sistemi yüklenemedi. İnternet bağlantısını kontrol edin.');return}const root=document.createElement('div');root.innerHTML=html;document.body.append(root);button.disabled=true;button.textContent='PDF hazırlanıyor…';try{await window.html2pdf().set({margin:0,filename:`gider-dokumu-${s.period}-${block==='all'?'tum-bloklar':block.toLowerCase()+'-blok'}.pdf`,image:{type:'jpeg',quality:.98},html2canvas:{scale:2,useCORS:true,scrollY:0},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy'],before:[]}}).from(root.firstElementChild).save();toast(`PDF indirildi · ${(s.expenses||[]).length} gider kalemi`)}catch(err){toast('PDF oluşturulamadı.')}finally{root.remove();button.disabled=false;button.textContent='PDF İndir'}};
