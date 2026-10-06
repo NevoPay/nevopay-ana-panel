@@ -232,6 +232,41 @@
       }
     }
 
+
+    .expense-zebra-list{
+      margin-top:4px;
+      border:1px solid #e3e8f2;
+      border-radius:13px;
+      overflow:hidden;
+    }
+    .expense-zebra-item{
+      padding:11px 12px;
+      border-top:1px solid #e6eaf2;
+      background:#ffffff;
+    }
+    .expense-zebra-item:first-child{
+      border-top:0;
+    }
+    .expense-zebra-item:nth-child(even){
+      background:#f3f6fb;
+    }
+    .expense-zebra-item:hover{
+      background:#eaf1ff;
+    }
+
+    /* Yönetici gider giriş satırlarında da ayırt edilebilir zebra görünüm */
+    #expenseRows .expense-row{
+      border-radius:10px;
+      padding:8px;
+      margin-bottom:4px;
+    }
+    #expenseRows .expense-row:nth-child(odd){
+      background:#ffffff;
+    }
+    #expenseRows .expense-row:nth-child(even){
+      background:#f3f6fb;
+    }
+
 </style>
 </head>
 <body>
@@ -660,9 +695,9 @@
 
         ${summary}
 
-        <div>${(s.expenses||[]).map(x=>`
-          <div style="border-top:1px solid var(--line);padding:10px 0">
-            <div style="display:flex;justify-content:space-between;gap:8px">
+        <div class="expense-zebra-list">${(s.expenses||[]).map(x=>`
+          <div class="expense-zebra-item">
+            <div style="display:flex;justify-content:space-between;gap:8px;align-items:center">
               <span>${safe(x.name)}</span>
               <b>${money(x.amount)}</b>
             </div>
