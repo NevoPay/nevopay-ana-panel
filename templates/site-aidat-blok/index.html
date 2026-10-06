@@ -222,6 +222,16 @@
       .login-card{margin:0!important}
     }
     
+
+    @media(max-width:560px){
+      .archive-summary-box > div:nth-child(2){
+        grid-template-columns:1fr !important;
+      }
+      .archive-summary-box{
+        padding:12px !important;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -622,19 +632,21 @@
       const canEdit=profile.role==='admin'&&s.status==='published'&&!finalized;
 
       const summary=archive
-        ? `<div class="archive-summary-box" style="margin:14px 0 16px;background:#f5f8ff;border:2px solid #b8c8f3;border-radius:16px;padding:14px">
-            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
-              <div style="background:#fff;border:1px solid #d9e1f5;border-radius:13px;padding:13px;text-align:center">
+        ? `<div class="archive-summary-box" style="margin:14px 0 16px;background:#f5f8ff;border:2px solid #b8c8f3;border-radius:18px;padding:14px">
+            <div style="background:#eef4ff;border:3px solid #315cf6;border-radius:15px;padding:16px 14px;text-align:center;margin-bottom:10px">
+              <div style="font-size:12px;font-weight:950;color:#315cf6;letter-spacing:.4px">DAİRE BAŞINA AİDAT</div>
+              <div style="font-size:34px;line-height:1.05;font-weight:950;color:#153eaa;margin-top:6px;white-space:nowrap">${money(s.perUnit)}</div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:minmax(0,1.7fr) minmax(100px,.8fr);gap:10px">
+              <div style="background:#fff;border:1px solid #d9e1f5;border-radius:14px;padding:14px;text-align:center;min-width:0">
                 <div style="font-size:11px;font-weight:900;color:#667085;letter-spacing:.3px">TOPLAM GİDER</div>
-                <div style="font-size:25px;font-weight:950;color:#111827;margin-top:4px">${money(s.total)}</div>
+                <div style="font-size:27px;line-height:1.05;font-weight:950;color:#111827;margin-top:6px;white-space:nowrap">${money(s.total)}</div>
               </div>
-              <div style="background:#fff;border:1px solid #d9e1f5;border-radius:13px;padding:13px;text-align:center">
+
+              <div style="background:#fff;border:1px solid #d9e1f5;border-radius:14px;padding:14px 10px;text-align:center">
                 <div style="font-size:11px;font-weight:900;color:#667085;letter-spacing:.3px">DAİRE SAYISI</div>
-                <div style="font-size:25px;font-weight:950;color:#111827;margin-top:4px">${s.unitCount}</div>
-              </div>
-              <div style="background:#eef4ff;border:2px solid #315cf6;border-radius:13px;padding:13px;text-align:center">
-                <div style="font-size:11px;font-weight:900;color:#315cf6;letter-spacing:.3px">DAİRE BAŞINA AİDAT</div>
-                <div style="font-size:27px;font-weight:950;color:#153eaa;margin-top:4px">${money(s.perUnit)}</div>
+                <div style="font-size:29px;line-height:1;font-weight:950;color:#111827;margin-top:7px">${s.unitCount}</div>
               </div>
             </div>
           </div>`
