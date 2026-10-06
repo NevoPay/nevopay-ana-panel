@@ -439,7 +439,152 @@
         closeModals();e.target.reset();$('residentId').value='';$('residentModalTitle').textContent='Site sakini ekle';toast(id?'Sakin güncellendi':'Sakin eklendi');
       }catch(err){$('residentMsg').textContent=err?.message||'İşlem tamamlanamadı.'}
     };
-    function renderDues(){const admin=profile.role==='admin',allPublished=statements.filter(s=>s.status==='published'),published=admin?allPublished:allPublished.slice(0,1),current=published.find(s=>s.id===selectedDuesId)||published[0],blocks=['A','B','C','D','E'];$('duesPeriods').innerHTML=published.length?published.map(s=>`<button class="btn due-period ${s.id===current?.id?'primary':''}" data-statement="${s.id}">${months[s.month-1]} ${s.year}</button>`).join(''):'<span class="pill draft">Henüz yayınlanmış ay yok</span>';if(!current){$('duesSummary').innerHTML='';$('duesTabs').innerHTML='';$('duesBlocks').innerHTML='<div class="card empty">Aidat takibi için önce aylık gider dökümünü yayınlayın.</div>';return}const eligible=admin?residents.filter(r=>r.active!==false):residents.filter(r=>r.id===profile.id),isPaid=r=>Number(current.payments?.[r.id]||0)>=dueFor(current,r)-0.004,paidCount=eligible.filter(isPaid).length,unpaidCount=eligible.length-paidCount;$('duesSummary').innerHTML=admin?`<div class="card metric"><span>Toplam site sakini</span><b>${eligible.length}</b></div><div class="card metric"><span>Ödeyenler</span><b style="color:var(--green)">${paidCount}</b></div><div class="card metric"><span>Ödemeyenler</span><b style="color:var(--red)">${unpaidCount}</b></div>`:'';$('duesTabs').innerHTML=admin?`<button class="btn due-status ${duesStatus==='all'?'primary':''}" data-status="all">Tümü (${eligible.length})</button><button class="btn due-status ${duesStatus==='unpaid'?'primary':''}" data-status="unpaid">Ödemeyenler (${unpaidCount})</button><button class="btn due-status ${duesStatus==='paid'?'green':''}" data-status="paid">Ödeyenler (${paidCount})</button>`:'';$('duesBlocks').innerHTML=blocks.map(block=>{const list=eligible.filter(r=>r.block===block&&(!admin||duesStatus==='all'||(duesStatus==='paid'?isPaid(r):!isPaid(r))));const rows=list.length?list.map(r=>{const due=dueFor(current,r),paid=current.payments?.[r.id]||0,left=Math.max(0,due-paid);return`<tr><td>${safe(r.block)} Blok</td><td>${safe(r.floor||'—')}</td><td><b>${safe(r.unit)}</b></td><td>${safe(r.name)}</td><td>${safe(r.phone)}</td><td>${money(due)}</td><td>${money(paid)}</td><td><b>${money(left)}</b></td><td>${admin?(left?`<button class="btn green mark-paid" data-id="${r.id}">Ödendi</button>`:`<button class="btn red cancel-payment" data-id="${r.id}">Ödemeyi İptal Et</button>`):`<span class="pill ${left?'unpaid':'paid'}">${left?'Borçlu':'Ödendi ✓'}</span>`}</td></tr>`}).join(''):`<tr><td colspan="9" class="empty">${block} Blok için ${duesStatus==='all'?'kayıt':duesStatus==='paid'?'ödeyen':'ödemeyen'} bulunmuyor.</td></tr>`;if(!admin&&!list.length)return'';const residentPaid=list.length?isPaid(list[0]):false;return`<div class="card" style="margin-bottom:18px"><div class="section-head" style="margin:0 0 10px"><h2>${block} Blok · ${months[current.month-1]} ${current.year}</h2><span class="pill ${admin?(duesStatus==='paid'?'paid':'unpaid'):(residentPaid?'paid':'unpaid')}">${admin?`${list.length} kişi`:(residentPaid?'Ödendi ✓':'Borçlu')}</span></div><div class="table-wrap"><table class="table"><thead><tr><th>Blok</th><th>Kat</th><th>Daire</th><th>Ad Soyad</th><th>Telefon</th><th>Aylık borç</th><th>Ödenen</th><th>Kalan borç</th><th>Durum</th></tr></thead><tbody>${rows}</tbody></table></div></div>`}).join('')||'<div class="card empty">Bu bölümde kayıt bulunmuyor.</div>'}
+    function renderDues(){
+      const admin=profile.role==='admin';
+      const allPublished=statements.filter(s=>s.status==='published');
+      const published=admin?allPublished:allPublished.slice(0,1);
+      const current=published.find(s=>s.id===selectedDuesId)||published[0];
+      const blocks=siteBlocks();
+
+      $('duesPeriods').innerHTML=published.length
+        ? published.map(s=>`<button class="btn due-period ${s.id===current?.id?'primary':''}" data-statement="${s.id}">${months[s.month-1]} ${s.year}</button>`).join('')
+        : '<span class="pill draft">Henüz yayınlanmış ay yok</span>';
+
+      if(!current){
+        $('duesSummary').innerHTML='';
+        $('duesTabs').innerHTML='';
+        $('duesBlocks').innerHTML='<div class="card empty">Aidat takibi için önce aylık gider dökümünü yayınlayın.</div>';
+        return;
+      }
+
+      const eligible=admin
+        ? residents.filter(r=>r.active!==false)
+        : residents.filter(r=>r.id===profile.id);
+
+      const isPaid=r=>{
+        const due=dueFor(current,r);
+        return Number(current.payments?.[r.id]||0)>=due-0.004;
+      };
+
+      const paidCount=eligible.filter(isPaid).length;
+      const unpaidCount=eligible.length-paidCount;
+
+      $('duesSummary').innerHTML=admin
+        ? `<div class="card metric"><span>Toplam site sakini</span><b>${eligible.length}</b></div>
+           <div class="card metric"><span>Ödeyenler</span><b style="color:var(--green)">${paidCount}</b></div>
+           <div class="card metric"><span>Ödemeyenler</span><b style="color:var(--red)">${unpaidCount}</b></div>`
+        : '';
+
+      $('duesTabs').innerHTML=admin
+        ? `<button class="btn due-status ${duesStatus==='all'?'primary':''}" data-status="all">Tümü (${eligible.length})</button>
+           <button class="btn due-status ${duesStatus==='unpaid'?'primary':''}" data-status="unpaid">Ödemeyenler (${unpaidCount})</button>
+           <button class="btn due-status ${duesStatus==='paid'?'green':''}" data-status="paid">Ödeyenler (${paidCount})</button>`
+        : '';
+
+      $('duesBlocks').innerHTML=blocks.map(block=>{
+        const allBlockResidents=eligible.filter(r=>r.block===block);
+        const list=allBlockResidents.filter(r=>
+          !admin ||
+          duesStatus==='all' ||
+          (duesStatus==='paid'?isPaid(r):!isPaid(r))
+        );
+
+        if(!admin&&!list.length)return'';
+
+        const blockSpecialTotal=(current.expenses||[])
+          .filter(x=>(x.scope||'all')===block)
+          .reduce((sum,x)=>sum+Number(x.amount||0),0);
+
+        const commonTotal=(current.expenses||[])
+          .filter(x=>(x.scope||'all')==='all')
+          .reduce((sum,x)=>sum+Number(x.amount||0),0);
+
+        const activeAllResidents=residents.filter(r=>r.active!==false);
+        const activeBlockResidents=activeAllResidents.filter(r=>r.block===block);
+        const commonShare=activeAllResidents.length?commonTotal/activeAllResidents.length:0;
+        const blockShare=activeBlockResidents.length?blockSpecialTotal/activeBlockResidents.length:0;
+        const blockDue=Number(current.duesByBlock?.[block]||commonShare+blockShare);
+
+        const rows=list.length
+          ? list.map(r=>{
+              const due=dueFor(current,r);
+              const paid=Math.min(Number(current.payments?.[r.id]||0),due);
+              const left=Math.max(0,due-paid);
+
+              return `<tr>
+                <td>${safe(r.block)} Blok</td>
+                <td>${safe(r.floor||'—')}</td>
+                <td><b>${safe(r.unit)}</b></td>
+                <td>${safe(r.name)}</td>
+                <td>${safe(r.phone)}</td>
+                <td><b>${money(due)}</b></td>
+                <td>${money(paid)}</td>
+                <td><b>${money(left)}</b></td>
+                <td>${admin
+                  ? (left
+                    ? `<button class="btn green mark-paid" data-id="${r.id}">Ödendi</button>`
+                    : `<button class="btn red cancel-payment" data-id="${r.id}">Ödemeyi İptal Et</button>`)
+                  : `<span class="pill ${left?'unpaid':'paid'}">${left?'Borçlu':'Ödendi ✓'}</span>`
+                }</td>
+              </tr>`;
+            }).join('')
+          : `<tr><td colspan="9" class="empty">${block} Blok için ${duesStatus==='all'?'kayıt':duesStatus==='paid'?'ödeyen':'ödemeyen'} bulunmuyor.</td></tr>`;
+
+        const resident=list[0];
+        const residentDue=resident?dueFor(current,resident):blockDue;
+        const residentPaid=resident?Math.min(Number(current.payments?.[resident.id]||0),residentDue):0;
+        const residentLeft=Math.max(0,residentDue-residentPaid);
+
+        const highlight=admin
+          ? `
+            <div style="background:#eef4ff;border:3px solid #315cf6;border-radius:18px;padding:16px;margin:12px 0 16px">
+              <div style="font-size:14px;font-weight:900;color:#2345c5;margin-bottom:10px">${safe(block)} BLOK AYLIK ÖZET</div>
+              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+                <div style="background:#fff;border-radius:13px;padding:13px;text-align:center">
+                  <div style="font-size:11px;font-weight:900;color:#667085">BLOK ÖZEL GİDER TOPLAMI</div>
+                  <div style="font-size:24px;font-weight:900;margin-top:4px">${money(blockSpecialTotal)}</div>
+                </div>
+                <div style="background:#fff;border-radius:13px;padding:13px;text-align:center">
+                  <div style="font-size:11px;font-weight:900;color:#667085">DAİRE BAŞINA TOPLAM AİDAT</div>
+                  <div style="font-size:27px;font-weight:900;color:#2345c5;margin-top:4px">${money(blockDue)}</div>
+                </div>
+              </div>
+              <div style="text-align:center;font-size:12px;color:#667085;margin-top:8px">
+                Ortak pay ${money(commonShare)} + blok payı ${money(blockShare)}
+              </div>
+            </div>`
+          : `
+            <div style="background:#eef4ff;border:3px solid #315cf6;border-radius:18px;padding:18px;margin:12px 0 16px;text-align:center">
+              <div style="font-size:13px;font-weight:900;color:#52627a">BU AY ÖDEMENİZ GEREKEN</div>
+              <div style="font-size:38px;font-weight:950;color:#111827;margin-top:5px">${money(residentDue)}</div>
+              <div style="font-size:13px;color:#667085;margin-top:8px">
+                Ortak pay ${money(commonShare)} + ${safe(block)} Blok payı ${money(blockShare)}
+              </div>
+              ${residentLeft>0
+                ? `<div style="margin-top:10px;font-size:15px;font-weight:900;color:#c92a31">Kalan borç: ${money(residentLeft)}</div>`
+                : `<div style="margin-top:10px;font-size:15px;font-weight:900;color:#087b58">Ödendi ✓</div>`
+              }
+            </div>`;
+
+        return `<div class="card" style="margin-bottom:18px">
+          <div class="section-head" style="margin:0 0 4px">
+            <h2>${safe(block)} Blok · ${months[current.month-1]} ${current.year}</h2>
+            <span class="pill ${admin?'published':(residentLeft>0?'unpaid':'paid')}">${admin?`${list.length} kişi`:(residentLeft>0?'Borçlu':'Ödendi ✓')}</span>
+          </div>
+
+          ${highlight}
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr><th>Blok</th><th>Kat</th><th>Daire</th><th>Ad Soyad</th><th>Telefon</th><th>Aylık borç</th><th>Ödenen</th><th>Kalan borç</th><th>Durum</th></tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        </div>`;
+      }).join('')||'<div class="card empty">Bu bölümde kayıt bulunmuyor.</div>';
+    }
     $('duesPeriods').onclick=e=>{const button=e.target.closest('.due-period');if(!button)return;selectedDuesId=button.dataset.statement;duesStatus='all';renderDues()};
     $('exportDuesPdf').onclick=async()=>{const published=statements.filter(s=>s.status==='published'),current=published.find(s=>s.id===selectedDuesId)||published[0];if(!current){toast('PDF oluşturmak için önce yayınlanmış bir ay olmalı.');return}if(!window.html2pdf){toast('PDF sistemi yüklenemedi. İnternet bağlantısını kontrol edin.');return}const list=residents.filter(r=>r.active!==false),isPaid=r=>Number(current.payments?.[r.id]||0)>=dueFor(current,r)-0.004,paidCount=list.filter(isPaid).length,unpaidCount=list.length-paidCount,root=document.createElement('div');root.style.cssText='width:1100px;padding:28px;background:#fff;color:#111;font-family:Arial,sans-serif';root.innerHTML=`<h1 style="margin:0 0 6px">Aidat ve Ödeme Listesi</h1><h2 style="margin:0 0 18px;color:#315cf6">${months[current.month-1]} ${current.year}</h2><div style="display:flex;gap:24px;margin-bottom:18px;font-size:17px"><b>Toplam: ${list.length}</b><b style="color:#087b58">Ödeyen: ${paidCount}</b><b style="color:#c92a31">Ödemeyen: ${unpaidCount}</b></div><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="background:#eaf0ff"><th style="border:1px solid #aaa;padding:8px">Blok</th><th style="border:1px solid #aaa;padding:8px">Kat</th><th style="border:1px solid #aaa;padding:8px">Daire</th><th style="border:1px solid #aaa;padding:8px">Ad Soyad</th><th style="border:1px solid #aaa;padding:8px">Telefon</th><th style="border:1px solid #aaa;padding:8px">Aidat</th><th style="border:1px solid #aaa;padding:8px">Ödenen</th><th style="border:1px solid #aaa;padding:8px">Kalan</th><th style="border:1px solid #aaa;padding:8px">Durum</th></tr></thead><tbody>${list.map(r=>{const due=dueFor(current,r),paid=Math.min(Number(current.payments?.[r.id]||0),due),left=Math.max(0,due-paid);return`<tr style="page-break-inside:avoid"><td style="border:1px solid #aaa;padding:8px">${safe(r.block)} Blok</td><td style="border:1px solid #aaa;padding:8px">${safe(r.floor||'—')}</td><td style="border:1px solid #aaa;padding:8px">${safe(r.unit)}</td><td style="border:1px solid #aaa;padding:8px">${safe(r.name)}</td><td style="border:1px solid #aaa;padding:8px">${safe(r.phone)}</td><td style="border:1px solid #aaa;padding:8px">${money(due)}</td><td style="border:1px solid #aaa;padding:8px">${money(paid)}</td><td style="border:1px solid #aaa;padding:8px">${money(left)}</td><td style="border:1px solid #aaa;padding:8px;font-weight:bold;color:${left?'#c92a31':'#087b58'}">${left?'Ödenmedi':'Ödendi'}</td></tr>`}).join('')}</tbody></table>`;document.body.append(root);const button=$('exportDuesPdf');button.disabled=true;button.textContent='PDF hazırlanıyor…';try{await window.html2pdf().set({margin:7,filename:`aidat-listesi-${current.period}.pdf`,image:{type:'jpeg',quality:.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'mm',format:'a4',orientation:'landscape'},pagebreak:{mode:['css','legacy']}}).from(root).save();toast('PDF indirildi')}catch(err){toast('PDF oluşturulamadı.')}finally{root.remove();button.disabled=false;button.textContent='Listele (PDF)'}};
     $('duesPeriods').onclick=e=>{const button=e.target.closest('.due-period');if(!button)return;selectedDuesId=button.dataset.statement;duesStatus='all';$('unpaidReport').classList.add('hidden');$('unpaidReport').innerHTML='';renderDues()};
@@ -559,7 +704,158 @@
     const fixedExpenses=['Güvenlik ve temizlik personeli','Elektrik faturaları','Su faturaları','Jeneratör aylık bakım','Asansör aylık bakım ve tamirat','Parke taşları onarımı (Demirbaş)','Site ilaçlama','Temizlik malzemesi','Jeneratör yakıt','Doğalgaz pompaları tamiratı','Kamera ve kablo giderleri','Noter ücreti','Tesisat ve bahçe sulama onarımı','Kapıcı doğalgaz faturası','Güvenlik telefon faturası','Avukat ücreti','Yönetici aylığı'];
     function renderExpenseScopeTabs(){const blockMode=profile?.billingMode==='block',tabs=$('expenseScopeTabs');tabs.classList.toggle('hidden',!blockMode);if(!blockMode){activeExpenseScope='all';document.querySelectorAll('.expense-row').forEach(row=>row.classList.remove('hidden'));return}const scopes=['all',...siteBlocks()];if(!scopes.includes(activeExpenseScope))activeExpenseScope='all';tabs.innerHTML=scopes.map(scope=>`<button type="button" class="btn expense-scope-tab ${activeExpenseScope===scope?'primary':''}" data-scope="${safe(scope)}">${scope==='all'?'Ortak Giderler':safe(scope)+' Blok'}</button>`).join('');$('expenseScopeInfo').textContent=activeExpenseScope==='all'?'Ortak giderler yalnızca bu bölümde görünür ve düzenlenir.':`${activeExpenseScope} Blok bölümünde yalnızca bu bloğa özel giderler gösterilir. Ortak gider payı hesaplamaya otomatik dahil edilir.`;$('addExpense').textContent=activeExpenseScope==='all'?'+ Ortak gider ekle':`+ ${activeExpenseScope} Blok gideri ekle`;document.querySelectorAll('.expense-row').forEach(row=>{const scope=row.querySelector('.expense-scope')?.value||'all',visible=scope===activeExpenseScope;row.classList.toggle('hidden',!visible);const name=row.querySelector('.expense-name'),amount=row.querySelector('.expense-amount'),file=row.querySelector('.expense-file'),remove=row.querySelector('.remove-expense');if(name)name.readOnly=row.dataset.fixed==='true';if(amount)amount.disabled=false;if(file){file.disabled=false;file.classList.remove('hidden')}if(remove)remove.classList.remove('hidden')})}
     function addExpense(name='',amount='',photoUrl='',isFixed=false,scope=null){const resolvedScope=profile?.billingMode==='block'?(scope||activeExpenseScope||'all'):'all',row=document.createElement('div'),blockMode=profile?.billingMode==='block',scopeOptions=['all',...siteBlocks()].map(x=>`<option value="${safe(x)}" ${resolvedScope===x?'selected':''}>${x==='all'?'Tüm site':safe(x)+' Blok'}</option>`).join('');row.className='expense-row';row.dataset.photoUrl=photoUrl||'';row.dataset.fixed=String(isFixed);row.style.gridTemplateColumns='1fr 140px 170px 150px';row.innerHTML=`<input class="expense-name" placeholder="Gider adı" value="${safe(name)}" ${isFixed?'readonly':''}><input class="expense-amount" type="number" min="0" step="0.01" placeholder="0,00">${blockMode?`<select class="expense-scope hidden" title="Gider kapsamı">${scopeOptions}</select>`:''}<input class="expense-file" type="file" accept="image/*" title="Fatura fotoğrafı">${isFixed?'<span class="pill published expense-share">Kişi başı: 0,00 TL</span>':'<button type="button" class="btn red remove-expense">Sil</button>'}${photoUrl?`<a href="${safe(photoUrl)}" target="_blank" class="sub">Mevcut fotoğrafı aç</a>`:''}`;row.querySelector('.expense-amount').value=amount||'';$('expenseRows').append(row);renderExpenseScopeTabs();updateExpenseShares()}
-    function updateExpenseShares(){const active=residents.filter(r=>r.active!==false),units=Number($('unitCount').value)||0,blockMode=profile?.billingMode==='block',blocks=siteBlocks(),commonCount=active.length;let allTotal=0,commonTotal=0;const commonItems=[],blockTotals=Object.fromEntries(blocks.map(block=>[block,0])),blockItems=Object.fromEntries(blocks.map(block=>[block,[]]));document.querySelectorAll('.expense-row').forEach(row=>{const name=row.querySelector('.expense-name').value.trim()||'Gider',amount=Number(row.querySelector('.expense-amount').value||0),scope=row.querySelector('.expense-scope')?.value||'all',count=scope==='all'?commonCount:active.filter(r=>r.block===scope).length,share=count?amount/count:0,out=row.querySelector('.expense-share');allTotal+=amount;if(out)out.textContent=`Kişi başı: ${money(share)}`;if(scope==='all'){commonTotal+=amount;commonItems.push({name,share,kind:'Ortak'});blocks.forEach(block=>{blockTotals[block]+=share;blockItems[block].push({name,share,kind:'Ortak'})})}else if(blockTotals[scope]!==undefined){blockTotals[scope]+=share;blockItems[scope].push({name,share,kind:`${scope} Blok`})}});const selector=$('perPersonBlockSelect'),openButton=$('openBlockDuesBtn'),totalOut=$('perPersonTotal'),breakdown=$('perPersonBreakdown');selector.classList.add('hidden');openButton.classList.add('hidden');totalOut.classList.remove('hidden');breakdown.classList.remove('hidden');if(blockMode){const selected=activeExpenseScope,items=selected==='all'?commonItems:(blockItems[selected]||[]).filter(item=>item.kind!=='Ortak');$('expenseTotal').textContent=money(allTotal);totalOut.textContent=selected==='all'?money(commonCount?commonTotal/commonCount:0):money(blockTotals[selected]||0);breakdown.innerHTML=`<div style="font-weight:800;margin-bottom:5px">${selected==='all'?'Ortak giderlerin kişi başı payı':safe(selected)+' Blok özel giderleri'}</div>${items.length?items.map(item=>`<div style="display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-top:1px solid #dce4ff"><span>${safe(item.name)} <small>(${safe(item.kind)})</small></span><b>${money(item.share)}</b></div>`).join(''):'<div>Bu bloğa özel gider bulunmuyor.</div>'}${selected!=='all'?`<div style="margin-top:8px;padding-top:8px;border-top:1px dashed #c8d2ef;color:#667085">Ortak gider payı listede gösterilmez; yukarıdaki kişi başı toplam aidata otomatik dahil edilir.</div>`:''}`}else{$('expenseTotal').textContent=money(allTotal);totalOut.textContent=money(units?allTotal/units:0);breakdown.classList.add('hidden');breakdown.innerHTML=''}const blockBox=$('blockPerPersonTotals');blockBox.classList.toggle('hidden',!blockMode);blockBox.innerHTML=blockMode?blocks.map(block=>{const count=active.filter(r=>r.block===block).length;return`<div class="card metric" style="background:#f7f9ff;border-color:#d6deff"><span>${safe(block)} Blok · Kişi başı</span><b style="color:#2345c5">${count?money(blockTotals[block]):'Aktif sakin yok'}</b></div>`}).join(''):''}
+    function updateExpenseShares(){
+      const active=residents.filter(r=>r.active!==false);
+      const units=Number($('unitCount').value)||0;
+      const blockMode=profile?.billingMode==='block';
+      const blocks=siteBlocks();
+      const commonCount=active.length;
+
+      let allTotal=0;
+      let commonTotal=0;
+
+      const commonItems=[];
+      const blockTotals=Object.fromEntries(blocks.map(block=>[block,0]));
+      const blockSpecialTotals=Object.fromEntries(blocks.map(block=>[block,0]));
+      const blockItems=Object.fromEntries(blocks.map(block=>[block,[]]));
+
+      document.querySelectorAll('.expense-row').forEach(row=>{
+        const name=row.querySelector('.expense-name').value.trim()||'Gider';
+        const amount=Number(row.querySelector('.expense-amount').value||0);
+        const scope=row.querySelector('.expense-scope')?.value||'all';
+        const count=scope==='all'
+          ? commonCount
+          : active.filter(r=>r.block===scope).length;
+        const share=count?amount/count:0;
+        const out=row.querySelector('.expense-share');
+
+        allTotal+=amount;
+        if(out)out.textContent=`Kişi başı: ${money(share)}`;
+
+        if(scope==='all'){
+          commonTotal+=amount;
+          commonItems.push({name,share,kind:'Ortak'});
+          blocks.forEach(block=>{
+            blockTotals[block]+=share;
+          });
+        }else if(blockTotals[scope]!==undefined){
+          blockSpecialTotals[scope]+=amount;
+          blockTotals[scope]+=share;
+          blockItems[scope].push({name,share,kind:`${scope} Blok`});
+        }
+      });
+
+      const selector=$('perPersonBlockSelect');
+      const openButton=$('openBlockDuesBtn');
+      const totalOut=$('perPersonTotal');
+      const breakdown=$('perPersonBreakdown');
+
+      selector.classList.add('hidden');
+      openButton.classList.add('hidden');
+      totalOut.classList.remove('hidden');
+      breakdown.classList.remove('hidden');
+
+      $('expenseTotal').textContent=money(allTotal);
+
+      if(blockMode){
+        const selected=activeExpenseScope;
+
+        if(selected==='all'){
+          const commonPerResident=commonCount?commonTotal/commonCount:0;
+          totalOut.textContent=money(commonPerResident);
+
+          breakdown.innerHTML=`
+            <div style="background:#eef4ff;border:2px solid #7ea2ff;border-radius:16px;padding:18px;margin-bottom:14px;text-align:center">
+              <div style="font-size:13px;font-weight:900;color:#52627a">ORTAK GİDER TOPLAMI</div>
+              <div style="font-size:30px;font-weight:900;margin-top:4px">${money(commonTotal)}</div>
+              <div style="font-size:14px;color:#52627a;margin-top:9px">Her site sakinine düşen ortak pay</div>
+              <div style="font-size:26px;font-weight:900;margin-top:2px">${money(commonPerResident)}</div>
+            </div>
+
+            <div style="font-weight:900;margin-bottom:8px">Ortak gider kalemleri</div>
+            ${commonItems.length
+              ? commonItems.map(item=>`
+                  <div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid #dce4ff">
+                    <span>${safe(item.name)}</span>
+                    <b>${money(item.share)}</b>
+                  </div>`).join('')
+              : '<div>Ortak gider bulunmuyor.</div>'
+            }`;
+        }else{
+          const activeInBlock=active.filter(r=>r.block===selected).length;
+          const commonPerResident=commonCount?commonTotal/commonCount:0;
+          const blockExpenseTotal=Number(blockSpecialTotals[selected]||0);
+          const blockPerResident=activeInBlock?blockExpenseTotal/activeInBlock:0;
+          const totalPerResident=commonPerResident+blockPerResident;
+          const items=blockItems[selected]||[];
+
+          totalOut.textContent=money(totalPerResident);
+
+          breakdown.innerHTML=`
+            <div style="background:#eef4ff;border:3px solid #315cf6;border-radius:18px;padding:18px;margin-bottom:16px">
+              <div style="text-align:center;font-size:15px;font-weight:900;color:#2345c5;margin-bottom:14px">
+                ${safe(selected)} BLOK AYLIK ÖZET
+              </div>
+
+              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+                <div style="background:#fff;border:1px solid #cfd8ee;border-radius:14px;padding:15px;text-align:center">
+                  <div style="font-size:12px;font-weight:900;color:#667085">BLOK ÖZEL GİDER TOPLAMI</div>
+                  <div style="font-size:27px;font-weight:900;margin-top:5px">${money(blockExpenseTotal)}</div>
+                </div>
+
+                <div style="background:#fff;border:1px solid #cfd8ee;border-radius:14px;padding:15px;text-align:center">
+                  <div style="font-size:12px;font-weight:900;color:#667085">BLOK GİDERİ / DAİRE</div>
+                  <div style="font-size:27px;font-weight:900;margin-top:5px">${money(blockPerResident)}</div>
+                </div>
+              </div>
+
+              <div style="margin-top:13px;background:#fff;border:3px solid #315cf6;border-radius:15px;padding:17px;text-align:center">
+                <div style="font-size:13px;font-weight:900;color:#52627a">DAİRE BAŞINA TOPLAM AİDAT</div>
+                <div style="font-size:34px;font-weight:950;color:#111827;margin-top:5px">${money(totalPerResident)}</div>
+                <div style="font-size:12px;color:#667085;margin-top:6px">
+                  Ortak pay ${money(commonPerResident)} + ${safe(selected)} Blok payı ${money(blockPerResident)}
+                </div>
+              </div>
+            </div>
+
+            <div style="font-weight:900;margin-bottom:8px">${safe(selected)} Blok özel giderleri</div>
+            ${items.length
+              ? items.map(item=>`
+                  <div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid #dce4ff">
+                    <span>${safe(item.name)}</span>
+                    <b>${money(item.share)}</b>
+                  </div>`).join('')
+              : '<div>Bu bloğa özel gider bulunmuyor.</div>'
+            }
+
+            <div style="margin-top:10px;padding-top:10px;border-top:1px dashed #c8d2ef;color:#667085;font-size:13px">
+              Ortak gider kalemleri burada tekrar gösterilmez; yalnızca toplam aidata otomatik dahil edilir.
+            </div>`;
+        }
+      }else{
+        totalOut.textContent=money(units?allTotal/units:0);
+        breakdown.classList.add('hidden');
+        breakdown.innerHTML='';
+      }
+
+      const blockBox=$('blockPerPersonTotals');
+      blockBox.classList.toggle('hidden',!blockMode);
+      blockBox.innerHTML=blockMode
+        ? blocks.map(block=>{
+            const count=active.filter(r=>r.block===block).length;
+            const specialTotal=Number(blockSpecialTotals[block]||0);
+            const perPerson=Number(blockTotals[block]||0);
+
+            return `
+              <div class="card metric" style="background:#fff;border:2px solid #cfd8ee">
+                <span style="font-weight:900">${safe(block)} BLOK</span>
+                <small style="color:#667085">Blok özel gideri: ${money(specialTotal)}</small>
+                <b style="color:#2345c5;font-size:24px">${count?money(perPerson):'Aktif sakin yok'}</b>
+                <small style="font-weight:800;color:#52627a">Daire başına toplam aidat</small>
+              </div>`;
+          }).join('')
+        : '';
+    }
     function calculateResidentDues(expenses){const active=residents.filter(r=>r.active!==false),duesByResident=Object.fromEntries(active.map(r=>[r.id,0]));for(const expense of expenses){const recipients=active.filter(r=>expense.scope==='all'||r.block===expense.scope);if(Number(expense.amount)>0&&!recipients.length)throw new Error(`${expense.scope==='all'?'Site':expense.scope+' Blok'} için aktif site sakini bulunmuyor.`);const share=recipients.length?Number(expense.amount)/recipients.length:0;recipients.forEach(r=>duesByResident[r.id]+=share)}const duesByBlock={};for(const block of siteBlocks()){const member=active.find(r=>r.block===block);duesByBlock[block]=member?duesByResident[member.id]:0}return{duesByResident,duesByBlock}}
     function newStatement(){const now=new Date();activeExpenseScope='all';$('statementId').value='';$('statementMonth').value=now.getMonth()+1;$('statementYear').value=now.getFullYear();syncUnitCount();$('dueDate').value='';$('expenseRows').innerHTML='';fixedExpenses.forEach(x=>addExpense(x,'','',true,'all'));$('expenseScopeTabs').onclick=e=>{const button=e.target.closest('.expense-scope-tab');if(!button)return;activeExpenseScope=button.dataset.scope;renderExpenseScopeTabs();updateExpenseShares()};renderExpenseScopeTabs();updateExpenseShares();$('saveDraftBtn').classList.remove('hidden');$('publishStatementBtn').textContent='Kaydet ve yayınla';$('statementMsg').textContent=''}
     function revisionChanges(oldS,newData){const changes=[],oldMap=new Map((oldS.expenses||[]).map(x=>[x.name,x])),newMap=new Map((newData.expenses||[]).map(x=>[x.name,x]));for(const [name,oldItem] of oldMap){if(!newMap.has(name))changes.push(`${name} kaldırıldı (önceki: ${money(oldItem.amount)})`);else{const newItem=newMap.get(name);if(Math.abs(Number(oldItem.amount||0)-Number(newItem.amount||0))>0.004)changes.push(`${name}: ${money(oldItem.amount)} → ${money(newItem.amount)}`);if((oldItem.photoUrl||'')!==(newItem.photoUrl||''))changes.push(`${name} faturası/fotoğrafı değiştirildi`)}}for(const [name,newItem] of newMap)if(!oldMap.has(name))changes.push(`${name} eklendi: ${money(newItem.amount)}`);if(oldS.period!==newData.period)changes.push(`Dönem: ${oldS.period} → ${newData.period}`);if((oldS.dueDate||'')!==(newData.dueDate||''))changes.push(`Son ödeme tarihi: ${oldS.dueDate||'yok'} → ${newData.dueDate||'yok'}`);if(Number(oldS.unitCount||0)!==Number(newData.unitCount||0))changes.push(`Daire sayısı: ${oldS.unitCount||0} → ${newData.unitCount||0}`);return changes}
